@@ -690,6 +690,9 @@ class Program
         // ============== ISPIS PODATAKA ==============
         PrintDemoData(clients, producers, studioRooms, bookings, audioProjects, projectVersions, timecodedComments);
 
+        // ============== LINQ - UPITI ==============
+        PrintBookingsAbovePrice(bookings);
+
         Console.WriteLine("\n=== Demo data inicijalizacija završena ===");
         Console.ReadLine();
     }
@@ -735,7 +738,7 @@ class Program
             Console.WriteLine($"       Klijent: {project.Client.Name} {project.Client.Surname}");
             Console.WriteLine($"       Producent: {project.Producer.Name} {project.Producer.Surname}");
             Console.WriteLine($"       Status: {project.Status} | Budžet: {project.Budget:C} | Verzije: {project.Versions.Count}");
-            
+
             foreach (var version in project.Versions)
             {
                 Console.WriteLine($"         V{version.VersionNumber}: {version.Name} ({version.CreatedAt:yyyy-MM-dd}) - Komentara: {version.Comments.Count}");
@@ -754,5 +757,24 @@ class Program
         Console.WriteLine($"  Ukupno audio projekata: {projects.Count}");
         Console.WriteLine($"  Ukupno verzija: {versions.Count}");
         Console.WriteLine($"  Ukupno komentara: {comments.Count}");
+    }
+
+    static void PrintBookingsAbovePrice(List<Booking> bookings)
+    {
+        Console.WriteLine("\n=== LINQ PRIMJERI - BOOKINGS SA CIJENOM > 300 ===");
+
+        // LINQ Query Syntax
+        Console.WriteLine("\n--- LINQ Query Syntax ---");
+        var bookingsQuerySyntax = from booking in bookings
+                                  where booking.TotalPrice > 300
+                                  select booking;
+
+        Console.WriteLine("Sve rezervacije sa cijenom > 300:");
+        foreach (var booking in bookingsQuerySyntax)
+        {
+            Console.WriteLine($"  [{booking.Id}] {booking.Purpose} - {booking.TotalPrice:C}");
+        }
+
+        
     }
 }
