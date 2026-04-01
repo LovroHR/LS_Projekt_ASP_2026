@@ -1,0 +1,16 @@
+{
+  "hooks": {
+    "UserPromptSubmit": [
+      {
+        "type": "command",
+        "command": "powershell.exe -NoProfile -ExecutionPolicy Bypass -Command \"Add-Content -Path 'c:\\Users\\sablj\\Documents\\FAKS\\ASP NET\\LS_Projekt_ASP_2026\\.github\\hooks\\agent_log.txt' -Value ([DateTime]::Now.ToString('yyyy-MM-dd HH:mm:ss') + ' | UserPrompt: ' + $input)\""
+      }
+    ],
+    "preToolUse": [
+      {
+        "type": "command",
+        "command": "powershell.exe -NoProfile -ExecutionPolicy Bypass -Command \"Add-Content -Path 'c:\\Users\\sablj\\Documents\\FAKS\\ASP NET\\LS_Projekt_ASP_2026\\.github\\hooks\\agent_log.txt' -Value ([DateTime]::Now.ToString('yyyy-MM-dd HH:mm:ss') + ' | PreToolUse: ' + $input)\""
+      }
+    ]
+  }
+}
