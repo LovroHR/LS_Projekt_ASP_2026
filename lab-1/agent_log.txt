@@ -1,0 +1,16 @@
+﻿UserPrompt: koliko znam tamo se zapisuje ono što ja pitam bilo kojeg agenta ovdje u chat
+UserPrompt: evo nešto pišem
+UserPrompt: loggaj s tranutnim datumom i vremenom
+UserPrompt: ok, napravi mi klasu AppUser sa: int Id, string Name, string Surname, string Email, string PhoneNumber, DateTime CreatedAt, UserRole Role
+UserPrompt: Kreiraj folder pod nazivom Model u projektu i koristi namespace AudioProductionManagement.Model.
+UserPrompt: U folderu Model kreiraj public enum BookingStatus sa vrijednostima: Pending, Confirmed, InProgress, Completed, Cancelled.
+UserPrompt: Kreiraj public enum ProjectStatus sa vrijednostima: Draft, Active, WaitingForFeedback, Revision, Approved, Archived.
+UserPrompt: Kreiraj public enum ProjectType sa vrijednostima: Single, EP, Album, Podcast, VoiceOver i public enum UserRole sa vrijednostima: Client, Producer, Admin
+UserPrompt: Kreiraj apstraktnu public klasu AppUser sa sljedećim svojstvima
+UserPrompt: Kreiraj public klasu Client koja nasljeđuje AppUser i ima svojstva: string CompanyName, string BillingAddress, bool IsPriorityClient, string Notes, List<Booking> Bookings, List<AudioProject> Projects
+UserPrompt: Kreiraj Producer, StudioRoom, Booking i AudioProject klase
+UserPrompt: Kreiraj TimecodedComment, dodaj using direktive u sve klase, provjeri namespace i organiziraj fajlove
+UserPrompt: Probaj rasporediti te klase po folderima kako ima smisla i da bude organizirano
+UserPrompt: Kreiraj Program.cs sa demo inicijalizacijom podataka za audio produkcijsku aplikaciju
+2026-04-02 01:45:11 | TEST: Hooks radi!
+2026-04-02 01:56:00 | UserPrompt: dodaj linq koji ispisuje naziv i datum najnovijeg projekta te sve komentare na njemu
