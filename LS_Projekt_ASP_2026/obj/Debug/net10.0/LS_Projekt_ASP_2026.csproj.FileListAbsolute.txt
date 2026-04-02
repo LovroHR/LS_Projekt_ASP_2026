@@ -97,3 +97,4 @@ C:\Users\sablj\Documents\FAKS\ASP NET\LS_Projekt_ASP_2026\LS_Projekt_ASP_2026\ob
 C:\Users\sablj\Documents\FAKS\ASP NET\LS_Projekt_ASP_2026\LS_Projekt_ASP_2026\obj\Debug\net10.0\LS_Projekt_ASP_2026.pdb
 C:\Users\sablj\Documents\FAKS\ASP NET\LS_Projekt_ASP_2026\LS_Projekt_ASP_2026\obj\Debug\net10.0\LS_Projekt_ASP_2026.genruntimeconfig.cache
 C:\Users\sablj\Documents\FAKS\ASP NET\LS_Projekt_ASP_2026\LS_Projekt_ASP_2026\obj\Debug\net10.0\ref\LS_Projekt_ASP_2026.dll
+C:\Users\sablj\Documents\FAKS\ASP NET\LS_Projekt_ASP_2026\LS_Projekt_ASP_2026\obj\Debug\net10.0\LS_Projekt_ASP_2026.sourcelink.json

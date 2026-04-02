@@ -692,6 +692,8 @@ class Program
 
         // ============== LINQ - UPITI ==============
         PrintBookingsAbovePrice(bookings);
+        PrintProducerProjectsAndClients(producers, audioProjects);
+        PrintLatestProjectAndComments(audioProjects, projectVersions);
 
         Console.WriteLine("\n=== Demo data inicijalizacija završena ===");
         Console.ReadLine();
@@ -776,5 +778,176 @@ class Program
         }
 
         
+    }
+
+    static void PrintProducerProjectsAndClients(List<Producer> producers, List<AudioProject> projects)
+    {
+        Console.WriteLine("\n=== LINQ PRIMJER - PROJEKTI I KLIJENTI PRODUCENTA ID = 2 ===");
+
+        var producerId = 2;
+
+        // LINQ Query Syntax - Pronađi producenta i njegove projekte sa klijentima
+        Console.WriteLine("\n--- LINQ Query Syntax ---");
+        var producerData = from producer in producers
+                           where producer.Id == producerId
+                           select new
+                           {
+                               Producer = producer,
+                               Projects = (from project in projects
+                                          where project.ProducerId == producerId
+                                          select project).ToList()
+                           };
+
+        foreach (var data in producerData)
+        {
+            Console.WriteLine($"Producent: {data.Producer.Name} {data.Producer.Surname} ({data.Producer.Specialization})");
+            Console.WriteLine($"Tarifa: {data.Producer.HourlyRate:C}/h | Vanjski: {(data.Producer.IsExternalCollaborator ? "DA" : "NE")}");
+            
+            if (data.Projects.Count > 0)
+            {
+                Console.WriteLine($"\nProjekti ({data.Projects.Count}):");
+                foreach (var project in data.Projects)
+                {
+                    Console.WriteLine($"  • {project.Title} ({project.Type})");
+                    Console.WriteLine($"    Klijent: {project.Client.Name} {project.Client.Surname}");
+                    Console.WriteLine($"    Status: {project.Status} | Budžet: {project.Budget:C}");
+                    
+                    // Ispis svih klijenata sa kojima je ovaj producent radio (kroz projekte)
+                    var clientsData = from proj in data.Projects
+                                     select new { proj.Client };
+                    
+                    var uniqueClients = clientsData.DistinctBy(c => c.Client.Id).ToList();
+                    Console.WriteLine($"    Klijenti: {string.Join(", ", uniqueClients.Select(c => $"{c.Client.Name} {c.Client.Surname}"))}");
+                }
+            }
+            else
+            {
+                Console.WriteLine("Nema projekata");
+            }
+        }
+
+        // LINQ Method Syntax - alternativni pristup
+        Console.WriteLine("\n--- LINQ Method Syntax ---");
+        var producerDataMethod = producers
+            .Where(p => p.Id == producerId)
+            .Select(p => new
+            {
+                Producer = p,
+                Projects = projects.Where(proj => proj.ProducerId == producerId).ToList(),
+                UniqueClients = projects
+                    .Where(proj => proj.ProducerId == producerId)
+                    .Select(proj => proj.Client)
+                    .DistinctBy(c => c.Id)
+                    .ToList()
+            })
+            .ToList();
+
+        foreach (var data in producerDataMethod)
+        {
+            Console.WriteLine($"\nProducent: {data.Producer.Name} {data.Producer.Surname}");
+            Console.WriteLine($"Ukupno projekata: {data.Projects.Count}");
+            Console.WriteLine($"Jedinstveni klijenti: {string.Join(", ", data.UniqueClients.Select(c => $"{c.Name} {c.Surname} ({c.CompanyName})"))}");
+        }
+    }
+
+    static void PrintLatestProjectAndComments(List<AudioProject> projects, List<ProjectVersion> versions)
+    {
+        Console.WriteLine("\n=== LINQ PRIMJER - NAJNOVIJI PROJEKT I NJEGOVI KOMENTARI ===");
+
+        // LINQ Query Syntax - Pronađi najnoviji projekt
+        Console.WriteLine("\n--- LINQ Query Syntax ---");
+        var latestProject = (from project in projects
+                            orderby project.CreatedAt descending
+                            select project).FirstOrDefault();
+
+        if (latestProject != null)
+        {
+            Console.WriteLine($"Naziv: {latestProject.Title}");
+            Console.WriteLine($"Datum kreiranja: {latestProject.CreatedAt:yyyy-MM-dd HH:mm:ss}");
+            Console.WriteLine($"Tip: {latestProject.Type} | Status: {latestProject.Status}");
+
+            // Pronađi sve verzije za taj projekt
+            var projectVersions = from version in versions
+                                 where version.ProjectId == latestProject.Id
+                                 select version;
+
+            // Pronađi sve komentare na verzijama tog projekta
+            Console.WriteLine($"\nKomentari na projektu:");
+            var allComments = from version in projectVersions
+                             from comment in version.Comments
+                             select new
+                             {
+                                 VersionNumber = version.VersionNumber,
+                                 VersionName = version.Name,
+                                 Comment = comment
+                             };
+
+            if (allComments.Count() > 0)
+            {
+                foreach (var item in allComments)
+                {
+                    Console.WriteLine($"  [V{item.VersionNumber} - {item.VersionName}] @ {item.Comment.TimestampSeconds}s");
+                    Console.WriteLine($"    Kategorija: {item.Comment.Category} | Riješeno: {(item.Comment.IsResolved ? "DA" : "NE")}");
+                    Console.WriteLine($"    Autor: {item.Comment.Author.Name} {item.Comment.Author.Surname}");
+                    Console.WriteLine($"    Poruka: {item.Comment.Message}");
+                    Console.WriteLine();
+                }
+            }
+            else
+            {
+                Console.WriteLine("  Nema komentara na ovom projektu");
+            }
+        }
+        else
+        {
+            Console.WriteLine("Nema dostupnih projekata");
+        }
+
+        // LINQ Method Syntax - alternativni pristup
+        Console.WriteLine("\n--- LINQ Method Syntax ---");
+        var latestProjectMethod = projects
+            .OrderByDescending(p => p.CreatedAt)
+            .FirstOrDefault();
+
+        if (latestProjectMethod != null)
+        {
+            var projectVersionsMethod = versions
+                .Where(v => v.ProjectId == latestProjectMethod.Id)
+                .ToList();
+
+            var allCommentsMethod = projectVersionsMethod
+                .SelectMany(v => v.Comments, (v, c) => new
+                {
+                    VersionNumber = v.VersionNumber,
+                    VersionName = v.Name,
+                    Comment = c
+                })
+                .ToList();
+
+            Console.WriteLine($"Projekt: {latestProjectMethod.Title}");
+            Console.WriteLine($"Verzija u sistemu: {projectVersionsMethod.Count}");
+            Console.WriteLine($"Ukupno komentara: {allCommentsMethod.Count}");
+
+            var commentsByCategory = allCommentsMethod
+                .GroupBy(x => x.Comment.Category)
+                .Select(g => new { Category = g.Key, Count = g.Count() })
+                .ToList();
+
+            Console.WriteLine($"\nKomentari po kategoriji:");
+            foreach (var cat in commentsByCategory)
+            {
+                Console.WriteLine($"  {cat.Category}: {cat.Count}");
+            }
+
+            Console.WriteLine($"\n=== Detalji komentara ===");
+            foreach (var commentItem in allCommentsMethod)
+            {
+                Console.WriteLine($"\nVrijeme: {commentItem.Comment.TimestampSeconds}s");
+                Console.WriteLine($"Poruka: {commentItem.Comment.Message}");
+                Console.WriteLine($"Kategorija: {commentItem.Comment.Category}");
+                Console.WriteLine($"Status: {(commentItem.Comment.IsResolved ? "Riješeno" : "Aktivno")}");
+                Console.WriteLine($"Verzija: {commentItem.VersionName}");
+            }
+        }
     }
 }

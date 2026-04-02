@@ -12,3 +12,5 @@ UserPrompt: Kreiraj Producer, StudioRoom, Booking i AudioProject klase
 UserPrompt: Kreiraj TimecodedComment, dodaj using direktive u sve klase, provjeri namespace i organiziraj fajlove
 UserPrompt: Probaj rasporediti te klase po folderima kako ima smisla i da bude organizirano
 UserPrompt: Kreiraj Program.cs sa demo inicijalizacijom podataka za audio produkcijsku aplikaciju
+2026-04-02 01:45:11 | TEST: Hooks radi!
+2026-04-02 01:56:00 | UserPrompt: dodaj linq koji ispisuje naziv i datum najnovijeg projekta te sve komentare na njemu
