@@ -1,10 +1,149 @@
 ﻿@page
 @model IndexModel
 @{
-    ViewData["Title"] = "Home page";
+    ViewData["Title"] = "LStudio - Audio Production Management";
 }
 
-<div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://learn.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
-</div>
+<!-- Hero Section -->
+<section class="hero-section text-white py-5" style="background: linear-gradient(135deg, #7C3AED 0%, #6366F1 50%, #4F46E5 100%); min-height: 500px; display: flex; align-items: center;">
+    <div class="container">
+        <div class="row align-items-center">
+            <div class="col-lg-6">
+                <h1 class="display-3 fw-bold mb-4" style="text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.5); color: white; font-family: var(--font-primary); letter-spacing: var(--ls-tight);">🎵 LStudio</h1>
+                <h2 class="h3 mb-4 fw-light" style="text-shadow: 1px 1px 4px rgba(0, 0, 0, 0.4); font-weight: var(--fw-light); line-height: var(--lh-normal);">Vaš partner za profesionalnu audio produkciju</h2>
+                <p class="lead mb-4" style="text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.3); line-height: var(--lh-relaxed); font-size: 1.25rem;">Rezervirajte studijske termine, upravljajte projektima i surađujte s producentima u jednoj aplikaciji.</p>
+                <div class="d-flex gap-3">
+                    <a href="/Bookings/Index" class="btn btn-light btn-lg fw-semibold" style="font-weight: var(--fw-semibold); letter-spacing: var(--ls-wide);">
+                        📅 Rezerviraj termin
+                    </a>
+                    <a href="/Auth/Register" class="btn btn-outline-light btn-lg fw-semibold" style="font-weight: var(--fw-semibold); letter-spacing: var(--ls-wide);">
+                        📝 Registriraj se
+                    </a>
+                </div>
+            </div>
+            <div class="col-lg-6 text-center">
+                <div style="position: relative; overflow: hidden; border-radius: 15px; box-shadow: 0 20px 60px rgba(6, 182, 212, 0.3); border: 2px solid rgba(124, 58, 237, 0.3);">
+                    <img src="~/images/studio-hero.png" 
+                         alt="Profesionalni Audio Studio - LStudio" 
+                         class="img-fluid" 
+                         style="width: 100%; height: auto; display: block; object-fit: cover; filter: brightness(0.95) contrast(1.1);">
+                    <!-- Fallback sa emoji ako slika nije dostupna -->
+                    <noscript>
+                        <div style="font-size: 150px; opacity: 0.2; padding: 40px;">🎧</div>
+                    </noscript>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Features Section -->
+<section class="features-section py-5">
+    <div class="container">
+        <h2 class="text-center mb-5 fw-bold" style="font-size: var(--fs-h2); font-weight: var(--fw-bold); line-height: var(--lh-tight); letter-spacing: var(--ls-tight); color: var(--text-primary);">Što nudimo?</h2>
+        <div class="row g-4">
+            <div class="col-md-6 col-lg-3">
+                <div class="card border-0 h-100 glass" style="background: rgba(31, 41, 55, 0.8); border: 1px solid rgba(124, 58, 237, 0.2);">
+                    <div class="card-body text-center">
+                        <div style="font-size: 48px; margin-bottom: 15px;">🎤</div>
+                        <h5 class="card-title fw-semibold mb-2" style="font-size: var(--fs-h4); font-weight: var(--fw-semibold); color: var(--text-primary);">Profesionalni Studiji</h5>
+                        <p class="card-text text-muted fw-normal" style="font-size: var(--fs-body-sm); line-height: var(--lh-relaxed); color: var(--text-secondary);">Rezervirajte premium studio prostore sa najnovijom opremom</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6 col-lg-3">
+                <div class="card border-0 h-100 glass" style="background: rgba(31, 41, 55, 0.8); border: 1px solid rgba(124, 58, 237, 0.2);">
+                    <div class="card-body text-center">
+                        <div style="font-size: 48px; margin-bottom: 15px;">👨‍💼</div>
+                        <h5 class="card-title fw-semibold mb-2" style="font-size: var(--fs-h4); font-weight: var(--fw-semibold); color: var(--text-primary);">Iskusni Producenti</h5>
+                        <p class="card-text text-muted fw-normal" style="font-size: var(--fs-body-sm); line-height: var(--lh-relaxed); color: var(--text-secondary);">Surađujte s profesionalnim producentima i inženjerima</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6 col-lg-3">
+                <div class="card border-0 h-100 glass" style="background: rgba(31, 41, 55, 0.8); border: 1px solid rgba(124, 58, 237, 0.2);">
+                    <div class="card-body text-center">
+                        <div style="font-size: 48px; margin-bottom: 15px;">📊</div>
+                        <h5 class="card-title fw-semibold mb-2" style="font-size: var(--fs-h4); font-weight: var(--fw-semibold); color: var(--text-primary);">Upravljanje Projektima</h5>
+                        <p class="card-text text-muted fw-normal" style="font-size: var(--fs-body-sm); line-height: var(--lh-relaxed); color: var(--text-secondary);">Pratite sve verzije i dajte povratne informacije u realnom vremenu</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6 col-lg-3">
+                <div class="card border-0 h-100 glass" style="background: rgba(31, 41, 55, 0.8); border: 1px solid rgba(124, 58, 237, 0.2);">
+                    <div class="card-body text-center">
+                        <div style="font-size: 48px; margin-bottom: 15px;">💬</div>
+                        <h5 class="card-title fw-semibold mb-2" style="font-size: var(--fs-h4); font-weight: var(--fw-semibold); color: var(--text-primary);">Suradnja</h5>
+                        <p class="card-text text-muted fw-normal" style="font-size: var(--fs-body-sm); line-height: var(--lh-relaxed); color: var(--text-secondary);">Ostajte u dodiru s cijelim timom kroz integriranu komunikaciju</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Stats Section -->
+<section class="stats-section py-5" style="background: linear-gradient(135deg, rgba(124, 58, 237, 0.1), rgba(99, 102, 241, 0.1)); border-top: 1px solid rgba(6, 182, 212, 0.2); border-bottom: 1px solid rgba(6, 182, 212, 0.2);">
+    <div class="container">
+        <div class="row text-center">
+            <div class="col-md-4">
+                <h3 class="display-5 fw-bold" style="text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.3); font-family: var(--font-primary); font-weight: var(--fw-bold); letter-spacing: var(--ls-tight);">3</h3>
+                <p class="lead fw-normal" style="text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.2); line-height: var(--lh-normal);">Premium Studija</p>
+            </div>
+            <div class="col-md-4">
+                <h3 class="display-5 fw-bold" style="text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.3); font-family: var(--font-primary); font-weight: var(--fw-bold); letter-spacing: var(--ls-tight);">10+</h3>
+                <p class="lead fw-normal" style="text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.2); line-height: var(--lh-normal);">Iskusnih Producenata</p>
+            </div>
+            <div class="col-md-4">
+                <h3 class="display-5 fw-bold" style="text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.3); font-family: var(--font-primary); font-weight: var(--fw-bold); letter-spacing: var(--ls-tight);">100%</h3>
+                <p class="lead fw-normal" style="text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.2); line-height: var(--lh-normal);">Zadovoljnih Klijenata</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- CTA Section -->
+<section class="cta-section py-5">
+    <div class="container text-center">
+        <h2 class="fw-bold mb-4" style="font-size: var(--fs-h2); font-weight: var(--fw-bold); line-height: var(--lh-tight); color: var(--text-primary);">Spreman za početak?</h2>
+        <p class="lead text-muted mb-4" style="line-height: var(--lh-relaxed); color: var(--text-secondary);">Otvorite račun i počnite rezervirati studijske termine već danas</p>
+        <a href="/Auth/Register" class="btn btn-primary btn-lg fw-semibold" style="font-weight: var(--fw-semibold); letter-spacing: var(--ls-wide);">
+            Registriraj se besplatno
+        </a>
+        <p class="text-muted mt-3" style="font-size: var(--fs-body-sm); color: var(--text-secondary);">
+            Ili ako već imaš račun, <a href="/Auth/Login" class="text-decoration-none fw-semibold" style="font-weight: var(--fw-semibold);">prijavi se ovdje</a>
+        </p>
+    </div>
+</section>
+
+<style>
+    .hero-section {
+        position: relative;
+        overflow: hidden;
+    }
+    
+    .features-section {
+        background-color: transparent;
+    }
+    
+    .cta-section {
+        background: linear-gradient(135deg, rgba(124, 58, 237, 0.05), rgba(99, 102, 241, 0.05));
+        border-top: 1px solid rgba(124, 58, 237, 0.2);
+        border-bottom: 1px solid rgba(124, 58, 237, 0.2);
+    }
+    
+    .card {
+        transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
+    }
+    
+    .card:hover {
+        transform: translateY(-5px);
+        border-color: var(--cyan-bright) !important;
+        box-shadow: 0 10px 30px rgba(6, 182, 212, 0.2) !important;
+    }
+    
+    .glass {
+        backdrop-filter: blur(10px);
+        background: rgba(31, 41, 55, 0.7) !important;
+    }
+</style>

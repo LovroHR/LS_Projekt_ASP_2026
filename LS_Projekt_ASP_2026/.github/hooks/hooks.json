@@ -1,15 +1,10 @@
 {
   "hooks": {
+    "note": "Logging is handled manually via PowerShell commands in terminal - see copilot-instructions.md",
     "UserPromptSubmit": [
       {
-        "type": "command",
-        "command": "powershell.exe -NoProfile -ExecutionPolicy Bypass -Command \"Add-Content -Path 'c:\\Users\\sablj\\Documents\\FAKS\\ASP NET\\LS_Projekt_ASP_2026\\.github\\hooks\\agent_log.txt' + ' | UserPrompt: ' + $input)\""
-      }
-    ],
-    "preToolUse": [
-      {
-        "type": "command",
-        "command": "powershell.exe -NoProfile -ExecutionPolicy Bypass -Command \"Add-Content -Path 'c:\\Users\\sablj\\Documents\\FAKS\\ASP NET\\LS_Projekt_ASP_2026\\.github\\hooks\\agent_log.txt' + ' | PreToolUse: ' + $input)\""
+        "type": "manual",
+        "instruction": "Run in terminal: $(Get-Date -Format 'yyyy-MM-dd HH:mm:ss') + ' | UserPrompt: [prompt text]' | Add-Content -Path '.github/hooks/agent_log.txt'"
       }
     ]
   }

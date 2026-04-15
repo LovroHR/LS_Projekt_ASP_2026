@@ -1,0 +1,628 @@
+/* ================================================================
+   LStudio - Typography System v1.0
+   CSS Custom Properties za ujedinjenu tipografiju
+   
+   Integracija: Dodaj ovaj kod u wwwroot/css/dark-theme.css
+   ================================================================ */
+
+:root {
+    /* ================================================================
+       FONT FAMILY STACK
+       ================================================================ */
+    
+    /* Primarna tipografija - Sans-serif za sve */
+    --font-primary: -apple-system, BlinkMacSystemFont, "Segoe UI", "Helvetica Neue", 
+                    Roboto, "Noto Sans", sans-serif;
+    
+    /* Sekundarna - Monospace za timecode, verzije, tehnički detaljи */
+    --font-mono: "SF Mono", Monaco, "Cascadia Code", "Roboto Mono", 
+                 Menlo, Courier, monospace;
+    
+    
+    /* ================================================================
+       FONT SIZE SCALE (16px base)
+       ================================================================ */
+    
+    /* Base Size */
+    --fs-base: 1rem;                /* 16px - reference point */
+    
+    /* Display Sizes (Hero, large headings) */
+    --fs-display-1: 4.5rem;         /* 72px - biggest hero */
+    --fs-display-2: 3.5rem;         /* 56px - large hero */
+    
+    /* Heading Hierarchy */
+    --fs-h1: 2.5rem;                /* 40px - page title */
+    --fs-h2: 2rem;                  /* 32px - section title */
+    --fs-h3: 1.5rem;                /* 24px - subsection */
+    --fs-h4: 1.25rem;               /* 20px - card title */
+    --fs-h5: 1.125rem;              /* 18px - small title */
+    --fs-h6: 1rem;                  /* 16px - tiny title */
+    
+    /* Body & Text */
+    --fs-body: 1rem;                /* 16px - main text */
+    --fs-body-sm: 0.95rem;          /* ~15px - slightly smaller */
+    --fs-body-xs: 0.875rem;         /* 14px - small text */
+    
+    /* Small & Tiny */
+    --fs-small: 0.8125rem;          /* ~13px - labels, badges */
+    --fs-tiny: 0.75rem;             /* 12px - metadata, helper */
+    
+    
+    /* ================================================================
+       FONT WEIGHT SCALE
+       ================================================================ */
+    
+    --fw-light: 300;                /* za subtle tekst, subtitles */
+    --fw-normal: 400;               /* default, body tekst */
+    --fw-medium: 500;               /* form labels, UI */
+    --fw-semibold: 600;             /* headings, buttons */
+    --fw-bold: 700;                 /* major headings, emphasis */
+    --fw-extrabold: 800;            /* branding, logo */
+    
+    
+    /* ================================================================
+       LINE HEIGHT (readability focus)
+       ================================================================ */
+    
+    --lh-tight: 1.2;                /* naslovi - kompaktan izgled */
+    --lh-normal: 1.5;               /* body - čitljivo i ugodno */
+    --lh-relaxed: 1.75;             /* dugi paragrafi - dodatni prostor */
+    --lh-loose: 2;                  /* liste, instrukcije - najširi */
+    
+    
+    /* ================================================================
+       LETTER SPACING (profesionalan izgled)
+       ================================================================ */
+    
+    --ls-tight: -0.02em;            /* naslovi - čvrst izgled */
+    --ls-normal: 0em;               /* default */
+    --ls-wide: 0.02em;              /* buttons, badges - raspršeno */
+    
+    
+    /* ================================================================
+       COMPOSITION SPACING (margin/padding ritmika)
+       ================================================================ */
+    
+    --spacing-heading-bottom: 0.5rem;      /* ispod naslova */
+    --spacing-paragraph-bottom: 1rem;       /* ispod paragrafa */
+    --spacing-section-bottom: 2rem;         /* ispod sekcija */
+}
+
+
+/* ================================================================
+   GLOBAL TYPOGRAPHY APPLICATION
+   ================================================================ */
+
+html {
+    font-size: 16px;
+    font-family: var(--font-primary);
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+
+body {
+    font-size: var(--fs-body);
+    font-weight: var(--fw-normal);
+    line-height: var(--lh-normal);
+    color: var(--text-primary);
+    background-color: var(--darker-bg);
+}
+
+
+/* ================================================================
+   HEADING ELEMENTS (H1-H6)
+   ================================================================ */
+
+h1, h2, h3, h4, h5, h6 {
+    font-weight: var(--fw-bold);
+    line-height: var(--lh-tight);
+    letter-spacing: var(--ls-tight);
+    margin-bottom: var(--spacing-heading-bottom);
+    color: var(--text-primary);
+}
+
+h1, .h1 {
+    font-size: var(--fs-h1);        /* 2.5rem / 40px */
+    margin-bottom: 1rem;
+}
+
+h2, .h2 {
+    font-size: var(--fs-h2);        /* 2rem / 32px */
+    margin-bottom: 1rem;
+}
+
+h3, .h3 {
+    font-size: var(--fs-h3);        /* 1.5rem / 24px */
+    margin-bottom: 0.75rem;
+}
+
+h4, .h4 {
+    font-size: var(--fs-h4);        /* 1.25rem / 20px */
+    font-weight: var(--fw-semibold);
+    margin-bottom: 0.5rem;
+}
+
+h5, .h5 {
+    font-size: var(--fs-h5);        /* 1.125rem / 18px */
+    font-weight: var(--fw-semibold);
+    margin-bottom: 0.5rem;
+}
+
+h6, .h6 {
+    font-size: var(--fs-h6);        /* 1rem / 16px */
+    font-weight: var(--fw-semibold);
+}
+
+
+/* ================================================================
+   DISPLAY CLASSES (Hero sekcije)
+   ================================================================ */
+
+.display-1 {
+    font-size: var(--fs-display-1);  /* 4.5rem / 72px */
+    font-weight: var(--fw-bold);
+    line-height: var(--lh-tight);
+    letter-spacing: var(--ls-tight);
+}
+
+.display-2 {
+    font-size: var(--fs-display-2);  /* 3.5rem / 56px */
+    font-weight: var(--fw-bold);
+    line-height: var(--lh-tight);
+    letter-spacing: var(--ls-tight);
+}
+
+.display-3 {
+    font-size: 3rem;
+    font-weight: var(--fw-bold);
+    line-height: var(--lh-tight);
+}
+
+.display-6 {
+    font-size: 3rem;                 /* bootstrap default */
+    font-weight: var(--fw-bold);
+    line-height: var(--lh-tight);
+}
+
+
+/* ================================================================
+   PARAGRAPH VARIATIONS
+   ================================================================ */
+
+p {
+    font-size: var(--fs-body);
+    font-weight: var(--fw-normal);
+    line-height: var(--lh-normal);
+    margin-bottom: var(--spacing-paragraph-bottom);
+}
+
+/* Lead tekst - za uvod, veliki tekst */
+.lead {
+    font-size: 1.25rem;
+    font-weight: var(--fw-normal);
+    line-height: var(--lh-normal);
+    margin-bottom: 1.5rem;
+}
+
+/* Small tekst - helper, metadata */
+small,
+.small {
+    font-size: var(--fs-small);
+    font-weight: var(--fw-normal);
+    line-height: var(--lh-normal);
+}
+
+/* Extra mali tekst - fine print */
+.xs-text {
+    font-size: var(--fs-tiny);
+    font-weight: var(--fw-normal);
+    color: var(--text-secondary);
+}
+
+
+/* ================================================================
+   TEXT UTILITIES
+   ================================================================ */
+
+.text-muted {
+    color: var(--text-secondary);
+    font-weight: var(--fw-normal);
+}
+
+.text-white {
+    color: white;
+    font-weight: var(--fw-semibold);
+}
+
+/* Emphasized text */
+strong,
+.fw-bold {
+    font-weight: var(--fw-bold);
+}
+
+em,
+.fw-semibold {
+    font-weight: var(--fw-semibold);
+}
+
+
+/* ================================================================
+   FORM ELEMENTS TYPOGRAPHY
+   ================================================================ */
+
+.form-label {
+    font-size: var(--fs-body-sm);
+    font-weight: var(--fw-semibold);
+    margin-bottom: 0.5rem;
+    color: var(--text-secondary);
+    text-transform: none;
+}
+
+.form-text {
+    font-size: var(--fs-small);
+    font-weight: var(--fw-normal);
+    color: var(--text-secondary);
+    margin-top: 0.25rem;
+}
+
+.form-control,
+.form-select {
+    font-size: var(--fs-body);
+    font-weight: var(--fw-normal);
+    line-height: var(--lh-normal);
+    color: var(--text-primary);
+}
+
+.form-control::placeholder {
+    color: var(--text-secondary);
+    opacity: 0.7;
+}
+
+.form-check-label {
+    font-size: var(--fs-body);
+    font-weight: var(--fw-normal);
+    margin-bottom: 0.5rem;
+}
+
+
+/* ================================================================
+   CARD TYPOGRAPHY
+   ================================================================ */
+
+.card-title {
+    font-size: var(--fs-h4);
+    font-weight: var(--fw-semibold);
+    margin-bottom: 0.5rem;
+    color: var(--text-primary);
+}
+
+.card-subtitle {
+    font-size: var(--fs-body-sm);
+    font-weight: var(--fw-normal);
+    color: var(--text-secondary);
+}
+
+.card-text {
+    font-size: var(--fs-body-sm);
+    font-weight: var(--fw-normal);
+    line-height: var(--lh-relaxed);
+    color: var(--text-secondary);
+}
+
+
+/* ================================================================
+   BUTTON TYPOGRAPHY
+   ================================================================ */
+
+.btn {
+    font-weight: var(--fw-semibold);
+    letter-spacing: var(--ls-wide);
+    font-size: var(--fs-body);
+    text-transform: none;
+}
+
+.btn-sm {
+    font-size: var(--fs-body-xs);
+    font-weight: var(--fw-medium);
+}
+
+.btn-lg {
+    font-size: 1.125rem;
+    font-weight: var(--fw-semibold);
+}
+
+
+/* ================================================================
+   NAVIGATION TYPOGRAPHY
+   ================================================================ */
+
+.navbar-brand {
+    font-size: 1.5rem;
+    font-weight: var(--fw-extrabold);
+    letter-spacing: var(--ls-normal);
+}
+
+.nav-link {
+    font-size: var(--fs-body-sm);
+    font-weight: var(--fw-medium);
+    text-transform: none;
+    transition: color 0.3s ease;
+}
+
+.nav-link:hover,
+.nav-link.active {
+    font-weight: var(--fw-semibold);
+}
+
+
+/* ================================================================
+   TABLE TYPOGRAPHY
+   ================================================================ */
+
+.table {
+    font-size: var(--fs-body-sm);
+    font-weight: var(--fw-normal);
+}
+
+.table thead {
+    font-weight: var(--fw-semibold);
+    text-transform: uppercase;
+    letter-spacing: var(--ls-wide);
+    font-size: var(--fs-small);
+}
+
+.table thead th {
+    color: var(--text-secondary);
+}
+
+.table tbody {
+    font-weight: var(--fw-normal);
+}
+
+.table tbody td {
+    line-height: var(--lh-relaxed);
+    vertical-align: middle;
+}
+
+
+/* ================================================================
+   BADGE TYPOGRAPHY
+   ================================================================ */
+
+.badge {
+    font-size: var(--fs-small);
+    font-weight: var(--fw-semibold);
+    letter-spacing: var(--ls-wide);
+    text-transform: uppercase;
+}
+
+.badge-pill {
+    border-radius: 50px;
+}
+
+
+/* ================================================================
+   ALERT TYPOGRAPHY
+   ================================================================ */
+
+.alert {
+    font-size: var(--fs-body-sm);
+    font-weight: var(--fw-normal);
+    line-height: var(--lh-relaxed);
+}
+
+.alert-heading {
+    font-size: var(--fs-body);
+    font-weight: var(--fw-semibold);
+    margin-bottom: 0.5rem;
+}
+
+
+/* ================================================================
+   CODE & MONOSPACE
+   ================================================================ */
+
+code,
+pre,
+.mono {
+    font-family: var(--font-mono);
+    font-size: var(--fs-body-xs);
+    letter-spacing: var(--ls-normal);
+    background-color: rgba(0, 0, 0, 0.2);
+    border-radius: 0.25rem;
+}
+
+code {
+    padding: 0.2rem 0.4rem;
+    color: var(--cyan-bright);
+}
+
+pre {
+    padding: 1rem;
+    overflow-x: auto;
+    line-height: var(--lh-relaxed);
+}
+
+pre code {
+    background: transparent;
+    padding: 0;
+}
+
+
+/* ================================================================
+   UTILITY CLASSES
+   ================================================================ */
+
+/* Text size utilities */
+.fs-xs   { font-size: var(--fs-tiny) !important; }
+.fs-sm   { font-size: var(--fs-small) !important; }
+.fs-base { font-size: var(--fs-body) !important; }
+.fs-md   { font-size: var(--fs-body) !important; }
+.fs-lg   { font-size: var(--fs-body-sm) !important; }
+.fs-xl   { font-size: var(--fs-h5) !important; }
+.fs-2xl  { font-size: var(--fs-h3) !important; }
+
+/* Font weight utilities */
+.fw-light     { font-weight: var(--fw-light) !important; }
+.fw-normal    { font-weight: var(--fw-normal) !important; }
+.fw-medium    { font-weight: var(--fw-medium) !important; }
+.fw-semibold  { font-weight: var(--fw-semibold) !important; }
+.fw-bold      { font-weight: var(--fw-bold) !important; }
+.fw-extrabold { font-weight: var(--fw-extrabold) !important; }
+
+/* Line height utilities */
+.lh-tight   { line-height: var(--lh-tight) !important; }
+.lh-normal  { line-height: var(--lh-normal) !important; }
+.lh-relaxed { line-height: var(--lh-relaxed) !important; }
+.lh-loose   { line-height: var(--lh-loose) !important; }
+
+/* Letter spacing utilities */
+.ls-tight { letter-spacing: var(--ls-tight) !important; }
+.ls-normal { letter-spacing: var(--ls-normal) !important; }
+.ls-wide  { letter-spacing: var(--ls-wide) !important; }
+
+
+/* ================================================================
+   RESPONSIVE ADJUSTMENTS
+   ================================================================ */
+
+/* Tablet (768px+) */
+@media (min-width: 768px) {
+    html {
+        font-size: 16px;
+    }
+}
+
+/* Tablet (768px - 1024px) */
+@media (max-width: 1023px) {
+    h1, .h1, .display-6 {
+        font-size: 2rem;
+    }
+    
+    h2, .h2 {
+        font-size: 1.5rem;
+    }
+}
+
+/* Mobile (< 768px) */
+@media (max-width: 767px) {
+    html {
+        font-size: 15px;
+    }
+    
+    h1, .h1 {
+        font-size: 2rem;
+        margin-bottom: 1rem;
+    }
+    
+    h2, .h2 {
+        font-size: 1.5rem;
+        margin-bottom: 0.75rem;
+    }
+    
+    h3, .h3 {
+        font-size: 1.25rem;
+        margin-bottom: 0.5rem;
+    }
+    
+    .display-1 {
+        font-size: 3rem;
+    }
+    
+    .display-2 {
+        font-size: 2.5rem;
+    }
+    
+    .display-6 {
+        font-size: 2rem;
+    }
+    
+    p {
+        font-size: var(--fs-body-sm);
+        line-height: var(--lh-relaxed);
+    }
+    
+    .lead {
+        font-size: 1.125rem;
+    }
+    
+    .btn-lg {
+        font-size: 1rem;
+    }
+    
+    .table {
+        font-size: var(--fs-body-xs);
+    }
+}
+
+/* Small Mobile (< 576px) */
+@media (max-width: 575px) {
+    html {
+        font-size: 14px;
+    }
+    
+    h1, .h1 {
+        font-size: 1.75rem;
+    }
+    
+    h2, .h2 {
+        font-size: 1.25rem;
+    }
+    
+    h3, .h3 {
+        font-size: 1.125rem;
+    }
+    
+    .display-1 {
+        font-size: 2.5rem;
+    }
+    
+    .display-2 {
+        font-size: 2rem;
+    }
+    
+    .display-6 {
+        font-size: 1.75rem;
+    }
+    
+    .lead {
+        font-size: 1rem;
+    }
+    
+    p {
+        line-height: var(--lh-relaxed);
+    }
+}
+
+
+/* ================================================================
+   DARK MODE SPECIFIC ENHANCEMENTS
+   ================================================================ */
+
+/* Poboljšaj kontrast u dark mode-u */
+@media (prefers-color-scheme: dark) {
+    /* Povećaj line-height za dugače tekstove */
+    article,
+    .long-form,
+    .description {
+        line-height: var(--lh-relaxed);
+    }
+    
+    /* Umekši bold text u dark mode-u */
+    strong {
+        font-weight: var(--fw-bold);
+    }
+}
+
+/* Accessibility - respektuj user preference */
+@media (prefers-reduced-motion: reduce) {
+    * {
+        animation: none !important;
+        transition: none !important;
+    }
+}
+
+
+/* ================================================================
+   END OF TYPOGRAPHY SYSTEM
+   ================================================================ */

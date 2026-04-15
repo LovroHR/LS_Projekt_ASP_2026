@@ -1,0 +1,53 @@
+@page
+@model LoginModel
+@{
+    ViewData["Title"] = "Login";
+}
+
+<div class="container mt-5">
+    <div class="row justify-content-center">
+        <div class="col-md-6 col-lg-5">
+            <div class="card shadow-lg border-0" style="background: rgba(31, 41, 55, 0.9); border: 1px solid rgba(124, 58, 237, 0.2) !important;">
+                <div class="card-header" style="background: linear-gradient(135deg, #7C3AED, #6366F1); border-bottom: 2px solid rgba(6, 182, 212, 0.3);">
+                    <h3 class="mb-0 text-white fw-bold" style="font-family: var(--font-primary); font-size: var(--fs-h3); font-weight: var(--fw-bold); letter-spacing: var(--ls-tight);">🔐 Login</h3>
+                </div>
+                <div class="card-body p-4">
+                    @if (!string.IsNullOrEmpty(Model.ErrorMessage))
+                    {
+                        <div class="alert alert-danger alert-dismissible fade show" role="alert" style="background: rgba(236, 72, 153, 0.1); border: 1px solid rgba(236, 72, 153, 0.5); color: #FCA5A5;">
+                            <strong style="font-weight: var(--fw-bold);">Greška!</strong> <span style="font-weight: var(--fw-normal); line-height: var(--lh-normal);">@Model.ErrorMessage</span>
+                            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                        </div>
+                    }
+
+                    <form method="post">
+                        <div class="mb-3">
+                            <label class="form-label fw-semibold" style="color: #D1D5DB; font-weight: var(--fw-semibold); font-size: var(--fs-body-sm);">📧 Email Adresa</label>
+                            <input type="email" class="form-control form-control-lg" asp-for="Email" 
+                                   placeholder="Unesi email" required style="background: rgba(15, 23, 42, 0.8); border: 1px solid rgba(124, 58, 237, 0.3); color: #F3F4F6; font-family: var(--font-primary);">
+                        </div>
+
+                        <div class="mb-4">
+                            <label class="form-label fw-semibold" style="color: #D1D5DB; font-weight: var(--fw-semibold); font-size: var(--fs-body-sm);">🔑 Lozinka</label>
+                            <input type="password" class="form-control form-control-lg" asp-for="Password" 
+                                   placeholder="Unesi lozinku" required style="background: rgba(15, 23, 42, 0.8); border: 1px solid rgba(124, 58, 237, 0.3); color: #F3F4F6; font-family: var(--font-primary);">
+                        </div>
+
+                        <button type="submit" class="btn btn-lg w-100 fw-semibold" style="background: linear-gradient(135deg, #7C3AED, #6366F1); border: none; color: white; font-weight: var(--fw-semibold); letter-spacing: var(--ls-wide);">
+                            ✓ Prijavi se
+                        </button>
+                    </form>
+
+                    <hr class="my-4" style="border-color: rgba(124, 58, 237, 0.2);">
+
+                    <div class="text-center">
+                        <p class="text-muted mb-2" style="font-size: var(--fs-body-sm); color: var(--text-secondary);">Nemaš račun?</p>
+                        <a href="/Auth/Register" class="btn btn-outline-light btn-lg w-100 fw-semibold" style="border: 2px solid rgba(6, 182, 212, 0.5); color: #06B6D4; font-weight: var(--fw-semibold); letter-spacing: var(--ls-wide);">
+                            📝 Registracija
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

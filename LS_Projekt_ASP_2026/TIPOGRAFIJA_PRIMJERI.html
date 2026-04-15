@@ -1,0 +1,591 @@
+<!-- ============================================================
+     LStudio - Praktični HTML/Razor Primjeri
+     Tipografija - Direktan Copy-Paste za sve stranice
+     
+     Korištenje: Kopiraj relevantne sekcije u tvoje Razor Pages
+     ============================================================ -->
+
+
+<!-- ============================================================
+     1. INDEX.CSHTML - HERO SEKCIJA
+     ============================================================ -->
+
+<!-- HERO SECTION - Landing page -->
+<section class="hero-section text-white py-5" 
+         style="background: linear-gradient(135deg, #7C3AED 0%, #6366F1 50%, #4F46E5 100%); 
+                 min-height: 500px; display: flex; align-items: center;">
+    <div class="container">
+        <div class="row align-items-center">
+            <div class="col-lg-6">
+                <!-- PRIMJER 1: Main Hero Heading -->
+                <h1 class="display-3 fw-bold mb-4" 
+                    style="text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.5); 
+                           color: white;
+                           font-family: var(--font-primary);
+                           letter-spacing: var(--ls-tight);">
+                    🎵 LStudio
+                </h1>
+                
+                <!-- PRIMJER 2: Subtitle - Light weight -->
+                <h2 class="h3 fw-light mb-4" 
+                    style="text-shadow: 1px 1px 4px rgba(0, 0, 0, 0.4);
+                           font-weight: var(--fw-light);
+                           line-height: var(--lh-normal);">
+                    Vaš partner za profesionalnu audio produkciju
+                </h2>
+                
+                <!-- PRIMJER 3: Lead tekst -->
+                <p class="lead fw-normal" 
+                   style="text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.3);
+                          line-height: var(--lh-relaxed);
+                          font-size: 1.25rem;">
+                    Rezervirajte studijske termine, upravljajte projektima i 
+                    surađujte s producentima u jednoj aplikaciji.
+                </p>
+                
+                <!-- PRIMJER 4: CTA Buttons - Semibold weight, wide spacing -->
+                <div class="d-flex gap-3">
+                    <a href="/Bookings/Index" 
+                       class="btn btn-light btn-lg fw-semibold"
+                       style="font-weight: var(--fw-semibold);
+                              letter-spacing: var(--ls-wide);">
+                        📅 Rezerviraj termin
+                    </a>
+                    <a href="/Auth/Register" 
+                       class="btn btn-outline-light btn-lg fw-semibold"
+                       style="font-weight: var(--fw-semibold);
+                              letter-spacing: var(--ls-wide);">
+                        📝 Registruj se
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+
+<!-- ============================================================
+     2. INDEX.CSHTML - FEATURES SEKCIJA
+     ============================================================ -->
+
+<section class="features-section py-5">
+    <div class="container">
+        
+        <!-- PRIMJER 5: Section Title H2 -->
+        <h2 class="h2 fw-bold text-center mb-5"
+            style="font-size: var(--fs-h2);
+                   font-weight: var(--fw-bold);
+                   line-height: var(--lh-tight);
+                   letter-spacing: var(--ls-tight);
+                   color: var(--text-primary);">
+            Što nudimo?
+        </h2>
+        
+        <div class="row g-4">
+            <div class="col-md-6 col-lg-3">
+                <div class="card border-0 h-100" 
+                     style="background: rgba(31, 41, 55, 0.8); 
+                            border: 1px solid rgba(124, 58, 237, 0.2);">
+                    <div class="card-body text-center">
+                        <div style="font-size: 48px; margin-bottom: 15px;">🎤</div>
+                        
+                        <!-- PRIMJER 6: Card Title H5 - Semibold -->
+                        <h5 class="card-title fw-semibold mb-2"
+                            style="font-size: var(--fs-h4);
+                                   font-weight: var(--fw-semibold);
+                                   color: var(--text-primary);">
+                            Profesionalni Studiji
+                        </h5>
+                        
+                        <!-- PRIMJER 7: Card Description - Small text, relaxed line-height -->
+                        <p class="card-text text-muted fw-normal" 
+                           style="font-size: var(--fs-body-sm);
+                                  line-height: var(--lh-relaxed);
+                                  color: var(--text-secondary);">
+                            Rezervirajte premium studio prostore sa najnovijom opremom
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+
+<!-- ============================================================
+     3. BOOKINGS/INDEX.CSHTML - PAGE HEADER
+     ============================================================ -->
+
+<div class="container-fluid mt-4">
+    <!-- PRIMJER 8: Page Header - Display-6 -->
+    <div class="row mb-4">
+        <div class="col-md-8">
+            <h1 class="display-6 fw-bold mb-2"
+                style="font-size: var(--fs-h1);
+                       font-weight: var(--fw-bold);
+                       line-height: var(--lh-tight);
+                       color: var(--text-primary);">
+                📅 Moji Studijski Termini
+            </h1>
+            
+            <!-- PRIMJER 9: Page Description - Body-sm text, muted -->
+            <p class="text-muted fw-normal" 
+               style="font-size: var(--fs-body-sm);
+                      line-height: var(--lh-normal);
+                      color: var(--text-secondary);">
+                Upravljaj booking rezervacijama i dostupnim vremenima
+            </p>
+        </div>
+        <div class="col-md-4 text-end">
+            <!-- CTA Button -->
+            <a href="/Bookings/Create" 
+               class="btn btn-primary btn-lg fw-semibold"
+               style="font-weight: var(--fw-semibold);
+                      letter-spacing: var(--ls-wide);">
+                <i class="bi bi-plus-circle"></i> Nova Rezervacija
+            </a>
+        </div>
+    </div>
+</div>
+
+
+<!-- ============================================================
+     4. BOOKINGS/INDEX.CSHTML - FILTER SECTION
+     ============================================================ -->
+
+<div class="card mb-4 border-0" 
+     style="background: rgba(31, 41, 55, 0.8); 
+            border: 1px solid rgba(124, 58, 237, 0.2) !important;">
+    <div class="card-body">
+        <div class="row g-3">
+            <!-- PRIMJER 10: Form Label -->
+            <div class="col-md-4">
+                <label class="form-label fw-semibold" 
+                       style="color: #D1D5DB; 
+                              font-size: var(--fs-body-sm);
+                              font-weight: var(--fw-semibold);">
+                    Pretraži po projektu ili klijentu
+                </label>
+                
+                <!-- PRIMJER 11: Form Control Input -->
+                <input type="text" 
+                       class="form-control form-control-lg" 
+                       placeholder="Unesite naziv..." 
+                       style="background: rgba(15, 23, 42, 0.8); 
+                              border: 1px solid rgba(124, 58, 237, 0.3); 
+                              color: #F3F4F6;
+                              font-weight: var(--fw-normal);
+                              font-size: var(--fs-body);
+                              line-height: var(--lh-normal);">
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<!-- ============================================================
+     5. BOOKINGS/INDEX.CSHTML - TABLE SEKCIJA
+     ============================================================ -->
+
+<div class="table-responsive">
+    <table class="table table-dark table-hover">
+        <thead>
+            <tr>
+                <!-- PRIMJER 12: Table Header - Uppercase, semibold, small -->
+                <th class="fw-semibold" 
+                    style="font-size: var(--fs-small);
+                           font-weight: var(--fw-semibold);
+                           text-transform: uppercase;
+                           letter-spacing: var(--ls-wide);
+                           color: var(--text-secondary);">
+                    Projekt
+                </th>
+                <th class="fw-semibold" 
+                    style="font-size: var(--fs-small);
+                           font-weight: var(--fw-semibold);
+                           text-transform: uppercase;
+                           letter-spacing: var(--ls-wide);">
+                    Klijent
+                </th>
+                <th class="fw-semibold" 
+                    style="font-size: var(--fs-small);
+                           font-weight: var(--fw-semibold);
+                           text-transform: uppercase;
+                           letter-spacing: var(--ls-wide);">
+                    Status
+                </th>
+                <th class="fw-semibold" 
+                    style="font-size: var(--fs-small);
+                           font-weight: var(--fw-semibold);
+                           text-transform: uppercase;
+                           letter-spacing: var(--ls-wide);">
+                    Datum
+                </th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <!-- PRIMJER 13: Table Data - Body-sm, normal weight -->
+                <td class="fw-normal"
+                    style="font-size: var(--fs-body-sm);
+                           font-weight: var(--fw-normal);
+                           line-height: var(--lh-relaxed);">
+                    Albumska produkcija
+                </td>
+                
+                <!-- PRIMJER 14: Muted Table Data -->
+                <td class="text-muted fw-normal"
+                    style="font-size: var(--fs-body-sm);
+                           font-weight: var(--fw-normal);
+                           color: var(--text-secondary);">
+                    John Doe
+                </td>
+                
+                <!-- PRIMJER 15: Badge Status -->
+                <td>
+                    <span class="badge bg-success fw-medium"
+                          style="font-size: var(--fs-small);
+                                 font-weight: var(--fw-semibold);
+                                 letter-spacing: var(--ls-wide);">
+                        Confirmed
+                    </span>
+                </td>
+                
+                <!-- PRIMJER 16: Timestamp - Monospace font -->
+                <td class="text-muted fw-normal"
+                    style="font-size: var(--fs-body-sm);
+                           font-weight: var(--fw-normal);
+                           font-family: var(--font-mono);
+                           color: var(--text-secondary);">
+                    2026-04-15
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+
+
+<!-- ============================================================
+     6. AUTH/LOGIN.CSHTML - FORM PAGE
+     ============================================================ -->
+
+<div class="container mt-5">
+    <div class="row justify-content-center">
+        <div class="col-md-6 col-lg-5">
+            <div class="card shadow-lg border-0" 
+                 style="background: rgba(31, 41, 55, 0.9); 
+                        border: 1px solid rgba(124, 58, 237, 0.2) !important;">
+                
+                <!-- Card Header -->
+                <div class="card-header" 
+                     style="background: linear-gradient(135deg, #7C3AED, #6366F1); 
+                            border-bottom: 2px solid rgba(6, 182, 212, 0.3);">
+                    <!-- PRIMJER 17: Card Title - Bold, white -->
+                    <h3 class="mb-0 text-white fw-bold"
+                        style="font-size: var(--fs-h4);
+                               font-weight: var(--fw-bold);
+                               letter-spacing: var(--ls-normal);">
+                        🔐 Login
+                    </h3>
+                </div>
+                
+                <div class="card-body p-4">
+                    <form method="post">
+                        
+                        <!-- PRIMJER 18: Form Group Email -->
+                        <div class="mb-3">
+                            <label class="form-label fw-semibold" 
+                                   style="color: #D1D5DB; 
+                                          font-size: var(--fs-body-sm);
+                                          font-weight: var(--fw-semibold);">
+                                📧 Email Adresa
+                            </label>
+                            <input type="email" 
+                                   class="form-control form-control-lg" 
+                                   asp-for="Email" 
+                                   placeholder="Unesi email" 
+                                   required 
+                                   style="background: rgba(15, 23, 42, 0.8); 
+                                          border: 1px solid rgba(124, 58, 237, 0.3); 
+                                          color: #F3F4F6;
+                                          font-weight: var(--fw-normal);
+                                          font-size: var(--fs-body);
+                                          line-height: var(--lh-normal);">
+                        </div>
+
+                        <!-- PRIMJER 19: Form Group Password -->
+                        <div class="mb-4">
+                            <label class="form-label fw-semibold" 
+                                   style="color: #D1D5DB; 
+                                          font-size: var(--fs-body-sm);
+                                          font-weight: var(--fw-semibold);">
+                                🔑 Lozinka
+                            </label>
+                            <input type="password" 
+                                   class="form-control form-control-lg" 
+                                   asp-for="Password" 
+                                   placeholder="Unesi lozinku" 
+                                   required 
+                                   style="background: rgba(15, 23, 42, 0.8); 
+                                          border: 1px solid rgba(124, 58, 237, 0.3); 
+                                          color: #F3F4F6;
+                                          font-weight: var(--fw-normal);
+                                          font-size: var(--fs-body);
+                                          line-height: var(--lh-normal);">
+                        </div>
+
+                        <!-- PRIMJER 20: Submit Button -->
+                        <button type="submit" 
+                                class="btn btn-lg w-100 fw-semibold" 
+                                style="background: linear-gradient(135deg, #7C3AED, #6366F1); 
+                                       border: none; 
+                                       color: white;
+                                       font-weight: var(--fw-semibold);
+                                       font-size: 1.125rem;
+                                       letter-spacing: var(--ls-wide);">
+                            ✓ Prijavi se
+                        </button>
+                    </form>
+
+                    <hr class="my-4" style="border-color: rgba(124, 58, 237, 0.2);">
+
+                    <!-- PRIMJER 21: Helper Text -->
+                    <div class="text-center">
+                        <p class="text-muted mb-2 fw-normal" 
+                           style="font-size: var(--fs-body-sm);
+                                  font-weight: var(--fw-normal);
+                                  color: var(--text-secondary);">
+                            Nemaš račun?
+                        </p>
+                        
+                        <!-- PRIMJER 22: Secondary Action Button -->
+                        <a href="/Auth/Register" 
+                           class="btn btn-outline-light btn-lg w-100 fw-semibold" 
+                           style="border: 2px solid rgba(6, 182, 212, 0.5); 
+                                  color: #06B6D4;
+                                  font-weight: var(--fw-semibold);
+                                  letter-spacing: var(--ls-wide);">
+                            📝 Registracija
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<!-- ============================================================
+     7. ERROR MESSAGE / ALERT SEKCIJA
+     ============================================================ -->
+
+<!-- PRIMJER 23: Error Alert -->
+<div class="alert alert-danger alert-dismissible fade show" 
+     role="alert" 
+     style="background: rgba(236, 72, 153, 0.1); 
+            border: 1px solid rgba(236, 72, 153, 0.5); 
+            color: #FCA5A5;">
+    <!-- Alert Title -->
+    <strong style="font-weight: var(--fw-semibold);
+                   font-size: var(--fs-body);">
+        Greška!
+    </strong>
+    <!-- Alert Message -->
+    <span style="font-weight: var(--fw-normal);
+                 font-size: var(--fs-body-sm);
+                 line-height: var(--lh-normal);">
+        Nešto je pošlo po zlu. Pokušajte ponovno.
+    </span>
+    <button type="button" 
+            class="btn-close" 
+            data-bs-dismiss="alert" 
+            aria-label="Close"></button>
+</div>
+
+<!-- PRIMJER 24: Success Alert -->
+<div class="alert alert-success alert-dismissible fade show" 
+     role="alert" 
+     style="background: rgba(16, 185, 129, 0.1); 
+            border: 1px solid rgba(16, 185, 129, 0.5); 
+            color: #A7F3D0;">
+    <strong style="font-weight: var(--fw-semibold);">
+        Uspješno!
+    </strong>
+    <span style="font-weight: var(--fw-normal);
+                 font-size: var(--fs-body-sm);">
+        Vaša radnja je uspješno izvršena.
+    </span>
+    <button type="button" 
+            class="btn-close" 
+            data-bs-dismiss="alert" 
+            aria-label="Close"></button>
+</div>
+
+
+<!-- ============================================================
+     8. TIMECODE COMMENT SEKCIJA (Audio-specifično)
+     ============================================================ -->
+
+<div class="comment-item" 
+     style="padding: 1rem; 
+            margin-bottom: 1rem;
+            background: rgba(31, 41, 55, 0.5);
+            border-left: 3px solid #06B6D4;
+            border-radius: 0.25rem;">
+    
+    <!-- PRIMJER 25: Comment Header -->
+    <div class="d-flex justify-content-between align-items-start">
+        <!-- Author + Timestamp -->
+        <div>
+            <strong style="font-weight: var(--fw-semibold);
+                          font-size: var(--fs-body);
+                          color: var(--text-primary);">
+                Jane Producer
+            </strong>
+            <span style="font-size: var(--fs-small);
+                        color: var(--text-secondary);
+                        margin-left: 0.5rem;">
+                @ 2026-04-15
+            </span>
+        </div>
+        <!-- Timecode Badge -->
+        <span class="badge bg-info"
+              style="font-family: var(--font-mono);
+                     font-weight: var(--fw-semibold);
+                     font-size: var(--fs-small);">
+            00:15:30
+        </span>
+    </div>
+    
+    <!-- PRIMJER 26: Comment Text -->
+    <p class="mt-2 mb-0"
+       style="font-size: var(--fs-body-sm);
+              line-height: var(--lh-relaxed);
+              color: var(--text-primary);">
+        Pojačaj vokal u this verse - trebam da bude jče vidljivo u mix-u.
+    </p>
+    
+    <!-- PRIMJER 27: Comment Metadata -->
+    <div class="mt-2" style="font-size: var(--fs-small);
+                            color: var(--text-secondary);">
+        <span class="badge bg-success" style="margin-right: 0.5rem;">✓ Riješeno</span>
+        <small>Internal comment</small>
+    </div>
+</div>
+
+
+<!-- ============================================================
+     9. VERSION TIMELINE SEKCIJA
+     ============================================================ -->
+
+<div style="border-left: 2px solid rgba(124, 58, 237, 0.3); padding-left: 2rem;">
+    
+    <!-- PRIMJER 28: Version Item -->
+    <div style="margin-bottom: 2rem; position: relative;">
+        <!-- Timeline dot -->
+        <div style="position: absolute; left: -2.65rem; top: 0.25rem; 
+                   width: 1rem; height: 1rem; 
+                   background: #06B6D4; border-radius: 50%;
+                   border: 3px solid var(--darker-bg);"></div>
+        
+        <!-- Version Info -->
+        <h4 class="fw-semibold mb-2"
+            style="font-size: var(--fs-h5);
+                   font-weight: var(--fw-semibold);
+                   color: var(--text-primary);">
+            v1.2 - Master Edit
+        </h4>
+        
+        <p class="text-muted mb-1"
+           style="font-size: var(--fs-body-sm);
+                  font-weight: var(--fw-normal);
+                  color: var(--text-secondary);">
+            Uploaded by <strong style="font-weight: var(--fw-semibold);">Producer Name</strong>
+        </p>
+        
+        <small style="font-size: var(--fs-tiny);
+                     font-family: var(--font-mono);
+                     color: var(--text-secondary);">
+            2026-04-15 14:32:00
+        </small>
+        
+        <!-- Status Badge -->
+        <div class="mt-2">
+            <span class="badge bg-warning text-dark"
+                  style="font-weight: var(--fw-semibold);
+                         font-size: var(--fs-small);">
+                Pending Approval
+            </span>
+        </div>
+    </div>
+</div>
+
+
+<!-- ============================================================
+     10. FOOTER SEKCIJA
+     ============================================================ -->
+
+<footer class="border-top footer text-muted" style="padding-top: 2rem; padding-bottom: 2rem;">
+    <div class="container">
+        <!-- PRIMJER 29: Footer Text -->
+        <p style="font-size: var(--fs-body-sm);
+                  font-weight: var(--fw-normal);
+                  line-height: var(--lh-normal);
+                  color: var(--text-secondary);">
+            &copy; 2026 - <strong style="font-weight: var(--fw-semibold);">LStudio</strong> - 
+            <a href="/Privacy" style="color: #06B6D4; text-decoration: none;">Privacy</a>
+        </p>
+    </div>
+</footer>
+
+
+<!-- ============================================================
+     COPY-PASTE QUICK REFERENCE
+     ============================================================ -->
+
+<!--
+QUICK KOPIRANJE STILO:
+
+1. BIG HEADING (Hero):
+   class="display-3 fw-bold"
+   + style="letter-spacing: var(--ls-tight);"
+
+2. SECTION TITLE (H2):
+   class="h2 fw-bold"
+   + style="letter-spacing: var(--ls-tight);"
+
+3. CARD TITLE:
+   class="card-title fw-semibold"
+   + style="font-size: var(--fs-h4);"
+
+4. FORM LABEL:
+   class="form-label fw-semibold"
+   + style="font-size: var(--fs-body-sm);"
+
+5. BODY TEXT:
+   class="fw-normal"
+   + style="line-height: var(--lh-normal);"
+
+6. SMALL TEXT:
+   class="text-muted fw-normal"
+   + style="font-size: var(--fs-small);"
+
+7. BUTTON:
+   class="btn fw-semibold"
+   + style="letter-spacing: var(--ls-wide);"
+
+8. TABLE HEADER:
+   class="fw-semibold"
+   + style="font-size: var(--fs-small); 
+           text-transform: uppercase;
+           letter-spacing: var(--ls-wide);"
+
+9. BADGE/STATUS:
+   class="badge fw-semibold"
+   + style="font-size: var(--fs-small);
+           letter-spacing: var(--ls-wide);"
+
+10. MONOSPACE (TIMECODE):
+    style="font-family: var(--font-mono);
+           font-size: var(--fs-body-xs);"
+-->

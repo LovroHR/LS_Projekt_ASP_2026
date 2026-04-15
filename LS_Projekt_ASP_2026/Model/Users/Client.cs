@@ -5,6 +5,10 @@ namespace AudioProductionManagement.Model
 {
     public class Client : AppUser
     {
+        public string Password { get; set; } = "";
+        public DateTime DateOfBirth { get; set; }
+        public string Address { get; set; } = "";
+        public string Country { get; set; } = "";
         public string CompanyName { get; set; } = "";
         public string BillingAddress { get; set; } = "";
         public bool IsPriorityClient { get; set; }

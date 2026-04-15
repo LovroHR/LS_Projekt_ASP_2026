@@ -1,0 +1,493 @@
+@page
+@model LS_Projekt_ASP_2026.Pages.Projects.IndexModel
+@using AudioProductionManagement.Model
+@{
+    ViewData["Title"] = "Moji projekti";
+}
+
+<style>
+    /* ===== PROJECT CARD STYLES ===== */
+    .project-card {
+        background: rgba(31, 41, 55, 0.8);
+        border: 1px solid rgba(124, 58, 237, 0.2);
+        border-radius: 0.75rem;
+        transition: all 0.3s ease;
+        cursor: pointer;
+        overflow: hidden;
+        height: 100%;
+        display: flex;
+        flex-direction: column;
+    }
+
+    .project-card:hover {
+        background: rgba(31, 41, 55, 1);
+        border-color: rgba(124, 58, 237, 0.4);
+        box-shadow: 0 8px 30px rgba(124, 58, 237, 0.15);
+        transform: translateY(-2px);
+    }
+
+    .card-header-custom {
+        background: linear-gradient(135deg, rgba(124, 58, 237, 0.1), rgba(99, 102, 241, 0.1));
+        padding: 1rem;
+        border-bottom: 1px solid rgba(124, 58, 237, 0.15);
+    }
+
+    .card-body {
+        padding: 1.25rem;
+        flex-grow: 1;
+    }
+
+    .card-title {
+        font-size: 1.125rem;
+        font-weight: 600;
+        color: #F3F4F6;
+        margin-bottom: 0.5rem;
+    }
+
+    .card-meta {
+        font-size: 0.875rem;
+        color: #9CA3AF;
+        margin-bottom: 1rem;
+    }
+
+    .info-grid {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 1rem;
+        margin-top: 1rem;
+        padding-top: 1rem;
+        border-top: 1px solid rgba(124, 58, 237, 0.1);
+    }
+
+    .info-item small {
+        display: block;
+        margin-bottom: 0.25rem;
+        text-transform: uppercase;
+        font-size: 0.7rem;
+        letter-spacing: 0.05em;
+        color: #6B7280;
+    }
+
+    .info-item p {
+        margin: 0;
+        font-size: 0.875rem;
+        color: #E5E7EB;
+        font-weight: 500;
+    }
+
+    .card-footer-custom {
+        display: flex;
+        gap: 0.5rem;
+        padding: 1rem;
+        background: rgba(15, 23, 42, 0.5);
+        border-top: 1px solid rgba(124, 58, 237, 0.1);
+    }
+
+    /* ===== PROJECT TYPE BADGE ===== */
+    .project-type-badge {
+        background: rgba(99, 102, 241, 0.2);
+        color: #A5F3FC;
+        padding: 0.375rem 0.75rem;
+        border-radius: 0.5rem;
+        font-size: 0.75rem;
+        font-weight: 600;
+        display: inline-block;
+    }
+
+    /* ===== STATUS BADGES ===== */
+    .status-badge {
+        padding: 0.375rem 0.75rem;
+        border-radius: 0.5rem;
+        font-size: 0.75rem;
+        font-weight: 600;
+        display: inline-block;
+        text-transform: uppercase;
+        letter-spacing: 0.05em;
+    }
+
+    .status-badge.status-draft {
+        background: rgba(148, 163, 184, 0.2);
+        color: #E2E8F0;
+    }
+
+    .status-badge.status-active {
+        background: rgba(16, 185, 129, 0.2);
+        color: #86EFAC;
+    }
+
+    .status-badge.status-waiting {
+        background: rgba(245, 158, 11, 0.2);
+        color: #FCD34D;
+    }
+
+    .status-badge.status-revision {
+        background: rgba(236, 72, 153, 0.2);
+        color: #F472B6;
+    }
+
+    .status-badge.status-approved {
+        background: rgba(6, 182, 212, 0.2);
+        color: #06B6D4;
+    }
+
+    .status-badge.status-archived {
+        background: rgba(107, 114, 128, 0.2);
+        color: #D1D5DB;
+    }
+
+    /* ===== BUTTON VARIANTS ===== */
+    .btn-primary-ghost {
+        background: transparent;
+        color: #6366F1;
+        border: 1px solid rgba(99, 102, 241, 0.3);
+        font-size: 0.875rem;
+    }
+
+    .btn-primary-ghost:hover {
+        background: rgba(99, 102, 241, 0.1);
+        border-color: #6366F1;
+        color: #A5F3FC;
+    }
+
+    .btn-danger-ghost {
+        background: transparent;
+        color: #EF4444;
+        border: 1px solid rgba(239, 68, 68, 0.3);
+        font-size: 0.875rem;
+    }
+
+    .btn-danger-ghost:hover {
+        background: rgba(239, 68, 68, 0.1);
+        border-color: #EF4444;
+        color: #FCA5A5;
+    }
+
+    /* ===== FILTER CARD ===== */
+    .filter-card {
+        background: rgba(31, 41, 55, 0.8);
+        border: 1px solid rgba(124, 58, 237, 0.2) !important;
+    }
+
+    .filter-card .form-label {
+        color: #D1D5DB;
+        font-size: 0.875rem;
+        margin-bottom: 0.5rem;
+    }
+
+    .filter-card .form-control,
+    .filter-card .form-select {
+        background: rgba(15, 23, 42, 0.8);
+        border: 1px solid rgba(124, 58, 237, 0.3);
+        color: #F3F4F6;
+        font-size: 0.95rem;
+    }
+
+    .filter-card .form-control:focus,
+    .filter-card .form-select:focus {
+        background: rgba(15, 23, 42, 0.9);
+        border-color: #6366F1;
+        color: #F3F4F6;
+        box-shadow: 0 0 0 0.25rem rgba(99, 102, 241, 0.25);
+    }
+
+    .filter-card .form-control::placeholder {
+        color: #6B7280;
+    }
+
+    /* ===== EMPTY STATE ===== */
+    .empty-state {
+        background: rgba(31, 41, 55, 0.5);
+        border: 2px dashed rgba(124, 58, 237, 0.2);
+        border-radius: 1rem;
+        padding: 3rem 2rem;
+    }
+
+    .empty-state-icon {
+        font-size: 5rem;
+        opacity: 0.2;
+        margin-bottom: 1rem;
+    }
+
+    /* ===== RESPONSIVE ===== */
+    @@media (max-width: 768px) {
+        .info-grid {
+            grid-template-columns: repeat(2, 1fr);
+        }
+
+        .card-footer-custom {
+            flex-wrap: wrap;
+        }
+    }
+
+    @@media (max-width: 480px) {
+        .info-grid {
+            grid-template-columns: 1fr;
+        }
+
+        .card-title {
+            font-size: 1rem;
+        }
+
+        .card-header-custom,
+        .card-body,
+        .card-footer-custom {
+            padding: 0.875rem;
+        }
+    }
+</style>
+
+<div class="container-fluid mt-4">
+    <!-- HEADER SEKCIJA -->
+    <div class="row mb-4 align-items-center">
+        <div class="col-md-8">
+            <h1 class="display-6 fw-bold mb-2" 
+                style="font-size: var(--fs-h1); color: var(--text-primary);">
+                🎼 Moji projekti
+            </h1>
+            <p class="text-muted fw-normal" 
+               style="font-size: var(--fs-body-sm); color: var(--text-secondary);">
+                Upravljajte aktivnim projektima, verzijama i feedback-om
+            </p>
+        </div>
+        <div class="col-md-4 text-end">
+            <a href="/Projects/Create" class="btn btn-primary btn-lg fw-semibold" 
+               style="font-weight: var(--fw-semibold); letter-spacing: var(--ls-wide);">
+                <i class="bi bi-plus-circle"></i> Novi projekt
+            </a>
+        </div>
+    </div>
+
+    <!-- FILTER BAR -->
+    <div class="card filter-card mb-4 border-0">
+        <div class="card-body">
+            <div class="row g-3">
+                <!-- Search -->
+                <div class="col-lg-4 col-md-6">
+                    <label class="form-label fw-semibold">Pretraži po nazivu</label>
+                    <input type="text" class="form-control form-control-lg" 
+                           id="searchInput"
+                           placeholder="Unesite naziv projekta...">
+                </div>
+
+                <!-- Status Filter -->
+                <div class="col-lg-3 col-md-6">
+                    <label class="form-label fw-semibold">Status</label>
+                    <select class="form-select form-select-lg" id="statusFilter">
+                        <option value="">Svi statusi</option>
+                        <option value="Draft">Draft</option>
+                        <option value="Active">Active</option>
+                        <option value="WaitingForFeedback">Waiting for Feedback</option>
+                        <option value="Revision">Revision</option>
+                        <option value="Approved">Approved</option>
+                        <option value="Archived">Archived</option>
+                    </select>
+                </div>
+
+                <!-- Type Filter -->
+                <div class="col-lg-3 col-md-6">
+                    <label class="form-label fw-semibold">Tip projekta</label>
+                    <select class="form-select form-select-lg" id="typeFilter">
+                        <option value="">Svi tipovi</option>
+                        <option value="Single">Single</option>
+                        <option value="Album">Album</option>
+                        <option value="EP">EP</option>
+                        <option value="Podcast">Podcast</option>
+                        <option value="VoiceOver">VoiceOver</option>
+                    </select>
+                </div>
+
+                <!-- Sort -->
+                <div class="col-lg-2 col-md-6 d-flex align-items-end">
+                    <label class="form-label fw-semibold w-100">Sortiranje</label>
+                    <select class="form-select form-select-lg" id="sortFilter">
+                        <option value="newest">Najnovije</option>
+                        <option value="oldest">Najstarije</option>
+                        <option value="name-asc">Naziv A-Z</option>
+                        <option value="name-desc">Naziv Z-A</option>
+                    </select>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- PROJECTS GRID -->
+    <div id="projectsContainer">
+        <div class="row g-4">
+            @if (Model?.Projects != null && Model.Projects.Count > 0)
+            {
+                @foreach (var project in Model.Projects)
+                {
+                    <div class="col-lg-4 col-md-6 col-sm-12">
+                        <div class="card project-card" 
+                             data-project-id="@project.Id"
+                             data-project-status="@project.Status"
+                             data-project-type="@project.Type"
+                             data-project-title="@project.Title.ToLower()">
+                            
+                            <!-- Card Header -->
+                            <div class="card-header-custom">
+                                <div class="d-flex justify-content-between align-items-start">
+                                    <span class="project-type-badge">
+                                        @Model.GetProjectTypeIcon(project.Type) @project.Type
+                                    </span>
+                                    <span class="status-badge status-@project.Status.ToString().ToLower()">
+                                        @Model.GetStatusLabel(project.Status)
+                                    </span>
+                                </div>
+                            </div>
+
+                            <!-- Card Body -->
+                            <div class="card-body">
+                                <h5 class="card-title">@project.Title</h5>
+                                <p class="card-meta">
+                                    @if (project.Producer != null)
+                                    {
+                                        <span>Producent: @project.Producer?.Name</span>
+                                    }
+                                </p>
+
+                                <!-- Info Grid -->
+                                <div class="info-grid">
+                                    <div class="info-item">
+                                        <small>Verzija</small>
+                                        <p>v@(project.Versions?.Count ?? 0)</p>
+                                    </div>
+                                    <div class="info-item">
+                                        <small>Deadline</small>
+                                        <p>
+                                            @if (project.Deadline.HasValue)
+                                            {
+                                                @project.Deadline.Value.ToString("dd. MMM")
+                                            }
+                                            else
+                                            {
+                                                <span>N/A</span>
+                                            }
+                                        </p>
+                                    </div>
+                                    <div class="info-item">
+                                        <small>Ažuriranje</small>
+                                        <p>@Model.GetTimeAgo(project.CreatedAt)</p>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Card Footer -->
+                            <div class="card-footer-custom">
+                                <a href="/Projects/Detail/@project.Id" class="btn btn-sm btn-primary-ghost flex-grow-1">
+                                    <i class="bi bi-eye"></i> Pregledaj
+                                </a>
+                                <button class="btn btn-sm btn-danger-ghost" 
+                                        data-bs-toggle="modal" 
+                                        data-bs-target="#deleteModal"
+                                        data-project-id="@project.Id"
+                                        data-project-title="@project.Title">
+                                    <i class="bi bi-trash"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                }
+            }
+            else
+            {
+                <div class="col-12">
+                    <div class="empty-state">
+                        <div class="empty-state-icon">🎼</div>
+                        <h4 class="text-muted mb-3">Nema aktivnih projekata</h4>
+                        <p class="text-secondary mb-4">Kreirajte novi projekt da počnete sa produkcijom</p>
+                        <a href="/Projects/Create" class="btn btn-primary btn-lg fw-semibold">
+                            <i class="bi bi-plus-circle"></i> Kreiraj projekt
+                        </a>
+                    </div>
+                </div>
+            }
+        </div>
+    </div>
+</div>
+
+<!-- DELETE MODAL -->
+<div class="modal fade" id="deleteModal" tabindex="-1" aria-labelledby="deleteModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content" style="background: rgba(31, 41, 55, 0.95); border: 1px solid rgba(124, 58, 237, 0.2);">
+            <div class="modal-header border-0" style="border-bottom: 1px solid rgba(124, 58, 237, 0.2);">
+                <h5 class="modal-title" id="deleteModalLabel">Obriši projekt</h5>
+                <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <p class="text-secondary">Jesu li sigurni da želite obrisati projekt <strong id="modalProjectTitle"></strong>?</p>
+                <p class="text-danger small">Ova akcija se ne može vratiti.</p>
+            </div>
+            <div class="modal-footer border-0" style="border-top: 1px solid rgba(124, 58, 237, 0.2);">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Otkaži</button>
+                <button type="button" class="btn btn-danger" id="confirmDeleteBtn">Obriši</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    // Helper funkcije za filter
+    document.getElementById('searchInput').addEventListener('keyup', filterProjects);
+    document.getElementById('statusFilter').addEventListener('change', filterProjects);
+    document.getElementById('typeFilter').addEventListener('change', filterProjects);
+    document.getElementById('sortFilter').addEventListener('change', filterProjects);
+
+    function filterProjects() {
+        const searchTerm = document.getElementById('searchInput').value.toLowerCase();
+        const statusFilter = document.getElementById('statusFilter').value;
+        const typeFilter = document.getElementById('typeFilter').value;
+        const sortFilter = document.getElementById('sortFilter').value;
+
+        const cards = document.querySelectorAll('.project-card');
+        let visibleCards = [];
+
+        cards.forEach(card => {
+            const title = card.dataset.projectTitle;
+            const status = card.dataset.projectStatus;
+            const type = card.dataset.projectType;
+
+            const matchesSearch = title.includes(searchTerm);
+            const matchesStatus = !statusFilter || status === statusFilter;
+            const matchesType = !typeFilter || type === typeFilter;
+
+            if (matchesSearch && matchesStatus && matchesType) {
+                card.style.display = '';
+                visibleCards.push(card);
+            } else {
+                card.style.display = 'none';
+            }
+        });
+
+        // Sortiranje
+        if (sortFilter === 'newest') {
+            visibleCards.sort((a, b) => b.dataset.projectId - a.dataset.projectId);
+        } else if (sortFilter === 'oldest') {
+            visibleCards.sort((a, b) => a.dataset.projectId - b.dataset.projectId);
+        }
+
+        // Reorder DOM
+        const container = document.querySelector('.row');
+        visibleCards.forEach(card => {
+            card.parentElement.appendChild(card.parentElement);
+        });
+    }
+
+    // Delete Modal Handlers
+    const deleteModal = document.getElementById('deleteModal');
+    deleteModal.addEventListener('show.bs.modal', function (event) {
+        const button = event.relatedTarget;
+        const projectId = button.getAttribute('data-project-id');
+        const projectTitle = button.getAttribute('data-project-title');
+
+        document.getElementById('modalProjectTitle').textContent = projectTitle;
+        document.getElementById('confirmDeleteBtn').dataset.projectId = projectId;
+    });
+
+    document.getElementById('confirmDeleteBtn').addEventListener('click', function () {
+        const projectId = this.dataset.projectId;
+        // TODO: Implementiraj delete zahtjev na server
+        console.log('Deleting project:', projectId);
+        // window.location.href = `/Projects/Delete/${projectId}`;
+    });
+</script>

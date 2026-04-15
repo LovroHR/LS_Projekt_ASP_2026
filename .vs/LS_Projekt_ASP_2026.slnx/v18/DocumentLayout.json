@@ -3,8 +3,8 @@
   "WorkspaceRootPath": "C:\\Users\\sablj\\Documents\\FAKS\\ASP NET\\LS_Projekt_ASP_2026\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{F7DF5A56-D79C-FC93-8D70-AA672E316462}|LS_Projekt_ASP_2026\\LS_Projekt_ASP_2026.csproj|c:\\users\\sablj\\documents\\faks\\asp net\\ls_projekt_asp_2026\\ls_projekt_asp_2026\\model\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{F7DF5A56-D79C-FC93-8D70-AA672E316462}|LS_Projekt_ASP_2026\\LS_Projekt_ASP_2026.csproj|solutionrelative:ls_projekt_asp_2026\\model\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{F7DF5A56-D79C-FC93-8D70-AA672E316462}|LS_Projekt_ASP_2026\\LS_Projekt_ASP_2026.csproj|c:\\users\\sablj\\documents\\faks\\asp net\\ls_projekt_asp_2026\\ls_projekt_asp_2026\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{F7DF5A56-D79C-FC93-8D70-AA672E316462}|LS_Projekt_ASP_2026\\LS_Projekt_ASP_2026.csproj|solutionrelative:ls_projekt_asp_2026\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     }
   ],
   "DocumentGroupContainers": [
@@ -20,13 +20,13 @@
               "$type": "Document",
               "DocumentIndex": 0,
               "Title": "Program.cs",
-              "DocumentMoniker": "C:\\Users\\sablj\\Documents\\FAKS\\ASP NET\\LS_Projekt_ASP_2026\\LS_Projekt_ASP_2026\\Model\\Program.cs",
-              "RelativeDocumentMoniker": "LS_Projekt_ASP_2026\\Model\\Program.cs",
-              "ToolTip": "C:\\Users\\sablj\\Documents\\FAKS\\ASP NET\\LS_Projekt_ASP_2026\\LS_Projekt_ASP_2026\\Model\\Program.cs",
-              "RelativeToolTip": "LS_Projekt_ASP_2026\\Model\\Program.cs",
-              "ViewState": "AgIAAHQBAAAAAAAAAAAUwH8BAAAwAAAAAAAAAA==",
+              "DocumentMoniker": "C:\\Users\\sablj\\Documents\\FAKS\\ASP NET\\LS_Projekt_ASP_2026\\LS_Projekt_ASP_2026\\Program.cs",
+              "RelativeDocumentMoniker": "LS_Projekt_ASP_2026\\Program.cs",
+              "ToolTip": "C:\\Users\\sablj\\Documents\\FAKS\\ASP NET\\LS_Projekt_ASP_2026\\LS_Projekt_ASP_2026\\Program.cs",
+              "RelativeToolTip": "LS_Projekt_ASP_2026\\Program.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAUAAAAhAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-04-01T23:46:08.517Z",
+              "WhenOpened": "2026-04-15T19:30:52.372Z",
               "EditorCaption": ""
             }
           ]

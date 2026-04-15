@@ -1,0 +1,268 @@
+@page
+@model IndexModel
+@{
+    ViewData["Title"] = "Studijski Termini";
+}
+
+<div class="container-fluid mt-4">
+    <!-- Header Sekcija -->
+    <div class="row mb-4">
+        <div class="col-md-8">
+            <h1 class="display-6 fw-bold" style="font-size: var(--fs-h1); font-weight: var(--fw-bold); line-height: var(--lh-tight); color: var(--text-primary);">📅 Moji studijski termini</h1>
+            <p class="text-muted fw-normal" style="font-size: var(--fs-body-sm); line-height: var(--lh-normal); color: var(--text-secondary);">Upravljajte booking rezervacijama i dostupnim vremenima</p>
+        </div>
+        <div class="col-md-4 text-end">
+            <a href="/Bookings/Create" class="btn btn-primary btn-lg fw-semibold" style="font-weight: var(--fw-semibold); letter-spacing: var(--ls-wide);">
+                <i class="bi bi-plus-circle"></i> Nova rezervacija
+            </a>
+        </div>
+    </div>
+
+    <!-- Filter i Search Bar -->
+    <div class="card mb-4 border-0" style="background: rgba(31, 41, 55, 0.8); border: 1px solid rgba(124, 58, 237, 0.2) !important;">
+        <div class="card-body">
+            <div class="row g-3">
+                <!-- Search Box -->
+                <div class="col-md-4">
+                    <label class="form-label fw-semibold" style="color: #D1D5DB;">Pretraži po projektu ili klijentu</label>
+                    <input type="text" class="form-control form-control-lg" placeholder="Unesite naziv..." style="background: rgba(15, 23, 42, 0.8); border: 1px solid rgba(124, 58, 237, 0.3); color: #F3F4F6;">
+                </div>
+
+                <!-- Status Filter -->
+                <div class="col-md-3">
+                    <label class="form-label fw-semibold" style="color: #D1D5DB;">Status</label>
+                    <select class="form-select form-select-lg" style="background: rgba(15, 23, 42, 0.8); border: 1px solid rgba(124, 58, 237, 0.3); color: #F3F4F6;">
+                        <option selected>Svi statusi</option>
+                        <option value="pending">Čekajući (Pending)</option>
+                        <option value="confirmed">Potvrđen (Confirmed)</option>
+                        <option value="inprogress">U tijeku (In Progress)</option>
+                        <option value="completed">Završen (Completed)</option>
+                        <option value="cancelled">Otkazan (Cancelled)</option>
+                    </select>
+                </div>
+
+                <!-- Date Range -->
+                <div class="col-md-3">
+                    <label class="form-label fw-semibold" style="color: #D1D5DB;">Datumski raspon</label>
+                    <input type="date" class="form-control form-control-lg" style="background: rgba(15, 23, 42, 0.8); border: 1px solid rgba(124, 58, 237, 0.3); color: #F3F4F6;">
+                </div>
+
+                <!-- Filter Button -->
+                <div class="col-md-2 d-flex align-items-end">
+                    <button class="btn btn-lg w-100 fw-semibold" style="background: linear-gradient(135deg, #7C3AED, #6366F1); border: none; color: white;">
+                        <i class="bi bi-funnel"></i> Filtriraj
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- View Toggle (Card/Table) -->
+    <div class="mb-3">
+        <div class="btn-group" role="group">
+            <input type="radio" class="btn-check" name="viewType" id="cardView" checked>
+            <label class="btn" for="cardView" style="background: linear-gradient(135deg, #7C3AED, #6366F1); border: none; color: white;">
+                <i class="bi bi-card-list"></i> Kartice
+            </label>
+
+            <input type="radio" class="btn-check" name="viewType" id="tableView">
+            <label class="btn" for="tableView" style="background: rgba(31, 41, 55, 0.8); border: 1px solid rgba(124, 58, 237, 0.3); color: #06B6D4;">
+                <i class="bi bi-table"></i> Tablica
+            </label>
+        </div>
+    </div>
+
+    <!-- CARD VIEW -->
+    <div id="cardViewContainer" class="row g-3">
+        @foreach (var booking in Model.Bookings)
+        {
+            <div class="col-md-6 col-lg-4">
+                <div class="card h-100 border-0 hover-lift" style="background: rgba(31, 41, 55, 0.8); border: 1px solid rgba(124, 58, 237, 0.2) !important;">
+                    <!-- Card Header sa Status Badge -->
+                    <div class="card-header border-0 d-flex justify-content-between align-items-center" style="background: rgba(124, 58, 237, 0.1);">
+                        <h6 class="card-title mb-0" style="color: #06B6D4;">@booking.Purpose</h6>
+                        @{
+                            string badgeClass = booking.Status switch
+                            {
+                                AudioProductionManagement.Model.BookingStatus.Pending => "bg-warning text-dark",
+                                AudioProductionManagement.Model.BookingStatus.Confirmed => "bg-success",
+                                AudioProductionManagement.Model.BookingStatus.InProgress => "bg-info",
+                                AudioProductionManagement.Model.BookingStatus.Completed => "bg-secondary",
+                                AudioProductionManagement.Model.BookingStatus.Cancelled => "bg-danger",
+                                _ => "bg-secondary"
+                            };
+                        }
+                        <span class="badge @badgeClass">@booking.Status</span>
+                    </div>
+
+                    <!-- Card Body -->
+                    <div class="card-body">
+                        <div class="mb-3">
+                            <small class="text-muted">Studio</small>
+                            <p class="mb-0 fw-semibold" style="color: #F3F4F6;">@booking.StudioRoom?.Name</p>
+                        </div>
+
+                        <div class="row mb-3">
+                            <div class="col-6">
+                                <small class="text-muted">Datum</small>
+                                <p class="mb-0 fw-semibold" style="color: #F3F4F6;">@booking.StartTime.ToString("dd. MMM yyyy")</p>
+                            </div>
+                            <div class="col-6">
+                                <small class="text-muted">Vrijeme</small>
+                                <p class="mb-0 fw-semibold" style="color: #F3F4F6;">@booking.StartTime.ToString("HH:mm") - @booking.EndTime.ToString("HH:mm")</p>
+                            </div>
+                        </div>
+
+                        <div class="mb-3">
+                            <small class="text-muted">Producent</small>
+                            <p class="mb-0 fw-semibold" style="color: #F3F4F6;">@booking.Producer?.Name @booking.Producer?.Surname</p>
+                        </div>
+
+                        <div class="mb-3">
+                            <small class="text-muted">Klijent</small>
+                            <p class="mb-0 fw-semibold" style="color: #F3F4F6;">@booking.Client?.Name @booking.Client?.Surname</p>
+                        </div>
+
+                        <div class="alert alert-info mb-0" style="background: rgba(6, 182, 212, 0.1); border: 1px solid rgba(6, 182, 212, 0.3); color: #06B6D4;">
+                            <strong>@booking.TotalPrice.ToString("C")</strong> 
+                            @if (booking.RequiresEngineer)
+                            {
+                                <span class="badge bg-secondary ms-2">Sa inženjerom</span>
+                            }
+                        </div>
+                    </div>
+
+                    <!-- Card Footer sa Akcijama -->
+                    <div class="card-footer border-0" style="background: rgba(124, 58, 237, 0.05);">
+                        <div class="btn-group w-100" role="group">
+                            <a href="#" class="btn btn-sm" style="background: transparent; border: 1px solid rgba(124, 58, 237, 0.5); color: #7C3AED;">Pregled</a>
+                            <a href="#" class="btn btn-sm" style="background: transparent; border: 1px solid rgba(6, 182, 212, 0.5); color: #06B6D4;">Uredi</a>
+                            <button type="button" class="btn btn-sm" style="background: transparent; border: 1px solid rgba(236, 72, 153, 0.5); color: #EC4899;" data-bs-toggle="modal" data-bs-target="#cancelModal">
+                                Otkaži
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        }
+    </div>
+
+    <!-- TABLE VIEW (Initially Hidden) -->
+    <div id="tableViewContainer" style="display: none;">
+        <div class="table-responsive">
+            <table class="table table-hover" style="background: rgba(31, 41, 55, 0.8); color: #F3F4F6;">
+                <thead style="background: linear-gradient(135deg, #7C3AED, #6366F1);">
+                    <tr>
+                        <th style="color: white;">Datum</th>
+                        <th style="color: white;">Vrijeme</th>
+                        <th style="color: white;">Studio</th>
+                        <th style="color: white;">Klijent</th>
+                        <th style="color: white;">Producent</th>
+                        <th style="color: white;">Status</th>
+                        <th style="color: white;">Cijena</th>
+                        <th style="color: white;">Akcije</th>
+                    </tr>
+                </thead>
+                <tbody style="border-color: rgba(124, 58, 237, 0.2);">
+                    @foreach (var booking in Model.Bookings)
+                    {
+                        <tr style="border-bottom: 1px solid rgba(124, 58, 237, 0.2);">
+                            <td>
+                                <strong>@booking.StartTime.ToString("dd. MMM yyyy")</strong>
+                            </td>
+                            <td>@booking.StartTime.ToString("HH:mm") - @booking.EndTime.ToString("HH:mm")</td>
+                            <td>@booking.StudioRoom?.Name</td>
+                            <td>@booking.Client?.Name @booking.Client?.Surname</td>
+                            <td>@booking.Producer?.Name @booking.Producer?.Surname</td>
+                            <td>
+                                @{
+                                    string badgeClass = booking.Status switch
+                                    {
+                                        AudioProductionManagement.Model.BookingStatus.Pending => "bg-warning text-dark",
+                                        AudioProductionManagement.Model.BookingStatus.Confirmed => "bg-success",
+                                        AudioProductionManagement.Model.BookingStatus.InProgress => "bg-info",
+                                        AudioProductionManagement.Model.BookingStatus.Completed => "bg-secondary",
+                                        AudioProductionManagement.Model.BookingStatus.Cancelled => "bg-danger",
+                                        _ => "bg-secondary"
+                                    };
+                                }
+                                <span class="badge @badgeClass">@booking.Status</span>
+                            </td>
+                            <td><strong>@booking.TotalPrice.ToString("C")</strong></td>
+                            <td>
+                                <div class="btn-group btn-group-sm" role="group">
+                                    <a href="#" class="btn" style="background: transparent; border: 1px solid rgba(124, 58, 237, 0.5); color: #7C3AED;">👁️</a>
+                                    <a href="#" class="btn" style="background: transparent; border: 1px solid rgba(6, 182, 212, 0.5); color: #06B6D4;">✏️</a>
+                                    <button type="button" class="btn" style="background: transparent; border: 1px solid rgba(236, 72, 153, 0.5); color: #EC4899;">🗑️</button>
+                                </div>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <!-- Empty State -->
+    @if (Model.Bookings.Count == 0)
+    {
+        <div class="text-center py-5">
+            <div class="display-1 mb-3">📭</div>
+            <h3>Nema aktivnih rezervacija</h3>
+            <p class="text-muted mb-4">Kreirajte novu rezervaciju da počnete</p>
+            <a href="/Bookings/Create" class="btn btn-primary btn-lg">
+                <i class="bi bi-plus-circle"></i> Napravite prvu rezervaciju
+            </a>
+        </div>
+    }
+</div>
+
+<!-- Cancel Modal -->
+<div class="modal fade" id="cancelModal" tabindex="-1" aria-labelledby="cancelModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content" style="background: rgba(31, 41, 55, 0.95); border: 1px solid rgba(124, 58, 237, 0.2);">
+            <div class="modal-header" style="background: rgba(124, 58, 237, 0.1); border-bottom: 1px solid rgba(124, 58, 237, 0.2);">
+                <h5 class="modal-title" id="cancelModalLabel" style="color: #06B6D4;">Otkazati rezervaciju?</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" style="filter: brightness(0) invert(1);"></button>
+            </div>
+            <div class="modal-body" style="color: #F3F4F6;">
+                <p>Jeste li sigurni da želite otkazati ovu rezervaciju? Ova akcija se ne može poništiti.</p>
+            </div>
+            <div class="modal-footer" style="border-top: 1px solid rgba(124, 58, 237, 0.2);">
+                <button type="button" class="btn" style="background: rgba(31, 41, 55, 0.8); border: 1px solid rgba(124, 58, 237, 0.3); color: #06B6D4;" data-bs-dismiss="modal">Nazad</button>
+                <button type="button" class="btn" style="background: linear-gradient(135deg, #EC4899, #BE185D); border: none; color: white;">Otkaži rezervaciju</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Custom CSS -->
+<style>
+    .hover-lift {
+        transition: all 0.3s ease;
+    }
+
+    .hover-lift:hover {
+        transform: translateY(-5px);
+        border-color: #06B6D4 !important;
+        box-shadow: 0 10px 30px rgba(6, 182, 212, 0.2) !important;
+    }
+
+    .btn-group-sm .btn {
+        padding: 0.25rem 0.5rem;
+        font-size: 0.875rem;
+    }
+</style>
+
+<!-- View Toggle Script -->
+<script>
+    document.getElementById('cardView').addEventListener('change', function () {
+        document.getElementById('cardViewContainer').style.display = 'grid';
+        document.getElementById('tableViewContainer').style.display = 'none';
+    });
+
+    document.getElementById('tableView').addEventListener('change', function () {
+        document.getElementById('cardViewContainer').style.display = 'none';
+        document.getElementById('tableViewContainer').style.display = 'block';
+    });
+</script>

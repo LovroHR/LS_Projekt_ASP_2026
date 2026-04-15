@@ -1,5 +1,67 @@
+wwwroot\css\dark-theme.css
 wwwroot\css\site.css
+wwwroot\css\typography.css
 wwwroot\favicon.ico
+wwwroot\hyperspace-assets\css\fontawesome-all.min.css
+wwwroot\hyperspace-assets\css\images\intro.svg
+wwwroot\hyperspace-assets\css\main.css
+wwwroot\hyperspace-assets\css\noscript.css
+wwwroot\hyperspace-assets\js\breakpoints.min.js
+wwwroot\hyperspace-assets\js\browser.min.js
+wwwroot\hyperspace-assets\js\jquery.min.js
+wwwroot\hyperspace-assets\js\jquery.scrollex.min.js
+wwwroot\hyperspace-assets\js\jquery.scrolly.min.js
+wwwroot\hyperspace-assets\js\main.js
+wwwroot\hyperspace-assets\js\util.js
+wwwroot\hyperspace-assets\sass\base\_page.scss
+wwwroot\hyperspace-assets\sass\base\_reset.scss
+wwwroot\hyperspace-assets\sass\base\_typography.scss
+wwwroot\hyperspace-assets\sass\components\_actions.scss
+wwwroot\hyperspace-assets\sass\components\_box.scss
+wwwroot\hyperspace-assets\sass\components\_button.scss
+wwwroot\hyperspace-assets\sass\components\_contact.scss
+wwwroot\hyperspace-assets\sass\components\_features.scss
+wwwroot\hyperspace-assets\sass\components\_form.scss
+wwwroot\hyperspace-assets\sass\components\_icon.scss
+wwwroot\hyperspace-assets\sass\components\_icons.scss
+wwwroot\hyperspace-assets\sass\components\_image.scss
+wwwroot\hyperspace-assets\sass\components\_list.scss
+wwwroot\hyperspace-assets\sass\components\_menu.scss
+wwwroot\hyperspace-assets\sass\components\_row.scss
+wwwroot\hyperspace-assets\sass\components\_section.scss
+wwwroot\hyperspace-assets\sass\components\_split.scss
+wwwroot\hyperspace-assets\sass\components\_spotlights.scss
+wwwroot\hyperspace-assets\sass\components\_table.scss
+wwwroot\hyperspace-assets\sass\components\_wrapper.scss
+wwwroot\hyperspace-assets\sass\layout\_footer.scss
+wwwroot\hyperspace-assets\sass\layout\_header.scss
+wwwroot\hyperspace-assets\sass\layout\_intro.scss
+wwwroot\hyperspace-assets\sass\layout\_sidebar.scss
+wwwroot\hyperspace-assets\sass\layout\_wrapper.scss
+wwwroot\hyperspace-assets\sass\libs\_breakpoints.scss
+wwwroot\hyperspace-assets\sass\libs\_functions.scss
+wwwroot\hyperspace-assets\sass\libs\_html-grid.scss
+wwwroot\hyperspace-assets\sass\libs\_mixins.scss
+wwwroot\hyperspace-assets\sass\libs\_vars.scss
+wwwroot\hyperspace-assets\sass\libs\_vendor.scss
+wwwroot\hyperspace-assets\sass\main.scss
+wwwroot\hyperspace-assets\sass\noscript.scss
+wwwroot\hyperspace-assets\webfonts\fa-brands-400.eot
+wwwroot\hyperspace-assets\webfonts\fa-brands-400.svg
+wwwroot\hyperspace-assets\webfonts\fa-brands-400.ttf
+wwwroot\hyperspace-assets\webfonts\fa-brands-400.woff
+wwwroot\hyperspace-assets\webfonts\fa-brands-400.woff2
+wwwroot\hyperspace-assets\webfonts\fa-regular-400.eot
+wwwroot\hyperspace-assets\webfonts\fa-regular-400.svg
+wwwroot\hyperspace-assets\webfonts\fa-regular-400.ttf
+wwwroot\hyperspace-assets\webfonts\fa-regular-400.woff
+wwwroot\hyperspace-assets\webfonts\fa-regular-400.woff2
+wwwroot\hyperspace-assets\webfonts\fa-solid-900.eot
+wwwroot\hyperspace-assets\webfonts\fa-solid-900.svg
+wwwroot\hyperspace-assets\webfonts\fa-solid-900.ttf
+wwwroot\hyperspace-assets\webfonts\fa-solid-900.woff
+wwwroot\hyperspace-assets\webfonts\fa-solid-900.woff2
+wwwroot\images\studio-hero.png
 wwwroot\js\site.js
 wwwroot\lib\bootstrap\dist\css\bootstrap-grid.css
 wwwroot\lib\bootstrap\dist\css\bootstrap-grid.css.map
@@ -123,3 +185,19 @@ C:\Users\sablj\Documents\FAKS\ASP NET\LS_Projekt_ASP_2026\LS_Projekt_ASP_2026\ww
 C:\Users\sablj\Documents\FAKS\ASP NET\LS_Projekt_ASP_2026\LS_Projekt_ASP_2026\wwwroot\lib\jquery\dist\jquery.slim.min.js
 C:\Users\sablj\Documents\FAKS\ASP NET\LS_Projekt_ASP_2026\LS_Projekt_ASP_2026\wwwroot\lib\jquery\dist\jquery.slim.min.map
 C:\Users\sablj\Documents\FAKS\ASP NET\LS_Projekt_ASP_2026\LS_Projekt_ASP_2026\wwwroot\lib\jquery\LICENSE.txt
+C:\Users\sablj\Documents\FAKS\ASP NET\LS_Projekt_ASP_2026\LS_Projekt_ASP_2026\wwwroot\hyperspace-assets\css\fontawesome-all.min.css
+C:\Users\sablj\Documents\FAKS\ASP NET\LS_Projekt_ASP_2026\LS_Projekt_ASP_2026\wwwroot\hyperspace-assets\css\images\intro.svg
+C:\Users\sablj\Documents\FAKS\ASP NET\LS_Projekt_ASP_2026\LS_Projekt_ASP_2026\wwwroot\hyperspace-assets\css\main.css
+C:\Users\sablj\Documents\FAKS\ASP NET\LS_Projekt_ASP_2026\LS_Projekt_ASP_2026\wwwroot\hyperspace-assets\css\noscript.css
+C:\Users\sablj\Documents\FAKS\ASP NET\LS_Projekt_ASP_2026\LS_Projekt_ASP_2026\wwwroot\hyperspace-assets\js\breakpoints.min.js
+C:\Users\sablj\Documents\FAKS\ASP NET\LS_Projekt_ASP_2026\LS_Projekt_ASP_2026\wwwroot\hyperspace-assets\js\browser.min.js
+C:\Users\sablj\Documents\FAKS\ASP NET\LS_Projekt_ASP_2026\LS_Projekt_ASP_2026\wwwroot\hyperspace-assets\js\jquery.min.js
+C:\Users\sablj\Documents\FAKS\ASP NET\LS_Projekt_ASP_2026\LS_Projekt_ASP_2026\wwwroot\hyperspace-assets\js\jquery.scrollex.min.js
+C:\Users\sablj\Documents\FAKS\ASP NET\LS_Projekt_ASP_2026\LS_Projekt_ASP_2026\wwwroot\hyperspace-assets\js\jquery.scrolly.min.js
+C:\Users\sablj\Documents\FAKS\ASP NET\LS_Projekt_ASP_2026\LS_Projekt_ASP_2026\wwwroot\hyperspace-assets\js\main.js
+C:\Users\sablj\Documents\FAKS\ASP NET\LS_Projekt_ASP_2026\LS_Projekt_ASP_2026\wwwroot\hyperspace-assets\js\util.js
+C:\Users\sablj\Documents\FAKS\ASP NET\LS_Projekt_ASP_2026\LS_Projekt_ASP_2026\wwwroot\hyperspace-assets\webfonts\fa-brands-400.svg
+C:\Users\sablj\Documents\FAKS\ASP NET\LS_Projekt_ASP_2026\LS_Projekt_ASP_2026\wwwroot\hyperspace-assets\webfonts\fa-regular-400.svg
+C:\Users\sablj\Documents\FAKS\ASP NET\LS_Projekt_ASP_2026\LS_Projekt_ASP_2026\wwwroot\hyperspace-assets\webfonts\fa-solid-900.svg
+C:\Users\sablj\Documents\FAKS\ASP NET\LS_Projekt_ASP_2026\LS_Projekt_ASP_2026\wwwroot\css\dark-theme.css
+C:\Users\sablj\Documents\FAKS\ASP NET\LS_Projekt_ASP_2026\LS_Projekt_ASP_2026\wwwroot\css\typography.css

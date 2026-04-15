@@ -1,53 +1,27 @@
-using System;
-using System.Collections.Generic;
-using AudioProductionManagement.Model;
+﻿var builder = WebApplication.CreateBuilder(args);
 
-class Program
+// Add services to the container.
+builder.Services.AddRazorPages();
+
+var app = builder.Build();
+
+// Configure the HTTP request pipeline.
+if (!app.Environment.IsDevelopment())
 {
-    static void Main(string[] args)
-    {
-        Console.WriteLine("=== Audio Production Management System - Demo Data ===\n");
+    app.UseExceptionHandler("/Error");
+    app.UseHsts();
+}
 
-        // Inicijalizacija kolekcija
-        var clients = new List<Client>();
-        var producers = new List<Producer>();
-        var studioRooms = new List<StudioRoom>();
-        var bookings = new List<Booking>();
-        var audioProjects = new List<AudioProject>();
-        var projectVersions = new List<ProjectVersion>();
-        var timecodedComments = new List<TimecodedComment>();
+app.UseHttpsRedirection();
+app.UseStaticFiles();
 
-        // ============== KLIJENTI ==============
-        var client1 = new Client
-        {
-            Id = 1,
-            Name = "Marina",
-            Surname = "Horvat",
-            Email = "marina.horvat@musicstudio.com",
-            PhoneNumber = "+385 1 234 5678",
-            CreatedAt = new DateTime(2025, 6, 15),
-            Role = UserRole.Client,
-            CompanyName = "Marina Productions",
-            BillingAddress = "Ul. Strahovska 2, Zagreb",
-            IsPriorityClient = true,
-            Notes = "VIP klijent - često snima podkaste",
-            Bookings = new List<Booking>(),
-            Projects = new List<AudioProject>()
-        };
+app.UseRouting();
 
-        var client2 = new Client
-        {
-            Id = 2,
-            Name = "Andrej",
-            Surname = "Novaković",
-            Email = "andrej.novakovic@indie.band",
-            PhoneNumber = "+385 1 555 9876",
-            CreatedAt = new DateTime(2025, 7, 20),
-            Role = UserRole.Client,
-            CompanyName = "Indie Records",
-            BillingAddress = "Tehnička 12, Split",
-            IsPriorityClient = false,
-            Notes = "Producira indie glazbu i albume",
+app.UseAuthorization();
+
+app.MapRazorPages();
+
+app.Run();
             Bookings = new List<Booking>(),
             Projects = new List<AudioProject>()
         };
@@ -696,6 +670,8 @@ class Program
         PrintLatestProjectAndComments(audioProjects, projectVersions);
 
         Console.WriteLine("\n=== Demo data inicijalizacija završena ===");
+
+
         Console.ReadLine();
     }
 

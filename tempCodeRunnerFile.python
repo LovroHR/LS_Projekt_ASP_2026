@@ -1,0 +1,127 @@
+import os
+import random
+import math
+import torch
+import matplotlib.pyplot as plt
+import kagglehub
+
+from torchvision import datasets, transforms
+from torch.utils.data import DataLoader, random_split, Subset
+
+# -----------------------------
+# POSTAVKE
+# -----------------------------
+DATASET_PATH = "kagglehub.dataset_download("alxmamaev/flowers-recognition")"
+IMAGE_SIZE = 224
+BATCH_SIZE = 16
+SEED = 42
+
+random.seed(SEED)
+torch.manual_seed(SEED)
+
+# -----------------------------
+# TRANSFORMACIJE
+# -----------------------------
+# Osnovna transformacija za validation/test
+basic_transform = transforms.Compose([
+    transforms.Resize((IMAGE_SIZE, IMAGE_SIZE)),
+    transforms.ToTensor()
+])
+
+# Augmentacija za train subset (20% trening skupa)
+augment_transform = transforms.Compose([
+    transforms.Resize((256, 256)),
+    transforms.RandomResizedCrop(IMAGE_SIZE),          # nasumično izrezivanje
+    transforms.RandomRotation(degrees=30),             # promjena kuta
+    transforms.ColorJitter(                            # promjena boja
+        brightness=0.3,
+        contrast=0.3,
+        saturation=0.3,
+        hue=0.1
+    ),
+    transforms.RandomHorizontalFlip(p=0.5),           # dodatna promjena koja nije obavezno s predavanja
+    transforms.ToTensor()
+])
+
+# -----------------------------
+# UČITAVANJE DATASETA
+# -----------------------------
+# Pretpostavlja se struktura:
+# dataset/
+#   class_1/
+#   class_2/
+#   class_3/
+
+full_dataset_for_split = datasets.ImageFolder(
+    root=DATASET_PATH,
+    transform=basic_transform
+)
+
+class_names = full_dataset_for_split.classes
+num_images = len(full_dataset_for_split)
+
+print("Klase:", class_names)
+print("Ukupan broj slika:", num_images)
+
+# -----------------------------
+# PODJELA NA TRAIN / VAL / TEST
+# -----------------------------
+train_ratio = 0.70
+val_ratio = 0.15
+test_ratio = 0.15
+
+train_size = int(train_ratio * num_images)
+val_size = int(val_ratio * num_images)
+test_size = num_images - train_size - val_size
+
+train_dataset_basic, val_dataset, test_dataset = random_split(
+    full_dataset_for_split,
+    [train_size, val_size, test_size],
+    generator=torch.Generator().manual_seed(SEED)
+)
+
+print(f"Train: {len(train_dataset_basic)}")
+print(f"Validation: {len(val_dataset)}")
+print(f"Test: {len(test_dataset)}")
+
+# -----------------------------
+# UZIMANJE 20% TRAIN SKUPA
+# -----------------------------
+train_indices = train_dataset_basic.indices
+subset_size = max(1, int(0.20 * len(train_indices)))
+subset_indices = random.sample(train_indices, subset_size)
+
+# Ponovno učitamo dataset s augmentacijom
+full_dataset_augmented = datasets.ImageFolder(
+    root=DATASET_PATH,
+    transform=augment_transform
+)
+
+train_subset_augmented = Subset(full_dataset_augmented, subset_indices)
+
+print(f"20% train skupa za augmentaciju: {len(train_subset_augmented)}")
+
+# DataLoader
+train_loader = DataLoader(train_subset_augmented, batch_size=BATCH_SIZE, shuffle=True)
+val_loader = DataLoader(val_dataset, batch_size=BATCH_SIZE, shuffle=False)
+test_loader = DataLoader(test_dataset, batch_size=BATCH_SIZE, shuffle=False)
+
+# -----------------------------
+# PRIKAZ NEKOLIKO AUGMENTIRANIH SLIKA
+# -----------------------------
+def show_augmented_images(dataset, class_names, num_images=8):
+    fig, axes = plt.subplots(2, 4, figsize=(14, 8))
+    axes = axes.flatten()
+
+    for i in range(num_images):
+        image, label = dataset[i]
+        image = image.permute(1, 2, 0).numpy()  # C,H,W -> H,W,C
+
+        axes[i].imshow(image)
+        axes[i].set_title(class_names[label])
+        axes[i].axis("off")
+
+    plt.tight_layout()
+    plt.show()
+
+show_augmented_images(train_subset_augmented, class_names)
