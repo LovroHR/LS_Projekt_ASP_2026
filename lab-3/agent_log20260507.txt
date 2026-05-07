@@ -4332,3 +4332,7 @@ END
 [2026-05-07 01:57:09.383 +02:00] [INF] Hosting environment: Development
 [2026-05-07 01:57:09.383 +02:00] [INF] Content root path: E:\LOVRO\FAKS\ASP\LS_Projekt_ASP_2026\LS_Projekt_ASP_2026
 [2026-05-07 01:57:09.383 +02:00] [DBG] Hosting started
+[2026-05-07 02:02:42.994 +02:00] [INF] Application is shutting down...
+[2026-05-07 02:02:42.995 +02:00] [DBG] Hosting stopping
+[2026-05-07 02:02:43.001 +02:00] [DBG] Hosting stopped
+[2026-05-07 02:02:43.002 +02:00] [INF] === Aplikacija zaustavljena ===
