@@ -1,0 +1,14 @@
+[2026-05-06] Logging system initialized
+2026-05-06 13:19:01 | UserPrompt: TEST hook user prompt
+2026-05-06 13:19:01 | AssistantResponse: TEST hook assistant response
+2026-05-06 22:40:01 | DirectWriteTestAsync: hello
+2026-05-06 22:40:28 | HookLogicTest: simulated payload
+2026-05-06 22:42:29 | UserPrompt: Molim te, napravi Å¡to god treba da hookovi prorade i pravilno zapisuju u folder lab-3, datoteku agent_log.txt
+2026-05-06 22:42:29 | AssistantResponse: Hookovi su preusmjereni na lab-3/agent_log.txt i JSON konfiguracija je ispravna
+2026-05-06 23:44:27 | UserPrompt: molim te
+2026-05-06 23:48:08 | UserPrompt: da provjeri postavke
+2026-05-06 23:51:02 | UserPrompt: Podesiti DbContext i osigurati potrebne DI
+2026-05-06 23:53:23 | UserPrompt: Prebaciti app s mock repository na EF repository; Generirati inicijalnu migracijsku skriptu; jel možeš to napraviti?
+2026-05-06 23:56:16 | UserPrompt: moze
+2026-05-07 00:01:06 | UserPrompt: LS_Projekt_ASP_2026 net10.0 failed with 13 errors
+2026-05-07 00:47:28 | UserPrompt: mozete li mi reci zasto program zapne na Building

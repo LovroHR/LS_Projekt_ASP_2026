@@ -1,0 +1,28 @@
+{
+  "hooks": [
+    {
+      "event": "user_prompt",
+      "action": {
+        "type": "append_file",
+        "file": "../../lab-3/agent_log.txt",
+        "template": "{{timestamp}} | UserPrompt: {{prompt}}\n"
+      }
+    },
+    {
+      "event": "tool_call",
+      "action": {
+        "type": "append_file",
+        "file": "../../lab-3/agent_log.txt",
+        "template": "{{timestamp}} | Tool: {{tool_name}} | {{tool_result}}\n"
+      }
+    },
+    {
+      "event": "assistant_response",
+      "action": {
+        "type": "append_file",
+        "file": "../../lab-3/agent_log.txt",
+        "template": "{{timestamp}} | AssistantResponse: {{response}}\n"
+      }
+    }
+  ]
+}

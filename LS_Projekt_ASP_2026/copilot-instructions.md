@@ -1,6 +1,6 @@
 # Copilot Instructions for Agent Logging
 
-You are working in a project that requires logging of all user prompts to `.github/hooks/agent_log.txt` for audit and debugging purposes.
+You are working in a project that requires logging of all user prompts to `lab-3/agent_log.txt` for audit and debugging purposes.
 
 ## CRITICAL INSTRUCTION: Log Every User Prompt
 
@@ -16,7 +16,7 @@ You are working in a project that requires logging of all user prompts to `.gith
 3. Or use the traditional method:
    ```powershell
    $timestamp = Get-Date -Format 'yyyy-MM-dd HH:mm:ss'
-   Add-Content -Path '.github/hooks/agent_log.txt' -Value "$timestamp | UserPrompt: Your message"
+   Add-Content -Path 'lab-3/agent_log.txt' -Value "$timestamp | UserPrompt: Your message"
    ```
 
 ### Example:
@@ -42,7 +42,7 @@ You are working in a project that requires logging of all user prompts to `.gith
 
 - **Format**: `YYYY-MM-DD HH:mm:ss | UserPrompt: [text]`
 - **When**: At the very beginning of handling each request
-- **Location**: `.github/hooks/agent_log.txt`
+- **Location**: `lab-3/agent_log.txt`
 - **Character encoding**: UTF-8
 
 This logging helps track agent activities and user interactions for project management.

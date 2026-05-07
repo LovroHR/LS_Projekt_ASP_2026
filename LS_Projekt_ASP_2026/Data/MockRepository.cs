@@ -320,17 +320,17 @@ namespace LS_Projekt_ASP_2026.Data
             _bookings.AddRange(new[] { booking1, booking2, booking3, booking4, booking5, booking6 });
 
             // Povezivanje booking-a sa klijentima i producentima
-            client1.Bookings.AddRange(new[] { booking1, booking4 });
-            client2.Bookings.AddRange(new[] { booking2, booking5 });
-            client3.Bookings.AddRange(new[] { booking3, booking6 });
+            AddItems(client1.Bookings, booking1, booking4);
+            AddItems(client2.Bookings, booking2, booking5);
+            AddItems(client3.Bookings, booking3, booking6);
 
-            producer1.AssignedBookings.AddRange(new[] { booking1, booking3, booking6 });
-            producer2.AssignedBookings.AddRange(new[] { booking2, booking5 });
+            AddItems(producer1.AssignedBookings, booking1, booking3, booking6);
+            AddItems(producer2.AssignedBookings, booking2, booking5);
             producer3.AssignedBookings.Add(booking4);
 
-            studio1.Bookings.AddRange(new[] { booking1, booking5 });
-            studio2.Bookings.AddRange(new[] { booking3, booking6 });
-            studio3.Bookings.AddRange(new[] { booking2, booking4 });
+            AddItems(studio1.Bookings, booking1, booking5);
+            AddItems(studio2.Bookings, booking3, booking6);
+            AddItems(studio3.Bookings, booking2, booking4);
 
             // ============== AUDIO PROJEKTI ==============
             var project1 = new AudioProject
@@ -399,7 +399,7 @@ namespace LS_Projekt_ASP_2026.Data
             client2.Projects.Add(project2);
             client3.Projects.Add(project3);
 
-            producer1.ManagedProjects.AddRange(new[] { project1, project3 });
+            AddItems(producer1.ManagedProjects, project1, project3);
             producer2.ManagedProjects.Add(project2);
 
             // ============== VERZIJE PROJEKATA ==============
@@ -437,7 +437,7 @@ namespace LS_Projekt_ASP_2026.Data
                 Comments = new List<TimecodedComment>()
             };
 
-            project1.Versions.AddRange(new[] { project1_v1, project1_v2 });
+            AddItems(project1.Versions, project1_v1, project1_v2);
             _projectVersions.AddRange(new[] { project1_v1, project1_v2 });
 
             var project2_v1 = new ProjectVersion
@@ -474,7 +474,7 @@ namespace LS_Projekt_ASP_2026.Data
                 Comments = new List<TimecodedComment>()
             };
 
-            project2.Versions.AddRange(new[] { project2_v1, project2_v2 });
+            AddItems(project2.Versions, project2_v1, project2_v2);
             _projectVersions.AddRange(new[] { project2_v1, project2_v2 });
 
             var project3_v1 = new ProjectVersion
@@ -511,7 +511,7 @@ namespace LS_Projekt_ASP_2026.Data
                 Comments = new List<TimecodedComment>()
             };
 
-            project3.Versions.AddRange(new[] { project3_v1, project3_v2 });
+            AddItems(project3.Versions, project3_v1, project3_v2);
             _projectVersions.AddRange(new[] { project3_v1, project3_v2 });
 
             // ============== KOMENTARI ==============
@@ -545,7 +545,7 @@ namespace LS_Projekt_ASP_2026.Data
                 Author = client1
             };
 
-            project1_v1.Comments.AddRange(new[] { comment1_1, comment1_2 });
+            AddItems(project1_v1.Comments, comment1_1, comment1_2);
             _timecodedComments.AddRange(new[] { comment1_1, comment1_2 });
 
             // Dodatni komentari...
@@ -575,7 +575,7 @@ namespace LS_Projekt_ASP_2026.Data
             return _bookings.OrderByDescending(b => b.StartTime).ToList();
         }
 
-        public Booking GetBookingById(int id)
+        public Booking? GetBookingById(int id)
         {
             return _bookings.FirstOrDefault(b => b.Id == id);
         }
@@ -638,7 +638,7 @@ namespace LS_Projekt_ASP_2026.Data
             return _clients.OrderBy(c => c.Name).ToList();
         }
 
-        public Client GetClientById(int id)
+        public Client? GetClientById(int id)
         {
             return _clients.FirstOrDefault(c => c.Id == id);
         }
@@ -661,7 +661,7 @@ namespace LS_Projekt_ASP_2026.Data
             return _producers.OrderBy(p => p.Name).ToList();
         }
 
-        public Producer GetProducerById(int id)
+        public Producer? GetProducerById(int id)
         {
             return _producers.FirstOrDefault(p => p.Id == id);
         }
@@ -673,7 +673,7 @@ namespace LS_Projekt_ASP_2026.Data
             return _studioRooms.OrderBy(s => s.Name).ToList();
         }
 
-        public StudioRoom GetStudioRoomById(int id)
+        public StudioRoom? GetStudioRoomById(int id)
         {
             return _studioRooms.FirstOrDefault(s => s.Id == id);
         }
@@ -685,7 +685,7 @@ namespace LS_Projekt_ASP_2026.Data
             return _audioProjects.OrderByDescending(p => p.CreatedAt).ToList();
         }
 
-        public AudioProject GetProjectById(int id)
+        public AudioProject? GetProjectById(int id)
         {
             return _audioProjects.FirstOrDefault(p => p.Id == id);
         }
@@ -696,6 +696,14 @@ namespace LS_Projekt_ASP_2026.Data
                 .Where(pv => pv.ProjectId == projectId)
                 .OrderByDescending(pv => pv.VersionNumber)
                 .ToList();
+        }
+
+        private static void AddItems<T>(ICollection<T> target, params T[] items)
+        {
+            foreach (var item in items)
+            {
+                target.Add(item);
+            }
         }
     }
 }

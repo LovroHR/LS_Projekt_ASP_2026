@@ -1,0 +1,107 @@
+[2026-05-06 13:09:05.475 +02:00] [INF] === Aplikacija pokrenuta ===
+[2026-05-06 13:09:05.711 +02:00] [DBG] Registered model binder providers, in the following order: ["Microsoft.AspNetCore.Mvc.ModelBinding.Binders.BinderTypeModelBinderProvider","Microsoft.AspNetCore.Mvc.ModelBinding.Binders.ServicesModelBinderProvider","Microsoft.AspNetCore.Mvc.ModelBinding.Binders.BodyModelBinderProvider","Microsoft.AspNetCore.Mvc.ModelBinding.Binders.HeaderModelBinderProvider","Microsoft.AspNetCore.Mvc.ModelBinding.Binders.FloatingPointTypeModelBinderProvider","Microsoft.AspNetCore.Mvc.ModelBinding.Binders.EnumTypeModelBinderProvider","Microsoft.AspNetCore.Mvc.ModelBinding.Binders.DateTimeModelBinderProvider","Microsoft.AspNetCore.Mvc.ModelBinding.Binders.SimpleTypeModelBinderProvider","Microsoft.AspNetCore.Mvc.ModelBinding.Binders.TryParseModelBinderProvider","Microsoft.AspNetCore.Mvc.ModelBinding.Binders.CancellationTokenModelBinderProvider","Microsoft.AspNetCore.Mvc.ModelBinding.Binders.ByteArrayModelBinderProvider","Microsoft.AspNetCore.Mvc.ModelBinding.Binders.FormFileModelBinderProvider","Microsoft.AspNetCore.Mvc.ModelBinding.Binders.FormCollectionModelBinderProvider","Microsoft.AspNetCore.Mvc.ModelBinding.Binders.KeyValuePairModelBinderProvider","Microsoft.AspNetCore.Mvc.ModelBinding.Binders.DictionaryModelBinderProvider","Microsoft.AspNetCore.Mvc.ModelBinding.Binders.ArrayModelBinderProvider","Microsoft.AspNetCore.Mvc.ModelBinding.Binders.CollectionModelBinderProvider","Microsoft.AspNetCore.Mvc.ModelBinding.Binders.ComplexObjectModelBinderProvider"]
+[2026-05-06 13:09:05.720 +02:00] [DBG] Initializing Razor view compiler with compiled view: '/Pages/Auth/Login.cshtml'.
+[2026-05-06 13:09:05.720 +02:00] [DBG] Initializing Razor view compiler with compiled view: '/Pages/Auth/Register.cshtml'.
+[2026-05-06 13:09:05.720 +02:00] [DBG] Initializing Razor view compiler with compiled view: '/Pages/Bookings/Create.cshtml'.
+[2026-05-06 13:09:05.720 +02:00] [DBG] Initializing Razor view compiler with compiled view: '/Pages/Bookings/Index.cshtml'.
+[2026-05-06 13:09:05.720 +02:00] [DBG] Initializing Razor view compiler with compiled view: '/Pages/Error.cshtml'.
+[2026-05-06 13:09:05.720 +02:00] [DBG] Initializing Razor view compiler with compiled view: '/Pages/Index.cshtml'.
+[2026-05-06 13:09:05.720 +02:00] [DBG] Initializing Razor view compiler with compiled view: '/Pages/Privacy.cshtml'.
+[2026-05-06 13:09:05.720 +02:00] [DBG] Initializing Razor view compiler with compiled view: '/Pages/Projects/Index.cshtml'.
+[2026-05-06 13:09:05.720 +02:00] [DBG] Initializing Razor view compiler with compiled view: '/Pages/Shared/_ValidationScriptsPartial.cshtml'.
+[2026-05-06 13:09:05.720 +02:00] [DBG] Initializing Razor view compiler with compiled view: '/Pages/_ViewImports.cshtml'.
+[2026-05-06 13:09:05.720 +02:00] [DBG] Initializing Razor view compiler with compiled view: '/Pages/_ViewStart.cshtml'.
+[2026-05-06 13:09:05.720 +02:00] [DBG] Initializing Razor view compiler with compiled view: '/Pages/Shared/_Layout.cshtml'.
+[2026-05-06 13:09:05.733 +02:00] [INF] User profile is available. Using 'C:\Users\sablj.DESKTOP-J4MDVVB\AppData\Local\ASP.NET\DataProtection-Keys' as key repository and Windows DPAPI to encrypt keys at rest.
+[2026-05-06 13:09:05.771 +02:00] [INF] Počinje slušanje na portu...
+[2026-05-06 13:09:05.773 +02:00] [DBG] Hosting starting
+[2026-05-06 13:09:05.779 +02:00] [DBG] Reading data from file 'C:\Users\sablj.DESKTOP-J4MDVVB\AppData\Local\ASP.NET\DataProtection-Keys\key-d4079a41-264a-4c2b-9d2b-bef7cc0630d9.xml'.
+[2026-05-06 13:09:05.786 +02:00] [DBG] Found key {d4079a41-264a-4c2b-9d2b-bef7cc0630d9}.
+[2026-05-06 13:09:05.795 +02:00] [DBG] Considering key {d4079a41-264a-4c2b-9d2b-bef7cc0630d9} with expiration date 2026-08-03 21:10:22Z as default key.
+[2026-05-06 13:09:05.796 +02:00] [DBG] Forwarded activator type request from Microsoft.AspNetCore.DataProtection.XmlEncryption.DpapiXmlDecryptor, Microsoft.AspNetCore.DataProtection, Version=10.0.0.0, Culture=neutral, PublicKeyToken=adb9793829ddae60 to Microsoft.AspNetCore.DataProtection.XmlEncryption.DpapiXmlDecryptor, Microsoft.AspNetCore.DataProtection, Culture=neutral, PublicKeyToken=adb9793829ddae60
+[2026-05-06 13:09:05.797 +02:00] [DBG] Decrypting secret element using Windows DPAPI.
+[2026-05-06 13:09:05.798 +02:00] [DBG] Forwarded activator type request from Microsoft.AspNetCore.DataProtection.AuthenticatedEncryption.ConfigurationModel.AuthenticatedEncryptorDescriptorDeserializer, Microsoft.AspNetCore.DataProtection, Version=10.0.0.0, Culture=neutral, PublicKeyToken=adb9793829ddae60 to Microsoft.AspNetCore.DataProtection.AuthenticatedEncryption.ConfigurationModel.AuthenticatedEncryptorDescriptorDeserializer, Microsoft.AspNetCore.DataProtection, Culture=neutral, PublicKeyToken=adb9793829ddae60
+[2026-05-06 13:09:05.800 +02:00] [DBG] Opening CNG algorithm 'AES' from provider 'null' with chaining mode CBC.
+[2026-05-06 13:09:05.801 +02:00] [DBG] Opening CNG algorithm 'SHA256' from provider 'null' with HMAC.
+[2026-05-06 13:09:05.802 +02:00] [DBG] Using key {d4079a41-264a-4c2b-9d2b-bef7cc0630d9} as the default key.
+[2026-05-06 13:09:05.803 +02:00] [DBG] Key ring with default key {d4079a41-264a-4c2b-9d2b-bef7cc0630d9} was loaded during application startup.
+[2026-05-06 13:09:05.816 +02:00] [DBG] Middleware configuration started with options: {AllowedHosts = *, AllowEmptyHosts = True, IncludeFailureMessage = True}
+[2026-05-06 13:09:05.817 +02:00] [DBG] Wildcard detected, all requests with hosts will be allowed.
+[2026-05-06 13:09:05.829 +02:00] [INF] Now listening on: http://localhost:5067
+[2026-05-06 13:09:05.829 +02:00] [DBG] Loaded hosting startup assembly LS_Projekt_ASP_2026
+[2026-05-06 13:09:05.830 +02:00] [INF] Application started. Press Ctrl+C to shut down.
+[2026-05-06 13:09:05.830 +02:00] [INF] Hosting environment: Development
+[2026-05-06 13:09:05.830 +02:00] [INF] Content root path: E:\LOVRO\FAKS\ASP\LS_Projekt_ASP_2026\LS_Projekt_ASP_2026
+[2026-05-06 13:09:05.830 +02:00] [DBG] Hosting started
+[2026-05-06 13:10:58.533 +02:00] [INF] === Aplikacija pokrenuta ===
+[2026-05-06 13:10:58.734 +02:00] [DBG] Registered model binder providers, in the following order: ["Microsoft.AspNetCore.Mvc.ModelBinding.Binders.BinderTypeModelBinderProvider","Microsoft.AspNetCore.Mvc.ModelBinding.Binders.ServicesModelBinderProvider","Microsoft.AspNetCore.Mvc.ModelBinding.Binders.BodyModelBinderProvider","Microsoft.AspNetCore.Mvc.ModelBinding.Binders.HeaderModelBinderProvider","Microsoft.AspNetCore.Mvc.ModelBinding.Binders.FloatingPointTypeModelBinderProvider","Microsoft.AspNetCore.Mvc.ModelBinding.Binders.EnumTypeModelBinderProvider","Microsoft.AspNetCore.Mvc.ModelBinding.Binders.DateTimeModelBinderProvider","Microsoft.AspNetCore.Mvc.ModelBinding.Binders.SimpleTypeModelBinderProvider","Microsoft.AspNetCore.Mvc.ModelBinding.Binders.TryParseModelBinderProvider","Microsoft.AspNetCore.Mvc.ModelBinding.Binders.CancellationTokenModelBinderProvider","Microsoft.AspNetCore.Mvc.ModelBinding.Binders.ByteArrayModelBinderProvider","Microsoft.AspNetCore.Mvc.ModelBinding.Binders.FormFileModelBinderProvider","Microsoft.AspNetCore.Mvc.ModelBinding.Binders.FormCollectionModelBinderProvider","Microsoft.AspNetCore.Mvc.ModelBinding.Binders.KeyValuePairModelBinderProvider","Microsoft.AspNetCore.Mvc.ModelBinding.Binders.DictionaryModelBinderProvider","Microsoft.AspNetCore.Mvc.ModelBinding.Binders.ArrayModelBinderProvider","Microsoft.AspNetCore.Mvc.ModelBinding.Binders.CollectionModelBinderProvider","Microsoft.AspNetCore.Mvc.ModelBinding.Binders.ComplexObjectModelBinderProvider"]
+[2026-05-06 13:10:58.742 +02:00] [DBG] Initializing Razor view compiler with compiled view: '/Pages/Auth/Login.cshtml'.
+[2026-05-06 13:10:58.743 +02:00] [DBG] Initializing Razor view compiler with compiled view: '/Pages/Auth/Register.cshtml'.
+[2026-05-06 13:10:58.743 +02:00] [DBG] Initializing Razor view compiler with compiled view: '/Pages/Bookings/Create.cshtml'.
+[2026-05-06 13:10:58.743 +02:00] [DBG] Initializing Razor view compiler with compiled view: '/Pages/Bookings/Index.cshtml'.
+[2026-05-06 13:10:58.743 +02:00] [DBG] Initializing Razor view compiler with compiled view: '/Pages/Error.cshtml'.
+[2026-05-06 13:10:58.743 +02:00] [DBG] Initializing Razor view compiler with compiled view: '/Pages/Index.cshtml'.
+[2026-05-06 13:10:58.743 +02:00] [DBG] Initializing Razor view compiler with compiled view: '/Pages/Privacy.cshtml'.
+[2026-05-06 13:10:58.743 +02:00] [DBG] Initializing Razor view compiler with compiled view: '/Pages/Projects/Index.cshtml'.
+[2026-05-06 13:10:58.743 +02:00] [DBG] Initializing Razor view compiler with compiled view: '/Pages/Shared/_ValidationScriptsPartial.cshtml'.
+[2026-05-06 13:10:58.743 +02:00] [DBG] Initializing Razor view compiler with compiled view: '/Pages/_ViewImports.cshtml'.
+[2026-05-06 13:10:58.743 +02:00] [DBG] Initializing Razor view compiler with compiled view: '/Pages/_ViewStart.cshtml'.
+[2026-05-06 13:10:58.743 +02:00] [DBG] Initializing Razor view compiler with compiled view: '/Pages/Shared/_Layout.cshtml'.
+[2026-05-06 13:10:58.755 +02:00] [INF] User profile is available. Using 'C:\Users\sablj.DESKTOP-J4MDVVB\AppData\Local\ASP.NET\DataProtection-Keys' as key repository and Windows DPAPI to encrypt keys at rest.
+[2026-05-06 13:10:58.793 +02:00] [INF] Počinje slušanje na portu...
+[2026-05-06 13:10:58.795 +02:00] [DBG] Hosting starting
+[2026-05-06 13:10:58.802 +02:00] [DBG] Reading data from file 'C:\Users\sablj.DESKTOP-J4MDVVB\AppData\Local\ASP.NET\DataProtection-Keys\key-d4079a41-264a-4c2b-9d2b-bef7cc0630d9.xml'.
+[2026-05-06 13:10:58.808 +02:00] [DBG] Found key {d4079a41-264a-4c2b-9d2b-bef7cc0630d9}.
+[2026-05-06 13:10:58.817 +02:00] [DBG] Considering key {d4079a41-264a-4c2b-9d2b-bef7cc0630d9} with expiration date 2026-08-03 21:10:22Z as default key.
+[2026-05-06 13:10:58.819 +02:00] [DBG] Forwarded activator type request from Microsoft.AspNetCore.DataProtection.XmlEncryption.DpapiXmlDecryptor, Microsoft.AspNetCore.DataProtection, Version=10.0.0.0, Culture=neutral, PublicKeyToken=adb9793829ddae60 to Microsoft.AspNetCore.DataProtection.XmlEncryption.DpapiXmlDecryptor, Microsoft.AspNetCore.DataProtection, Culture=neutral, PublicKeyToken=adb9793829ddae60
+[2026-05-06 13:10:58.820 +02:00] [DBG] Decrypting secret element using Windows DPAPI.
+[2026-05-06 13:10:58.821 +02:00] [DBG] Forwarded activator type request from Microsoft.AspNetCore.DataProtection.AuthenticatedEncryption.ConfigurationModel.AuthenticatedEncryptorDescriptorDeserializer, Microsoft.AspNetCore.DataProtection, Version=10.0.0.0, Culture=neutral, PublicKeyToken=adb9793829ddae60 to Microsoft.AspNetCore.DataProtection.AuthenticatedEncryption.ConfigurationModel.AuthenticatedEncryptorDescriptorDeserializer, Microsoft.AspNetCore.DataProtection, Culture=neutral, PublicKeyToken=adb9793829ddae60
+[2026-05-06 13:10:58.823 +02:00] [DBG] Opening CNG algorithm 'AES' from provider 'null' with chaining mode CBC.
+[2026-05-06 13:10:58.823 +02:00] [DBG] Opening CNG algorithm 'SHA256' from provider 'null' with HMAC.
+[2026-05-06 13:10:58.824 +02:00] [DBG] Using key {d4079a41-264a-4c2b-9d2b-bef7cc0630d9} as the default key.
+[2026-05-06 13:10:58.825 +02:00] [DBG] Key ring with default key {d4079a41-264a-4c2b-9d2b-bef7cc0630d9} was loaded during application startup.
+[2026-05-06 13:10:58.840 +02:00] [DBG] Middleware configuration started with options: {AllowedHosts = *, AllowEmptyHosts = True, IncludeFailureMessage = True}
+[2026-05-06 13:10:58.841 +02:00] [DBG] Wildcard detected, all requests with hosts will be allowed.
+[2026-05-06 13:10:58.855 +02:00] [DBG] No listening endpoints were configured. Binding to http://localhost:5000 by default.
+[2026-05-06 13:10:58.856 +02:00] [INF] Now listening on: http://localhost:5000
+[2026-05-06 13:10:58.856 +02:00] [DBG] Loaded hosting startup assembly LS_Projekt_ASP_2026
+[2026-05-06 13:10:58.856 +02:00] [INF] Application started. Press Ctrl+C to shut down.
+[2026-05-06 13:10:58.856 +02:00] [INF] Hosting environment: Production
+[2026-05-06 13:10:58.856 +02:00] [INF] Content root path: E:\LOVRO\FAKS\ASP\LS_Projekt_ASP_2026\LS_Projekt_ASP_2026
+[2026-05-06 13:10:58.856 +02:00] [DBG] Hosting started
+[2026-05-06 13:11:56.368 +02:00] [INF] === Aplikacija pokrenuta ===
+[2026-05-06 13:11:56.541 +02:00] [DBG] Registered model binder providers, in the following order: ["Microsoft.AspNetCore.Mvc.ModelBinding.Binders.BinderTypeModelBinderProvider","Microsoft.AspNetCore.Mvc.ModelBinding.Binders.ServicesModelBinderProvider","Microsoft.AspNetCore.Mvc.ModelBinding.Binders.BodyModelBinderProvider","Microsoft.AspNetCore.Mvc.ModelBinding.Binders.HeaderModelBinderProvider","Microsoft.AspNetCore.Mvc.ModelBinding.Binders.FloatingPointTypeModelBinderProvider","Microsoft.AspNetCore.Mvc.ModelBinding.Binders.EnumTypeModelBinderProvider","Microsoft.AspNetCore.Mvc.ModelBinding.Binders.DateTimeModelBinderProvider","Microsoft.AspNetCore.Mvc.ModelBinding.Binders.SimpleTypeModelBinderProvider","Microsoft.AspNetCore.Mvc.ModelBinding.Binders.TryParseModelBinderProvider","Microsoft.AspNetCore.Mvc.ModelBinding.Binders.CancellationTokenModelBinderProvider","Microsoft.AspNetCore.Mvc.ModelBinding.Binders.ByteArrayModelBinderProvider","Microsoft.AspNetCore.Mvc.ModelBinding.Binders.FormFileModelBinderProvider","Microsoft.AspNetCore.Mvc.ModelBinding.Binders.FormCollectionModelBinderProvider","Microsoft.AspNetCore.Mvc.ModelBinding.Binders.KeyValuePairModelBinderProvider","Microsoft.AspNetCore.Mvc.ModelBinding.Binders.DictionaryModelBinderProvider","Microsoft.AspNetCore.Mvc.ModelBinding.Binders.ArrayModelBinderProvider","Microsoft.AspNetCore.Mvc.ModelBinding.Binders.CollectionModelBinderProvider","Microsoft.AspNetCore.Mvc.ModelBinding.Binders.ComplexObjectModelBinderProvider"]
+[2026-05-06 13:11:56.550 +02:00] [DBG] Initializing Razor view compiler with compiled view: '/Pages/Auth/Login.cshtml'.
+[2026-05-06 13:11:56.550 +02:00] [DBG] Initializing Razor view compiler with compiled view: '/Pages/Auth/Register.cshtml'.
+[2026-05-06 13:11:56.550 +02:00] [DBG] Initializing Razor view compiler with compiled view: '/Pages/Bookings/Create.cshtml'.
+[2026-05-06 13:11:56.550 +02:00] [DBG] Initializing Razor view compiler with compiled view: '/Pages/Bookings/Index.cshtml'.
+[2026-05-06 13:11:56.550 +02:00] [DBG] Initializing Razor view compiler with compiled view: '/Pages/Error.cshtml'.
+[2026-05-06 13:11:56.550 +02:00] [DBG] Initializing Razor view compiler with compiled view: '/Pages/Index.cshtml'.
+[2026-05-06 13:11:56.550 +02:00] [DBG] Initializing Razor view compiler with compiled view: '/Pages/Privacy.cshtml'.
+[2026-05-06 13:11:56.550 +02:00] [DBG] Initializing Razor view compiler with compiled view: '/Pages/Projects/Index.cshtml'.
+[2026-05-06 13:11:56.550 +02:00] [DBG] Initializing Razor view compiler with compiled view: '/Pages/Shared/_ValidationScriptsPartial.cshtml'.
+[2026-05-06 13:11:56.550 +02:00] [DBG] Initializing Razor view compiler with compiled view: '/Pages/_ViewImports.cshtml'.
+[2026-05-06 13:11:56.550 +02:00] [DBG] Initializing Razor view compiler with compiled view: '/Pages/_ViewStart.cshtml'.
+[2026-05-06 13:11:56.550 +02:00] [DBG] Initializing Razor view compiler with compiled view: '/Pages/Shared/_Layout.cshtml'.
+[2026-05-06 13:11:56.563 +02:00] [INF] User profile is available. Using 'C:\Users\sablj.DESKTOP-J4MDVVB\AppData\Local\ASP.NET\DataProtection-Keys' as key repository and Windows DPAPI to encrypt keys at rest.
+[2026-05-06 13:11:56.599 +02:00] [INF] Počinje slušanje na portu...
+[2026-05-06 13:11:56.601 +02:00] [DBG] Hosting starting
+[2026-05-06 13:11:56.607 +02:00] [DBG] Reading data from file 'C:\Users\sablj.DESKTOP-J4MDVVB\AppData\Local\ASP.NET\DataProtection-Keys\key-d4079a41-264a-4c2b-9d2b-bef7cc0630d9.xml'.
+[2026-05-06 13:11:56.614 +02:00] [DBG] Found key {d4079a41-264a-4c2b-9d2b-bef7cc0630d9}.
+[2026-05-06 13:11:56.623 +02:00] [DBG] Considering key {d4079a41-264a-4c2b-9d2b-bef7cc0630d9} with expiration date 2026-08-03 21:10:22Z as default key.
+[2026-05-06 13:11:56.624 +02:00] [DBG] Forwarded activator type request from Microsoft.AspNetCore.DataProtection.XmlEncryption.DpapiXmlDecryptor, Microsoft.AspNetCore.DataProtection, Version=10.0.0.0, Culture=neutral, PublicKeyToken=adb9793829ddae60 to Microsoft.AspNetCore.DataProtection.XmlEncryption.DpapiXmlDecryptor, Microsoft.AspNetCore.DataProtection, Culture=neutral, PublicKeyToken=adb9793829ddae60
+[2026-05-06 13:11:56.625 +02:00] [DBG] Decrypting secret element using Windows DPAPI.
+[2026-05-06 13:11:56.626 +02:00] [DBG] Forwarded activator type request from Microsoft.AspNetCore.DataProtection.AuthenticatedEncryption.ConfigurationModel.AuthenticatedEncryptorDescriptorDeserializer, Microsoft.AspNetCore.DataProtection, Version=10.0.0.0, Culture=neutral, PublicKeyToken=adb9793829ddae60 to Microsoft.AspNetCore.DataProtection.AuthenticatedEncryption.ConfigurationModel.AuthenticatedEncryptorDescriptorDeserializer, Microsoft.AspNetCore.DataProtection, Culture=neutral, PublicKeyToken=adb9793829ddae60
+[2026-05-06 13:11:56.628 +02:00] [DBG] Opening CNG algorithm 'AES' from provider 'null' with chaining mode CBC.
+[2026-05-06 13:11:56.629 +02:00] [DBG] Opening CNG algorithm 'SHA256' from provider 'null' with HMAC.
+[2026-05-06 13:11:56.629 +02:00] [DBG] Using key {d4079a41-264a-4c2b-9d2b-bef7cc0630d9} as the default key.
+[2026-05-06 13:11:56.630 +02:00] [DBG] Key ring with default key {d4079a41-264a-4c2b-9d2b-bef7cc0630d9} was loaded during application startup.
+[2026-05-06 13:11:56.641 +02:00] [DBG] Middleware configuration started with options: {AllowedHosts = *, AllowEmptyHosts = True, IncludeFailureMessage = True}
+[2026-05-06 13:11:56.642 +02:00] [DBG] Wildcard detected, all requests with hosts will be allowed.
+[2026-05-06 13:11:56.654 +02:00] [DBG] No listening endpoints were configured. Binding to http://localhost:5000 by default.
+[2026-05-06 13:11:56.655 +02:00] [INF] Now listening on: http://localhost:5000
+[2026-05-06 13:11:56.655 +02:00] [DBG] Loaded hosting startup assembly LS_Projekt_ASP_2026
+[2026-05-06 13:11:56.655 +02:00] [INF] Application started. Press Ctrl+C to shut down.
+[2026-05-06 13:11:56.655 +02:00] [INF] Hosting environment: Production
+[2026-05-06 13:11:56.655 +02:00] [INF] Content root path: E:\LOVRO\FAKS\ASP\LS_Projekt_ASP_2026\LS_Projekt_ASP_2026
+[2026-05-06 13:11:56.655 +02:00] [DBG] Hosting started
