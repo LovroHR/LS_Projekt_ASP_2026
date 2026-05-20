@@ -243,3 +243,213 @@ System.Security.Authentication.AuthenticationException: Authentication failed, s
 [2026-05-20 14:32:32.747 +02:00] [DBG] Hosting stopping
 [2026-05-20 14:32:32.752 +02:00] [DBG] Hosting stopped
 [2026-05-20 14:32:32.754 +02:00] [INF] === Aplikacija zaustavljena ===
+[2026-05-20 14:32:41.759 +02:00] [INF] === Aplikacija pokrenuta ===
+[2026-05-20 14:32:42.007 +02:00] [DBG] An 'IServiceProvider' was created for internal use by Entity Framework.
+[2026-05-20 14:32:42.428 +02:00] [DBG] The index {'ProjectId'} was not created on entity type 'ProjectVersion' as the properties are already covered by the index {'ProjectId', 'VersionNumber'}.
+[2026-05-20 14:32:42.612 +02:00] [DBG] Entity Framework Core 10.0.7 initialized 'AppDbContext' using provider 'Microsoft.EntityFrameworkCore.SqlServer:10.0.7' with options: EngineType=SqlServer 
+[2026-05-20 14:32:42.637 +02:00] [DBG] Compiling query expression: 
+'DbSet<Client>()
+    .Any()'
+[2026-05-20 14:32:42.840 +02:00] [DBG] Generated query execution expression: 
+'queryContext => SingleQueryingEnumerable.Create<bool>(
+    relationalQueryContext: (RelationalQueryContext)queryContext, 
+    relationalCommandResolver: parameters => [LIFTABLE Constant: RelationalCommandCache.QueryExpression(
+        Projection Mapping:
+            EmptyProjectionMember -> 0
+        SELECT EXISTS (
+            SELECT 1
+            FROM Users AS u
+            WHERE u.Role == 0)) | Resolver: c => new RelationalCommandCache(
+        c.Dependencies.MemoryCache, 
+        c.RelationalDependencies.QuerySqlGeneratorFactory, 
+        c.RelationalDependencies.RelationalParameterBasedSqlProcessorFactory, 
+        Projection Mapping:
+            EmptyProjectionMember -> 0
+        SELECT EXISTS (
+            SELECT 1
+            FROM Users AS u
+            WHERE u.Role == 0), 
+        False, 
+        MultipleParameters
+    )].GetRelationalCommandTemplate(parameters), 
+    readerColumns: null, 
+    shaper: (queryContext, dataReader, resultContext, resultCoordinator) => 
+    {
+        bool? value1;
+        value1 = dataReader.IsDBNull(0) ? default(bool?) : (bool?)dataReader.GetBoolean(0);
+        return (bool)value1;
+    }, 
+    contextType: LS_Projekt_ASP_2026.Data.AppDbContext, 
+    standAloneStateManager: False, 
+    detailedErrorsEnabled: False, 
+    threadSafetyChecksEnabled: True)
+    .Single()'
+[2026-05-20 14:32:42.871 +02:00] [DBG] Creating DbConnection.
+[2026-05-20 14:32:42.888 +02:00] [DBG] Created DbConnection. (15ms).
+[2026-05-20 14:32:42.890 +02:00] [DBG] Opening connection to database 'LS_Projekt_ASP_2026_Db' on server 'localhost,1433'.
+[2026-05-20 14:32:43.018 +02:00] [DBG] Opened connection to database 'LS_Projekt_ASP_2026_Db' on server 'localhost,1433'.
+[2026-05-20 14:32:43.020 +02:00] [DBG] Creating DbCommand for 'ExecuteReader'.
+[2026-05-20 14:32:43.025 +02:00] [DBG] Created DbCommand for 'ExecuteReader' (3ms).
+[2026-05-20 14:32:43.026 +02:00] [DBG] Initialized DbCommand for 'ExecuteReader' (7ms).
+[2026-05-20 14:32:43.031 +02:00] [DBG] Executing DbCommand [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT CASE
+    WHEN EXISTS (
+        SELECT 1
+        FROM [Users] AS [u]
+        WHERE [u].[Role] = 0) THEN CAST(1 AS bit)
+    ELSE CAST(0 AS bit)
+END
+[2026-05-20 14:32:43.053 +02:00] [INF] Executed DbCommand (22ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT CASE
+    WHEN EXISTS (
+        SELECT 1
+        FROM [Users] AS [u]
+        WHERE [u].[Role] = 0) THEN CAST(1 AS bit)
+    ELSE CAST(0 AS bit)
+END
+[2026-05-20 14:32:43.062 +02:00] [DBG] Closing data reader to 'LS_Projekt_ASP_2026_Db' on server 'localhost,1433'.
+[2026-05-20 14:32:43.067 +02:00] [DBG] A data reader for 'LS_Projekt_ASP_2026_Db' on server 'localhost,1433' is being disposed after spending 10ms reading results.
+[2026-05-20 14:32:43.068 +02:00] [DBG] Closing connection to database 'LS_Projekt_ASP_2026_Db' on server 'localhost,1433'.
+[2026-05-20 14:32:43.074 +02:00] [DBG] Closed connection to database 'LS_Projekt_ASP_2026_Db' on server 'localhost,1433' (5ms).
+[2026-05-20 14:32:43.075 +02:00] [DBG] 'AppDbContext' disposed.
+[2026-05-20 14:32:43.076 +02:00] [DBG] Disposing connection to database 'LS_Projekt_ASP_2026_Db' on server 'localhost,1433'.
+[2026-05-20 14:32:43.077 +02:00] [DBG] Disposed connection to database '' on server '' (0ms).
+[2026-05-20 14:32:43.077 +02:00] [INF] Seed podaci su učitani u bazu
+[2026-05-20 14:32:43.096 +02:00] [DBG] Registered model binder providers, in the following order: ["Microsoft.AspNetCore.Mvc.ModelBinding.Binders.BinderTypeModelBinderProvider","Microsoft.AspNetCore.Mvc.ModelBinding.Binders.ServicesModelBinderProvider","Microsoft.AspNetCore.Mvc.ModelBinding.Binders.BodyModelBinderProvider","Microsoft.AspNetCore.Mvc.ModelBinding.Binders.HeaderModelBinderProvider","Microsoft.AspNetCore.Mvc.ModelBinding.Binders.FloatingPointTypeModelBinderProvider","Microsoft.AspNetCore.Mvc.ModelBinding.Binders.EnumTypeModelBinderProvider","Microsoft.AspNetCore.Mvc.ModelBinding.Binders.DateTimeModelBinderProvider","Microsoft.AspNetCore.Mvc.ModelBinding.Binders.SimpleTypeModelBinderProvider","Microsoft.AspNetCore.Mvc.ModelBinding.Binders.TryParseModelBinderProvider","Microsoft.AspNetCore.Mvc.ModelBinding.Binders.CancellationTokenModelBinderProvider","Microsoft.AspNetCore.Mvc.ModelBinding.Binders.ByteArrayModelBinderProvider","Microsoft.AspNetCore.Mvc.ModelBinding.Binders.FormFileModelBinderProvider","Microsoft.AspNetCore.Mvc.ModelBinding.Binders.FormCollectionModelBinderProvider","Microsoft.AspNetCore.Mvc.ModelBinding.Binders.KeyValuePairModelBinderProvider","Microsoft.AspNetCore.Mvc.ModelBinding.Binders.DictionaryModelBinderProvider","Microsoft.AspNetCore.Mvc.ModelBinding.Binders.ArrayModelBinderProvider","Microsoft.AspNetCore.Mvc.ModelBinding.Binders.CollectionModelBinderProvider","Microsoft.AspNetCore.Mvc.ModelBinding.Binders.ComplexObjectModelBinderProvider"]
+[2026-05-20 14:32:43.101 +02:00] [DBG] Initializing Razor view compiler with compiled view: '/Pages/Auth/Login.cshtml'.
+[2026-05-20 14:32:43.101 +02:00] [DBG] Initializing Razor view compiler with compiled view: '/Pages/Auth/Register.cshtml'.
+[2026-05-20 14:32:43.101 +02:00] [DBG] Initializing Razor view compiler with compiled view: '/Pages/Bookings/Create.cshtml'.
+[2026-05-20 14:32:43.102 +02:00] [DBG] Initializing Razor view compiler with compiled view: '/Pages/Bookings/Index.cshtml'.
+[2026-05-20 14:32:43.102 +02:00] [DBG] Initializing Razor view compiler with compiled view: '/Pages/Error.cshtml'.
+[2026-05-20 14:32:43.102 +02:00] [DBG] Initializing Razor view compiler with compiled view: '/Pages/Index.cshtml'.
+[2026-05-20 14:32:43.102 +02:00] [DBG] Initializing Razor view compiler with compiled view: '/Pages/Privacy.cshtml'.
+[2026-05-20 14:32:43.102 +02:00] [DBG] Initializing Razor view compiler with compiled view: '/Pages/Producers/Index.cshtml'.
+[2026-05-20 14:32:43.102 +02:00] [DBG] Initializing Razor view compiler with compiled view: '/Pages/Projects/Index.cshtml'.
+[2026-05-20 14:32:43.102 +02:00] [DBG] Initializing Razor view compiler with compiled view: '/Pages/Shared/_ValidationScriptsPartial.cshtml'.
+[2026-05-20 14:32:43.102 +02:00] [DBG] Initializing Razor view compiler with compiled view: '/Pages/_ViewImports.cshtml'.
+[2026-05-20 14:32:43.102 +02:00] [DBG] Initializing Razor view compiler with compiled view: '/Pages/_ViewStart.cshtml'.
+[2026-05-20 14:32:43.102 +02:00] [DBG] Initializing Razor view compiler with compiled view: '/Pages/Shared/_Layout.cshtml'.
+[2026-05-20 14:32:43.109 +02:00] [INF] User profile is available. Using 'C:\Users\sablj.DESKTOP-J4MDVVB\AppData\Local\ASP.NET\DataProtection-Keys' as key repository and Windows DPAPI to encrypt keys at rest.
+[2026-05-20 14:32:43.150 +02:00] [INF] Počinje slušanje na portu...
+[2026-05-20 14:32:43.153 +02:00] [DBG] Hosting starting
+[2026-05-20 14:32:43.159 +02:00] [DBG] Reading data from file 'C:\Users\sablj.DESKTOP-J4MDVVB\AppData\Local\ASP.NET\DataProtection-Keys\key-d4079a41-264a-4c2b-9d2b-bef7cc0630d9.xml'.
+[2026-05-20 14:32:43.162 +02:00] [DBG] Found key {d4079a41-264a-4c2b-9d2b-bef7cc0630d9}.
+[2026-05-20 14:32:43.171 +02:00] [DBG] Considering key {d4079a41-264a-4c2b-9d2b-bef7cc0630d9} with expiration date 2026-08-03 21:10:22Z as default key.
+[2026-05-20 14:32:43.172 +02:00] [DBG] Forwarded activator type request from Microsoft.AspNetCore.DataProtection.XmlEncryption.DpapiXmlDecryptor, Microsoft.AspNetCore.DataProtection, Version=10.0.0.0, Culture=neutral, PublicKeyToken=adb9793829ddae60 to Microsoft.AspNetCore.DataProtection.XmlEncryption.DpapiXmlDecryptor, Microsoft.AspNetCore.DataProtection, Culture=neutral, PublicKeyToken=adb9793829ddae60
+[2026-05-20 14:32:43.172 +02:00] [DBG] Decrypting secret element using Windows DPAPI.
+[2026-05-20 14:32:43.173 +02:00] [DBG] Forwarded activator type request from Microsoft.AspNetCore.DataProtection.AuthenticatedEncryption.ConfigurationModel.AuthenticatedEncryptorDescriptorDeserializer, Microsoft.AspNetCore.DataProtection, Version=10.0.0.0, Culture=neutral, PublicKeyToken=adb9793829ddae60 to Microsoft.AspNetCore.DataProtection.AuthenticatedEncryption.ConfigurationModel.AuthenticatedEncryptorDescriptorDeserializer, Microsoft.AspNetCore.DataProtection, Culture=neutral, PublicKeyToken=adb9793829ddae60
+[2026-05-20 14:32:43.174 +02:00] [DBG] Opening CNG algorithm 'AES' from provider 'null' with chaining mode CBC.
+[2026-05-20 14:32:43.175 +02:00] [DBG] Opening CNG algorithm 'SHA256' from provider 'null' with HMAC.
+[2026-05-20 14:32:43.175 +02:00] [DBG] Using key {d4079a41-264a-4c2b-9d2b-bef7cc0630d9} as the default key.
+[2026-05-20 14:32:43.176 +02:00] [DBG] Key ring with default key {d4079a41-264a-4c2b-9d2b-bef7cc0630d9} was loaded during application startup.
+[2026-05-20 14:32:43.188 +02:00] [DBG] Middleware configuration started with options: {AllowedHosts = *, AllowEmptyHosts = True, IncludeFailureMessage = True}
+[2026-05-20 14:32:43.189 +02:00] [DBG] Wildcard detected, all requests with hosts will be allowed.
+[2026-05-20 14:32:43.200 +02:00] [INF] Now listening on: http://localhost:5001
+[2026-05-20 14:32:43.200 +02:00] [DBG] Loaded hosting startup assembly LS_Projekt_ASP_2026
+[2026-05-20 14:32:43.200 +02:00] [INF] Application started. Press Ctrl+C to shut down.
+[2026-05-20 14:32:43.201 +02:00] [INF] Hosting environment: Development
+[2026-05-20 14:32:43.201 +02:00] [INF] Content root path: E:\LOVRO\FAKS\ASP\LS_Projekt_ASP_2026\LS_Projekt_ASP_2026
+[2026-05-20 14:32:43.201 +02:00] [DBG] Hosting started
+[2026-05-20 14:33:34.239 +02:00] [DBG] Connection id "0HNLMDG12OQTC" accepted.
+[2026-05-20 14:33:34.239 +02:00] [DBG] Connection id "0HNLMDG12OQTC" started.
+[2026-05-20 14:33:34.282 +02:00] [INF] Request starting HTTP/1.1 GET http://localhost:5001/ - null null
+[2026-05-20 14:33:34.286 +02:00] [WRN] Failed to determine the https port for redirect.
+[2026-05-20 14:33:34.289 +02:00] [DBG] The request path / does not match a supported file type
+[2026-05-20 14:33:34.322 +02:00] [DBG] 1 candidate(s) found for the request path '/'
+[2026-05-20 14:33:34.322 +02:00] [DBG] Endpoint '/Index' with route pattern '' is valid for the request path '/'
+[2026-05-20 14:33:34.323 +02:00] [DBG] Request matched endpoint '/Index'
+[2026-05-20 14:33:34.328 +02:00] [INF] Executing endpoint '/Index'
+[2026-05-20 14:33:34.348 +02:00] [INF] Route matched with {page = "/Index", action = "", controller = ""}. Executing page /Index
+[2026-05-20 14:33:34.349 +02:00] [DBG] Execution plan of authorization filters (in the following order): ["Microsoft.AspNetCore.Mvc.ViewFeatures.Filters.AutoValidateAntiforgeryTokenAuthorizationFilter"]
+[2026-05-20 14:33:34.350 +02:00] [DBG] Execution plan of resource filters (in the following order): ["Microsoft.AspNetCore.Mvc.ViewFeatures.Filters.SaveTempDataFilter"]
+[2026-05-20 14:33:34.350 +02:00] [DBG] Execution plan of action filters (in the following order): ["Microsoft.AspNetCore.Mvc.ModelBinding.UnsupportedContentTypeFilter (Order: -3000)"]
+[2026-05-20 14:33:34.350 +02:00] [DBG] Execution plan of exception filters (in the following order): ["None"]
+[2026-05-20 14:33:34.350 +02:00] [DBG] Execution plan of result filters (in the following order): ["Microsoft.AspNetCore.Mvc.ViewFeatures.Filters.SaveTempDataFilter"]
+[2026-05-20 14:33:34.353 +02:00] [DBG] Executing page model factory for page LS_Projekt_ASP_2026.Pages.Pages_Index (LS_Projekt_ASP_2026)
+[2026-05-20 14:33:34.353 +02:00] [DBG] Executed page model factory for page LS_Projekt_ASP_2026.Pages.Pages_Index (LS_Projekt_ASP_2026)
+[2026-05-20 14:33:34.357 +02:00] [INF] Executing handler method LS_Projekt_ASP_2026.Pages.IndexModel.OnGet - ModelState is "Valid"
+[2026-05-20 14:33:34.357 +02:00] [INF] Executed handler method OnGet, returned result .
+[2026-05-20 14:33:34.359 +02:00] [INF] Executing an implicit handler method - ModelState is "Valid"
+[2026-05-20 14:33:34.360 +02:00] [INF] Executed an implicit handler method, returned result Microsoft.AspNetCore.Mvc.RazorPages.PageResult.
+[2026-05-20 14:33:34.387 +02:00] [DBG] View lookup cache miss for view '_Layout' in controller 'null'.
+[2026-05-20 14:33:34.428 +02:00] [DBG] Found the endpoints ["Route: {controller=Home}/{action=Index}/{id?}"] for address (area=[],page=[/])
+[2026-05-20 14:33:34.434 +02:00] [DBG] Successfully processed template {controller=Home}/{action=Index}/{id?} for Route: {controller=Home}/{action=Index}/{id?} resulting in  and ?page=%2F
+[2026-05-20 14:33:34.435 +02:00] [DBG] Link generation succeeded for endpoints ["Route: {controller=Home}/{action=Index}/{id?}"] with result /?page=%2F
+[2026-05-20 14:33:34.437 +02:00] [DBG] Found the endpoints ["/Index","Route: {controller=Home}/{action=Index}/{id?}"] for address (area=[],page=[/Index])
+[2026-05-20 14:33:34.437 +02:00] [DBG] Successfully processed template  for /Index resulting in  and 
+[2026-05-20 14:33:34.438 +02:00] [DBG] Link generation succeeded for endpoints ["/Index","Route: {controller=Home}/{action=Index}/{id?}"] with result /
+[2026-05-20 14:33:34.438 +02:00] [DBG] Found the endpoints ["/Bookings/Index","Route: {controller=Home}/{action=Index}/{id?}"] for address (area=[],page=[/Bookings/Index])
+[2026-05-20 14:33:34.438 +02:00] [DBG] Successfully processed template Bookings for /Bookings/Index resulting in /Bookings and 
+[2026-05-20 14:33:34.438 +02:00] [DBG] Link generation succeeded for endpoints ["/Bookings/Index","Route: {controller=Home}/{action=Index}/{id?}"] with result /Bookings
+[2026-05-20 14:33:34.439 +02:00] [DBG] Found the endpoints ["/Projects/Index","Route: {controller=Home}/{action=Index}/{id?}"] for address (area=[],page=[/Projects/Index])
+[2026-05-20 14:33:34.439 +02:00] [DBG] Successfully processed template Projects for /Projects/Index resulting in /Projects and 
+[2026-05-20 14:33:34.439 +02:00] [DBG] Link generation succeeded for endpoints ["/Projects/Index","Route: {controller=Home}/{action=Index}/{id?}"] with result /Projects
+[2026-05-20 14:33:34.439 +02:00] [DBG] Found the endpoints ["/Producers/Index","Route: {controller=Home}/{action=Index}/{id?}"] for address (area=[],page=[/Producers/Index])
+[2026-05-20 14:33:34.439 +02:00] [DBG] Successfully processed template Producers for /Producers/Index resulting in /Producers and 
+[2026-05-20 14:33:34.439 +02:00] [DBG] Link generation succeeded for endpoints ["/Producers/Index","Route: {controller=Home}/{action=Index}/{id?}"] with result /Producers
+[2026-05-20 14:33:34.439 +02:00] [DBG] Found the endpoints ["/Privacy","Route: {controller=Home}/{action=Index}/{id?}"] for address (area=[],page=[/Privacy])
+[2026-05-20 14:33:34.440 +02:00] [DBG] Successfully processed template Privacy for /Privacy resulting in /Privacy and 
+[2026-05-20 14:33:34.440 +02:00] [DBG] Link generation succeeded for endpoints ["/Privacy","Route: {controller=Home}/{action=Index}/{id?}"] with result /Privacy
+[2026-05-20 14:33:34.440 +02:00] [DBG] Found the endpoints ["/Auth/Login","Route: {controller=Home}/{action=Index}/{id?}"] for address (area=[],page=[/Auth/Login])
+[2026-05-20 14:33:34.440 +02:00] [DBG] Successfully processed template Auth/Login for /Auth/Login resulting in /Auth/Login and 
+[2026-05-20 14:33:34.440 +02:00] [DBG] Link generation succeeded for endpoints ["/Auth/Login","Route: {controller=Home}/{action=Index}/{id?}"] with result /Auth/Login
+[2026-05-20 14:33:34.441 +02:00] [DBG] Found the endpoints ["/Auth/Register","Route: {controller=Home}/{action=Index}/{id?}"] for address (area=[],page=[/Auth/Register])
+[2026-05-20 14:33:34.441 +02:00] [DBG] Successfully processed template Auth/Register for /Auth/Register resulting in /Auth/Register and 
+[2026-05-20 14:33:34.441 +02:00] [DBG] Link generation succeeded for endpoints ["/Auth/Register","Route: {controller=Home}/{action=Index}/{id?}"] with result /Auth/Register
+[2026-05-20 14:33:34.441 +02:00] [DBG] Found the endpoints ["/Privacy","Route: {controller=Home}/{action=Index}/{id?}"] for address (area=[],page=[/Privacy])
+[2026-05-20 14:33:34.441 +02:00] [DBG] Successfully processed template Privacy for /Privacy resulting in /Privacy and 
+[2026-05-20 14:33:34.441 +02:00] [DBG] Link generation succeeded for endpoints ["/Privacy","Route: {controller=Home}/{action=Index}/{id?}"] with result /Privacy
+[2026-05-20 14:33:34.450 +02:00] [INF] Executed page /Index in 97.5126ms
+[2026-05-20 14:33:34.451 +02:00] [INF] Executed endpoint '/Index'
+[2026-05-20 14:33:34.452 +02:00] [DBG] Connection id "0HNLMDG12OQTC" completed keep alive response.
+[2026-05-20 14:33:34.453 +02:00] [INF] Request finished HTTP/1.1 GET http://localhost:5001/ - 200 null text/html; charset=utf-8 173.8592ms
+[2026-05-20 14:33:34.462 +02:00] [DBG] Connection id "0HNLMDG12OQTD" accepted.
+[2026-05-20 14:33:34.462 +02:00] [DBG] Connection id "0HNLMDG12OQTD" started.
+[2026-05-20 14:33:34.463 +02:00] [DBG] Connection id "0HNLMDG12OQTE" accepted.
+[2026-05-20 14:33:34.463 +02:00] [DBG] Connection id "0HNLMDG12OQTE" started.
+[2026-05-20 14:33:34.464 +02:00] [DBG] Connection id "0HNLMDG12OQTF" accepted.
+[2026-05-20 14:33:34.464 +02:00] [DBG] Connection id "0HNLMDG12OQTF" started.
+[2026-05-20 14:33:34.464 +02:00] [INF] Request starting HTTP/1.1 GET http://localhost:5001/lib/bootstrap/dist/css/bootstrap.min.css - null null
+[2026-05-20 14:33:34.465 +02:00] [DBG] Connection id "0HNLMDG12OQTG" accepted.
+[2026-05-20 14:33:34.465 +02:00] [DBG] Connection id "0HNLMDG12OQTG" started.
+[2026-05-20 14:33:34.465 +02:00] [INF] Request starting HTTP/1.1 GET http://localhost:5001/css/site.css?v=j6fhJSuuyLpOSLuPJU0TsDV0iNjor5S3rDnvxJrt4bg - null null
+[2026-05-20 14:33:34.466 +02:00] [DBG] Connection id "0HNLMDG12OQTH" accepted.
+[2026-05-20 14:33:34.466 +02:00] [DBG] Connection id "0HNLMDG12OQTH" started.
+[2026-05-20 14:33:34.467 +02:00] [INF] Request starting HTTP/1.1 GET http://localhost:5001/css/dark-theme.css?v=a6uVcVydu-UaU4LD-7DW5Xup22fseVZGDxQBkJTP_DI - null null
+[2026-05-20 14:33:34.467 +02:00] [INF] Request starting HTTP/1.1 GET http://localhost:5001/LS_Projekt_ASP_2026.styles.css?v=Tjq_kPh8IlJq0V50teUKzxlTBMCCTalpkcQeopA8Qhk - null null
+[2026-05-20 14:33:34.467 +02:00] [INF] Request starting HTTP/1.1 GET http://localhost:5001/css/typography.css?v=QL4Vu7ipJPJgnMa173NL_xH1lhN73FH-Ri-FS68r4sI - null null
+[2026-05-20 14:33:34.468 +02:00] [INF] Request starting HTTP/1.1 GET http://localhost:5001/images/studio-hero.png - null null
+[2026-05-20 14:33:34.475 +02:00] [INF] Sending file. Request path: '/css/site.css'. Physical path: 'E:\LOVRO\FAKS\ASP\LS_Projekt_ASP_2026\LS_Projekt_ASP_2026\wwwroot\css\site.css'
+[2026-05-20 14:33:34.475 +02:00] [DBG] Connection id "0HNLMDG12OQTD" completed keep alive response.
+[2026-05-20 14:33:34.476 +02:00] [INF] Request finished HTTP/1.1 GET http://localhost:5001/css/site.css?v=j6fhJSuuyLpOSLuPJU0TsDV0iNjor5S3rDnvxJrt4bg - 200 667 text/css 10.4291ms
+[2026-05-20 14:33:34.480 +02:00] [INF] Sending file. Request path: '/css/dark-theme.css'. Physical path: 'E:\LOVRO\FAKS\ASP\LS_Projekt_ASP_2026\LS_Projekt_ASP_2026\wwwroot\css\dark-theme.css'
+[2026-05-20 14:33:34.480 +02:00] [INF] Sending file. Request path: '/lib/bootstrap/dist/css/bootstrap.min.css'. Physical path: 'E:\LOVRO\FAKS\ASP\LS_Projekt_ASP_2026\LS_Projekt_ASP_2026\wwwroot\lib\bootstrap\dist\css\bootstrap.min.css'
+[2026-05-20 14:33:34.480 +02:00] [INF] Sending file. Request path: '/css/typography.css'. Physical path: 'E:\LOVRO\FAKS\ASP\LS_Projekt_ASP_2026\LS_Projekt_ASP_2026\wwwroot\css\typography.css'
+[2026-05-20 14:33:34.481 +02:00] [INF] Sending file. Request path: '/LS_Projekt_ASP_2026.styles.css'. Physical path: 'E:\LOVRO\FAKS\ASP\LS_Projekt_ASP_2026\LS_Projekt_ASP_2026\obj\Debug\net10.0\scopedcss\bundle\LS_Projekt_ASP_2026.styles.css'
+[2026-05-20 14:33:34.481 +02:00] [INF] Request starting HTTP/1.1 GET http://localhost:5001/lib/jquery/dist/jquery.min.js - null null
+[2026-05-20 14:33:34.481 +02:00] [DBG] Connection id "0HNLMDG12OQTF" completed keep alive response.
+[2026-05-20 14:33:34.481 +02:00] [DBG] Connection id "0HNLMDG12OQTG" completed keep alive response.
+[2026-05-20 14:33:34.481 +02:00] [DBG] Connection id "0HNLMDG12OQTE" completed keep alive response.
+[2026-05-20 14:33:34.482 +02:00] [INF] Request finished HTTP/1.1 GET http://localhost:5001/LS_Projekt_ASP_2026.styles.css?v=Tjq_kPh8IlJq0V50teUKzxlTBMCCTalpkcQeopA8Qhk - 200 1109 text/css 14.4018ms
+[2026-05-20 14:33:34.481 +02:00] [INF] Request finished HTTP/1.1 GET http://localhost:5001/css/typography.css?v=QL4Vu7ipJPJgnMa173NL_xH1lhN73FH-Ri-FS68r4sI - 200 16429 text/css 14.0375ms
+[2026-05-20 14:33:34.482 +02:00] [INF] Request finished HTTP/1.1 GET http://localhost:5001/css/dark-theme.css?v=a6uVcVydu-UaU4LD-7DW5Xup22fseVZGDxQBkJTP_DI - 200 9567 text/css 14.5761ms
+[2026-05-20 14:33:34.481 +02:00] [DBG] Connection id "0HNLMDG12OQTC" completed keep alive response.
+[2026-05-20 14:33:34.482 +02:00] [INF] Request finished HTTP/1.1 GET http://localhost:5001/lib/bootstrap/dist/css/bootstrap.min.css - 200 232808 text/css 18.113ms
+[2026-05-20 14:33:34.482 +02:00] [INF] Sending file. Request path: '/lib/jquery/dist/jquery.min.js'. Physical path: 'E:\LOVRO\FAKS\ASP\LS_Projekt_ASP_2026\LS_Projekt_ASP_2026\wwwroot\lib\jquery\dist\jquery.min.js'
+[2026-05-20 14:33:34.482 +02:00] [DBG] Connection id "0HNLMDG12OQTD" completed keep alive response.
+[2026-05-20 14:33:34.482 +02:00] [INF] Request finished HTTP/1.1 GET http://localhost:5001/lib/jquery/dist/jquery.min.js - 200 87535 text/javascript 1.659ms
+[2026-05-20 14:33:34.488 +02:00] [INF] Request starting HTTP/1.1 GET http://localhost:5001/js/site.js?v=hRQyftXiu1lLX2P9Ly9xa4gHJgLeR1uGN5qegUobtGo - null null
+[2026-05-20 14:33:34.488 +02:00] [INF] Request starting HTTP/1.1 GET http://localhost:5001/lib/bootstrap/dist/js/bootstrap.bundle.min.js - null null
+[2026-05-20 14:33:34.490 +02:00] [INF] Sending file. Request path: '/lib/bootstrap/dist/js/bootstrap.bundle.min.js'. Physical path: 'E:\LOVRO\FAKS\ASP\LS_Projekt_ASP_2026\LS_Projekt_ASP_2026\wwwroot\lib\bootstrap\dist\js\bootstrap.bundle.min.js'
+[2026-05-20 14:33:34.490 +02:00] [DBG] Connection id "0HNLMDG12OQTF" completed keep alive response.
+[2026-05-20 14:33:34.490 +02:00] [INF] Sending file. Request path: '/js/site.js'. Physical path: 'E:\LOVRO\FAKS\ASP\LS_Projekt_ASP_2026\LS_Projekt_ASP_2026\wwwroot\js\site.js'
+[2026-05-20 14:33:34.490 +02:00] [INF] Request finished HTTP/1.1 GET http://localhost:5001/lib/bootstrap/dist/js/bootstrap.bundle.min.js - 200 80727 text/javascript 1.7026ms
+[2026-05-20 14:33:34.491 +02:00] [DBG] Connection id "0HNLMDG12OQTG" completed keep alive response.
+[2026-05-20 14:33:34.491 +02:00] [INF] Request finished HTTP/1.1 GET http://localhost:5001/js/site.js?v=hRQyftXiu1lLX2P9Ly9xa4gHJgLeR1uGN5qegUobtGo - 200 231 text/javascript 2.1862ms
+[2026-05-20 14:33:34.901 +02:00] [INF] Sending file. Request path: '/images/studio-hero.png'. Physical path: 'E:\LOVRO\FAKS\ASP\LS_Projekt_ASP_2026\LS_Projekt_ASP_2026\wwwroot\images\studio-hero.png'
+[2026-05-20 14:33:34.901 +02:00] [DBG] Connection id "0HNLMDG12OQTH" completed keep alive response.
+[2026-05-20 14:33:34.901 +02:00] [INF] Request finished HTTP/1.1 GET http://localhost:5001/images/studio-hero.png - 200 2263887 image/png 432.6572ms
+[2026-05-20 14:33:34.943 +02:00] [INF] Request starting HTTP/1.1 GET http://localhost:5001/favicon.ico - null null
+[2026-05-20 14:33:34.943 +02:00] [INF] Sending file. Request path: '/favicon.ico'. Physical path: 'E:\LOVRO\FAKS\ASP\LS_Projekt_ASP_2026\LS_Projekt_ASP_2026\wwwroot\favicon.ico'
+[2026-05-20 14:33:34.944 +02:00] [DBG] Connection id "0HNLMDG12OQTH" completed keep alive response.
+[2026-05-20 14:33:34.944 +02:00] [INF] Request finished HTTP/1.1 GET http://localhost:5001/favicon.ico - 200 5430 image/x-icon 0.6186ms
