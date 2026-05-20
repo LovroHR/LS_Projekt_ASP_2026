@@ -1,0 +1,245 @@
+[2026-05-20 14:31:27.803 +02:00] [INF] === Aplikacija pokrenuta ===
+[2026-05-20 14:31:28.168 +02:00] [DBG] An 'IServiceProvider' was created for internal use by Entity Framework.
+[2026-05-20 14:31:28.726 +02:00] [DBG] The index {'ProjectId'} was not created on entity type 'ProjectVersion' as the properties are already covered by the index {'ProjectId', 'VersionNumber'}.
+[2026-05-20 14:31:28.935 +02:00] [DBG] Entity Framework Core 10.0.7 initialized 'AppDbContext' using provider 'Microsoft.EntityFrameworkCore.SqlServer:10.0.7' with options: EngineType=SqlServer 
+[2026-05-20 14:31:28.962 +02:00] [DBG] Compiling query expression: 
+'DbSet<Client>()
+    .Any()'
+[2026-05-20 14:31:29.214 +02:00] [DBG] Generated query execution expression: 
+'queryContext => SingleQueryingEnumerable.Create<bool>(
+    relationalQueryContext: (RelationalQueryContext)queryContext, 
+    relationalCommandResolver: parameters => [LIFTABLE Constant: RelationalCommandCache.QueryExpression(
+        Projection Mapping:
+            EmptyProjectionMember -> 0
+        SELECT EXISTS (
+            SELECT 1
+            FROM Users AS u
+            WHERE u.Role == 0)) | Resolver: c => new RelationalCommandCache(
+        c.Dependencies.MemoryCache, 
+        c.RelationalDependencies.QuerySqlGeneratorFactory, 
+        c.RelationalDependencies.RelationalParameterBasedSqlProcessorFactory, 
+        Projection Mapping:
+            EmptyProjectionMember -> 0
+        SELECT EXISTS (
+            SELECT 1
+            FROM Users AS u
+            WHERE u.Role == 0), 
+        False, 
+        MultipleParameters
+    )].GetRelationalCommandTemplate(parameters), 
+    readerColumns: null, 
+    shaper: (queryContext, dataReader, resultContext, resultCoordinator) => 
+    {
+        bool? value1;
+        value1 = dataReader.IsDBNull(0) ? default(bool?) : (bool?)dataReader.GetBoolean(0);
+        return (bool)value1;
+    }, 
+    contextType: LS_Projekt_ASP_2026.Data.AppDbContext, 
+    standAloneStateManager: False, 
+    detailedErrorsEnabled: False, 
+    threadSafetyChecksEnabled: True)
+    .Single()'
+[2026-05-20 14:31:29.275 +02:00] [DBG] Creating DbConnection.
+[2026-05-20 14:31:29.292 +02:00] [DBG] Created DbConnection. (15ms).
+[2026-05-20 14:31:29.294 +02:00] [DBG] Opening connection to database 'LS_Projekt_ASP_2026_Db' on server 'localhost,1433'.
+[2026-05-20 14:31:29.433 +02:00] [DBG] Opened connection to database 'LS_Projekt_ASP_2026_Db' on server 'localhost,1433'.
+[2026-05-20 14:31:29.436 +02:00] [DBG] Creating DbCommand for 'ExecuteReader'.
+[2026-05-20 14:31:29.440 +02:00] [DBG] Created DbCommand for 'ExecuteReader' (3ms).
+[2026-05-20 14:31:29.441 +02:00] [DBG] Initialized DbCommand for 'ExecuteReader' (7ms).
+[2026-05-20 14:31:29.447 +02:00] [DBG] Executing DbCommand [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT CASE
+    WHEN EXISTS (
+        SELECT 1
+        FROM [Users] AS [u]
+        WHERE [u].[Role] = 0) THEN CAST(1 AS bit)
+    ELSE CAST(0 AS bit)
+END
+[2026-05-20 14:31:29.481 +02:00] [INF] Executed DbCommand (36ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT CASE
+    WHEN EXISTS (
+        SELECT 1
+        FROM [Users] AS [u]
+        WHERE [u].[Role] = 0) THEN CAST(1 AS bit)
+    ELSE CAST(0 AS bit)
+END
+[2026-05-20 14:31:29.489 +02:00] [DBG] Closing data reader to 'LS_Projekt_ASP_2026_Db' on server 'localhost,1433'.
+[2026-05-20 14:31:29.494 +02:00] [DBG] A data reader for 'LS_Projekt_ASP_2026_Db' on server 'localhost,1433' is being disposed after spending 9ms reading results.
+[2026-05-20 14:31:29.495 +02:00] [DBG] Closing connection to database 'LS_Projekt_ASP_2026_Db' on server 'localhost,1433'.
+[2026-05-20 14:31:29.500 +02:00] [DBG] Closed connection to database 'LS_Projekt_ASP_2026_Db' on server 'localhost,1433' (4ms).
+[2026-05-20 14:31:29.501 +02:00] [DBG] 'AppDbContext' disposed.
+[2026-05-20 14:31:29.502 +02:00] [DBG] Disposing connection to database 'LS_Projekt_ASP_2026_Db' on server 'localhost,1433'.
+[2026-05-20 14:31:29.503 +02:00] [DBG] Disposed connection to database '' on server '' (0ms).
+[2026-05-20 14:31:29.503 +02:00] [INF] Seed podaci su učitani u bazu
+[2026-05-20 14:31:29.525 +02:00] [DBG] Registered model binder providers, in the following order: ["Microsoft.AspNetCore.Mvc.ModelBinding.Binders.BinderTypeModelBinderProvider","Microsoft.AspNetCore.Mvc.ModelBinding.Binders.ServicesModelBinderProvider","Microsoft.AspNetCore.Mvc.ModelBinding.Binders.BodyModelBinderProvider","Microsoft.AspNetCore.Mvc.ModelBinding.Binders.HeaderModelBinderProvider","Microsoft.AspNetCore.Mvc.ModelBinding.Binders.FloatingPointTypeModelBinderProvider","Microsoft.AspNetCore.Mvc.ModelBinding.Binders.EnumTypeModelBinderProvider","Microsoft.AspNetCore.Mvc.ModelBinding.Binders.DateTimeModelBinderProvider","Microsoft.AspNetCore.Mvc.ModelBinding.Binders.SimpleTypeModelBinderProvider","Microsoft.AspNetCore.Mvc.ModelBinding.Binders.TryParseModelBinderProvider","Microsoft.AspNetCore.Mvc.ModelBinding.Binders.CancellationTokenModelBinderProvider","Microsoft.AspNetCore.Mvc.ModelBinding.Binders.ByteArrayModelBinderProvider","Microsoft.AspNetCore.Mvc.ModelBinding.Binders.FormFileModelBinderProvider","Microsoft.AspNetCore.Mvc.ModelBinding.Binders.FormCollectionModelBinderProvider","Microsoft.AspNetCore.Mvc.ModelBinding.Binders.KeyValuePairModelBinderProvider","Microsoft.AspNetCore.Mvc.ModelBinding.Binders.DictionaryModelBinderProvider","Microsoft.AspNetCore.Mvc.ModelBinding.Binders.ArrayModelBinderProvider","Microsoft.AspNetCore.Mvc.ModelBinding.Binders.CollectionModelBinderProvider","Microsoft.AspNetCore.Mvc.ModelBinding.Binders.ComplexObjectModelBinderProvider"]
+[2026-05-20 14:31:29.531 +02:00] [DBG] Initializing Razor view compiler with compiled view: '/Pages/Auth/Login.cshtml'.
+[2026-05-20 14:31:29.532 +02:00] [DBG] Initializing Razor view compiler with compiled view: '/Pages/Auth/Register.cshtml'.
+[2026-05-20 14:31:29.532 +02:00] [DBG] Initializing Razor view compiler with compiled view: '/Pages/Bookings/Create.cshtml'.
+[2026-05-20 14:31:29.532 +02:00] [DBG] Initializing Razor view compiler with compiled view: '/Pages/Bookings/Index.cshtml'.
+[2026-05-20 14:31:29.532 +02:00] [DBG] Initializing Razor view compiler with compiled view: '/Pages/Error.cshtml'.
+[2026-05-20 14:31:29.532 +02:00] [DBG] Initializing Razor view compiler with compiled view: '/Pages/Index.cshtml'.
+[2026-05-20 14:31:29.532 +02:00] [DBG] Initializing Razor view compiler with compiled view: '/Pages/Privacy.cshtml'.
+[2026-05-20 14:31:29.532 +02:00] [DBG] Initializing Razor view compiler with compiled view: '/Pages/Producers/Index.cshtml'.
+[2026-05-20 14:31:29.532 +02:00] [DBG] Initializing Razor view compiler with compiled view: '/Pages/Projects/Index.cshtml'.
+[2026-05-20 14:31:29.532 +02:00] [DBG] Initializing Razor view compiler with compiled view: '/Pages/Shared/_ValidationScriptsPartial.cshtml'.
+[2026-05-20 14:31:29.532 +02:00] [DBG] Initializing Razor view compiler with compiled view: '/Pages/_ViewImports.cshtml'.
+[2026-05-20 14:31:29.532 +02:00] [DBG] Initializing Razor view compiler with compiled view: '/Pages/_ViewStart.cshtml'.
+[2026-05-20 14:31:29.532 +02:00] [DBG] Initializing Razor view compiler with compiled view: '/Pages/Shared/_Layout.cshtml'.
+[2026-05-20 14:31:29.540 +02:00] [INF] User profile is available. Using 'C:\Users\sablj.DESKTOP-J4MDVVB\AppData\Local\ASP.NET\DataProtection-Keys' as key repository and Windows DPAPI to encrypt keys at rest.
+[2026-05-20 14:31:29.584 +02:00] [INF] Počinje slušanje na portu...
+[2026-05-20 14:31:29.587 +02:00] [DBG] Hosting starting
+[2026-05-20 14:31:29.594 +02:00] [DBG] Reading data from file 'C:\Users\sablj.DESKTOP-J4MDVVB\AppData\Local\ASP.NET\DataProtection-Keys\key-d4079a41-264a-4c2b-9d2b-bef7cc0630d9.xml'.
+[2026-05-20 14:31:29.598 +02:00] [DBG] Found key {d4079a41-264a-4c2b-9d2b-bef7cc0630d9}.
+[2026-05-20 14:31:29.606 +02:00] [DBG] Considering key {d4079a41-264a-4c2b-9d2b-bef7cc0630d9} with expiration date 2026-08-03 21:10:22Z as default key.
+[2026-05-20 14:31:29.607 +02:00] [DBG] Forwarded activator type request from Microsoft.AspNetCore.DataProtection.XmlEncryption.DpapiXmlDecryptor, Microsoft.AspNetCore.DataProtection, Version=10.0.0.0, Culture=neutral, PublicKeyToken=adb9793829ddae60 to Microsoft.AspNetCore.DataProtection.XmlEncryption.DpapiXmlDecryptor, Microsoft.AspNetCore.DataProtection, Culture=neutral, PublicKeyToken=adb9793829ddae60
+[2026-05-20 14:31:29.608 +02:00] [DBG] Decrypting secret element using Windows DPAPI.
+[2026-05-20 14:31:29.608 +02:00] [DBG] Forwarded activator type request from Microsoft.AspNetCore.DataProtection.AuthenticatedEncryption.ConfigurationModel.AuthenticatedEncryptorDescriptorDeserializer, Microsoft.AspNetCore.DataProtection, Version=10.0.0.0, Culture=neutral, PublicKeyToken=adb9793829ddae60 to Microsoft.AspNetCore.DataProtection.AuthenticatedEncryption.ConfigurationModel.AuthenticatedEncryptorDescriptorDeserializer, Microsoft.AspNetCore.DataProtection, Culture=neutral, PublicKeyToken=adb9793829ddae60
+[2026-05-20 14:31:29.609 +02:00] [DBG] Opening CNG algorithm 'AES' from provider 'null' with chaining mode CBC.
+[2026-05-20 14:31:29.610 +02:00] [DBG] Opening CNG algorithm 'SHA256' from provider 'null' with HMAC.
+[2026-05-20 14:31:29.611 +02:00] [DBG] Using key {d4079a41-264a-4c2b-9d2b-bef7cc0630d9} as the default key.
+[2026-05-20 14:31:29.612 +02:00] [DBG] Key ring with default key {d4079a41-264a-4c2b-9d2b-bef7cc0630d9} was loaded during application startup.
+[2026-05-20 14:31:29.625 +02:00] [DBG] Middleware configuration started with options: {AllowedHosts = *, AllowEmptyHosts = True, IncludeFailureMessage = True}
+[2026-05-20 14:31:29.626 +02:00] [DBG] Wildcard detected, all requests with hosts will be allowed.
+[2026-05-20 14:31:29.637 +02:00] [INF] Now listening on: http://localhost:5067
+[2026-05-20 14:31:29.637 +02:00] [DBG] Loaded hosting startup assembly LS_Projekt_ASP_2026
+[2026-05-20 14:31:29.637 +02:00] [INF] Application started. Press Ctrl+C to shut down.
+[2026-05-20 14:31:29.637 +02:00] [INF] Hosting environment: Development
+[2026-05-20 14:31:29.637 +02:00] [INF] Content root path: E:\LOVRO\FAKS\ASP\LS_Projekt_ASP_2026\LS_Projekt_ASP_2026
+[2026-05-20 14:31:29.637 +02:00] [DBG] Hosting started
+[2026-05-20 14:32:07.666 +02:00] [INF] Application is shutting down...
+[2026-05-20 14:32:07.667 +02:00] [DBG] Hosting stopping
+[2026-05-20 14:32:07.677 +02:00] [DBG] Hosting stopped
+[2026-05-20 14:32:07.679 +02:00] [INF] === Aplikacija zaustavljena ===
+[2026-05-20 14:32:16.169 +02:00] [INF] === Aplikacija pokrenuta ===
+[2026-05-20 14:32:16.422 +02:00] [DBG] An 'IServiceProvider' was created for internal use by Entity Framework.
+[2026-05-20 14:32:16.881 +02:00] [DBG] The index {'ProjectId'} was not created on entity type 'ProjectVersion' as the properties are already covered by the index {'ProjectId', 'VersionNumber'}.
+[2026-05-20 14:32:17.071 +02:00] [DBG] Entity Framework Core 10.0.7 initialized 'AppDbContext' using provider 'Microsoft.EntityFrameworkCore.SqlServer:10.0.7' with options: EngineType=SqlServer 
+[2026-05-20 14:32:17.096 +02:00] [DBG] Compiling query expression: 
+'DbSet<Client>()
+    .Any()'
+[2026-05-20 14:32:17.306 +02:00] [DBG] Generated query execution expression: 
+'queryContext => SingleQueryingEnumerable.Create<bool>(
+    relationalQueryContext: (RelationalQueryContext)queryContext, 
+    relationalCommandResolver: parameters => [LIFTABLE Constant: RelationalCommandCache.QueryExpression(
+        Projection Mapping:
+            EmptyProjectionMember -> 0
+        SELECT EXISTS (
+            SELECT 1
+            FROM Users AS u
+            WHERE u.Role == 0)) | Resolver: c => new RelationalCommandCache(
+        c.Dependencies.MemoryCache, 
+        c.RelationalDependencies.QuerySqlGeneratorFactory, 
+        c.RelationalDependencies.RelationalParameterBasedSqlProcessorFactory, 
+        Projection Mapping:
+            EmptyProjectionMember -> 0
+        SELECT EXISTS (
+            SELECT 1
+            FROM Users AS u
+            WHERE u.Role == 0), 
+        False, 
+        MultipleParameters
+    )].GetRelationalCommandTemplate(parameters), 
+    readerColumns: null, 
+    shaper: (queryContext, dataReader, resultContext, resultCoordinator) => 
+    {
+        bool? value1;
+        value1 = dataReader.IsDBNull(0) ? default(bool?) : (bool?)dataReader.GetBoolean(0);
+        return (bool)value1;
+    }, 
+    contextType: LS_Projekt_ASP_2026.Data.AppDbContext, 
+    standAloneStateManager: False, 
+    detailedErrorsEnabled: False, 
+    threadSafetyChecksEnabled: True)
+    .Single()'
+[2026-05-20 14:32:17.340 +02:00] [DBG] Creating DbConnection.
+[2026-05-20 14:32:17.359 +02:00] [DBG] Created DbConnection. (17ms).
+[2026-05-20 14:32:17.362 +02:00] [DBG] Opening connection to database 'LS_Projekt_ASP_2026_Db' on server 'localhost,1433'.
+[2026-05-20 14:32:17.503 +02:00] [DBG] Opened connection to database 'LS_Projekt_ASP_2026_Db' on server 'localhost,1433'.
+[2026-05-20 14:32:17.507 +02:00] [DBG] Creating DbCommand for 'ExecuteReader'.
+[2026-05-20 14:32:17.511 +02:00] [DBG] Created DbCommand for 'ExecuteReader' (4ms).
+[2026-05-20 14:32:17.512 +02:00] [DBG] Initialized DbCommand for 'ExecuteReader' (8ms).
+[2026-05-20 14:32:17.518 +02:00] [DBG] Executing DbCommand [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT CASE
+    WHEN EXISTS (
+        SELECT 1
+        FROM [Users] AS [u]
+        WHERE [u].[Role] = 0) THEN CAST(1 AS bit)
+    ELSE CAST(0 AS bit)
+END
+[2026-05-20 14:32:17.539 +02:00] [INF] Executed DbCommand (22ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT CASE
+    WHEN EXISTS (
+        SELECT 1
+        FROM [Users] AS [u]
+        WHERE [u].[Role] = 0) THEN CAST(1 AS bit)
+    ELSE CAST(0 AS bit)
+END
+[2026-05-20 14:32:17.546 +02:00] [DBG] Closing data reader to 'LS_Projekt_ASP_2026_Db' on server 'localhost,1433'.
+[2026-05-20 14:32:17.552 +02:00] [DBG] A data reader for 'LS_Projekt_ASP_2026_Db' on server 'localhost,1433' is being disposed after spending 9ms reading results.
+[2026-05-20 14:32:17.553 +02:00] [DBG] Closing connection to database 'LS_Projekt_ASP_2026_Db' on server 'localhost,1433'.
+[2026-05-20 14:32:17.558 +02:00] [DBG] Closed connection to database 'LS_Projekt_ASP_2026_Db' on server 'localhost,1433' (5ms).
+[2026-05-20 14:32:17.559 +02:00] [DBG] 'AppDbContext' disposed.
+[2026-05-20 14:32:17.561 +02:00] [DBG] Disposing connection to database 'LS_Projekt_ASP_2026_Db' on server 'localhost,1433'.
+[2026-05-20 14:32:17.561 +02:00] [DBG] Disposed connection to database '' on server '' (0ms).
+[2026-05-20 14:32:17.562 +02:00] [INF] Seed podaci su učitani u bazu
+[2026-05-20 14:32:17.583 +02:00] [DBG] Registered model binder providers, in the following order: ["Microsoft.AspNetCore.Mvc.ModelBinding.Binders.BinderTypeModelBinderProvider","Microsoft.AspNetCore.Mvc.ModelBinding.Binders.ServicesModelBinderProvider","Microsoft.AspNetCore.Mvc.ModelBinding.Binders.BodyModelBinderProvider","Microsoft.AspNetCore.Mvc.ModelBinding.Binders.HeaderModelBinderProvider","Microsoft.AspNetCore.Mvc.ModelBinding.Binders.FloatingPointTypeModelBinderProvider","Microsoft.AspNetCore.Mvc.ModelBinding.Binders.EnumTypeModelBinderProvider","Microsoft.AspNetCore.Mvc.ModelBinding.Binders.DateTimeModelBinderProvider","Microsoft.AspNetCore.Mvc.ModelBinding.Binders.SimpleTypeModelBinderProvider","Microsoft.AspNetCore.Mvc.ModelBinding.Binders.TryParseModelBinderProvider","Microsoft.AspNetCore.Mvc.ModelBinding.Binders.CancellationTokenModelBinderProvider","Microsoft.AspNetCore.Mvc.ModelBinding.Binders.ByteArrayModelBinderProvider","Microsoft.AspNetCore.Mvc.ModelBinding.Binders.FormFileModelBinderProvider","Microsoft.AspNetCore.Mvc.ModelBinding.Binders.FormCollectionModelBinderProvider","Microsoft.AspNetCore.Mvc.ModelBinding.Binders.KeyValuePairModelBinderProvider","Microsoft.AspNetCore.Mvc.ModelBinding.Binders.DictionaryModelBinderProvider","Microsoft.AspNetCore.Mvc.ModelBinding.Binders.ArrayModelBinderProvider","Microsoft.AspNetCore.Mvc.ModelBinding.Binders.CollectionModelBinderProvider","Microsoft.AspNetCore.Mvc.ModelBinding.Binders.ComplexObjectModelBinderProvider"]
+[2026-05-20 14:32:17.588 +02:00] [DBG] Initializing Razor view compiler with compiled view: '/Pages/Auth/Login.cshtml'.
+[2026-05-20 14:32:17.589 +02:00] [DBG] Initializing Razor view compiler with compiled view: '/Pages/Auth/Register.cshtml'.
+[2026-05-20 14:32:17.589 +02:00] [DBG] Initializing Razor view compiler with compiled view: '/Pages/Bookings/Create.cshtml'.
+[2026-05-20 14:32:17.589 +02:00] [DBG] Initializing Razor view compiler with compiled view: '/Pages/Bookings/Index.cshtml'.
+[2026-05-20 14:32:17.589 +02:00] [DBG] Initializing Razor view compiler with compiled view: '/Pages/Error.cshtml'.
+[2026-05-20 14:32:17.589 +02:00] [DBG] Initializing Razor view compiler with compiled view: '/Pages/Index.cshtml'.
+[2026-05-20 14:32:17.589 +02:00] [DBG] Initializing Razor view compiler with compiled view: '/Pages/Privacy.cshtml'.
+[2026-05-20 14:32:17.589 +02:00] [DBG] Initializing Razor view compiler with compiled view: '/Pages/Producers/Index.cshtml'.
+[2026-05-20 14:32:17.589 +02:00] [DBG] Initializing Razor view compiler with compiled view: '/Pages/Projects/Index.cshtml'.
+[2026-05-20 14:32:17.589 +02:00] [DBG] Initializing Razor view compiler with compiled view: '/Pages/Shared/_ValidationScriptsPartial.cshtml'.
+[2026-05-20 14:32:17.589 +02:00] [DBG] Initializing Razor view compiler with compiled view: '/Pages/_ViewImports.cshtml'.
+[2026-05-20 14:32:17.589 +02:00] [DBG] Initializing Razor view compiler with compiled view: '/Pages/_ViewStart.cshtml'.
+[2026-05-20 14:32:17.589 +02:00] [DBG] Initializing Razor view compiler with compiled view: '/Pages/Shared/_Layout.cshtml'.
+[2026-05-20 14:32:17.596 +02:00] [INF] User profile is available. Using 'C:\Users\sablj.DESKTOP-J4MDVVB\AppData\Local\ASP.NET\DataProtection-Keys' as key repository and Windows DPAPI to encrypt keys at rest.
+[2026-05-20 14:32:17.642 +02:00] [INF] Počinje slušanje na portu...
+[2026-05-20 14:32:17.646 +02:00] [DBG] Hosting starting
+[2026-05-20 14:32:17.653 +02:00] [DBG] Reading data from file 'C:\Users\sablj.DESKTOP-J4MDVVB\AppData\Local\ASP.NET\DataProtection-Keys\key-d4079a41-264a-4c2b-9d2b-bef7cc0630d9.xml'.
+[2026-05-20 14:32:17.657 +02:00] [DBG] Found key {d4079a41-264a-4c2b-9d2b-bef7cc0630d9}.
+[2026-05-20 14:32:17.667 +02:00] [DBG] Considering key {d4079a41-264a-4c2b-9d2b-bef7cc0630d9} with expiration date 2026-08-03 21:10:22Z as default key.
+[2026-05-20 14:32:17.668 +02:00] [DBG] Forwarded activator type request from Microsoft.AspNetCore.DataProtection.XmlEncryption.DpapiXmlDecryptor, Microsoft.AspNetCore.DataProtection, Version=10.0.0.0, Culture=neutral, PublicKeyToken=adb9793829ddae60 to Microsoft.AspNetCore.DataProtection.XmlEncryption.DpapiXmlDecryptor, Microsoft.AspNetCore.DataProtection, Culture=neutral, PublicKeyToken=adb9793829ddae60
+[2026-05-20 14:32:17.668 +02:00] [DBG] Decrypting secret element using Windows DPAPI.
+[2026-05-20 14:32:17.669 +02:00] [DBG] Forwarded activator type request from Microsoft.AspNetCore.DataProtection.AuthenticatedEncryption.ConfigurationModel.AuthenticatedEncryptorDescriptorDeserializer, Microsoft.AspNetCore.DataProtection, Version=10.0.0.0, Culture=neutral, PublicKeyToken=adb9793829ddae60 to Microsoft.AspNetCore.DataProtection.AuthenticatedEncryption.ConfigurationModel.AuthenticatedEncryptorDescriptorDeserializer, Microsoft.AspNetCore.DataProtection, Culture=neutral, PublicKeyToken=adb9793829ddae60
+[2026-05-20 14:32:17.670 +02:00] [DBG] Opening CNG algorithm 'AES' from provider 'null' with chaining mode CBC.
+[2026-05-20 14:32:17.670 +02:00] [DBG] Opening CNG algorithm 'SHA256' from provider 'null' with HMAC.
+[2026-05-20 14:32:17.671 +02:00] [DBG] Using key {d4079a41-264a-4c2b-9d2b-bef7cc0630d9} as the default key.
+[2026-05-20 14:32:17.671 +02:00] [DBG] Key ring with default key {d4079a41-264a-4c2b-9d2b-bef7cc0630d9} was loaded during application startup.
+[2026-05-20 14:32:17.683 +02:00] [DBG] Middleware configuration started with options: {AllowedHosts = *, AllowEmptyHosts = True, IncludeFailureMessage = True}
+[2026-05-20 14:32:17.684 +02:00] [DBG] Wildcard detected, all requests with hosts will be allowed.
+[2026-05-20 14:32:17.712 +02:00] [WRN] The ASP.NET Core developer certificate is not trusted. For information about trusting the ASP.NET Core developer certificate, see https://aka.ms/aspnet/https-trust-dev-cert
+[2026-05-20 14:32:17.735 +02:00] [INF] Now listening on: https://localhost:5001
+[2026-05-20 14:32:17.735 +02:00] [DBG] Loaded hosting startup assembly LS_Projekt_ASP_2026
+[2026-05-20 14:32:17.735 +02:00] [INF] Application started. Press Ctrl+C to shut down.
+[2026-05-20 14:32:17.735 +02:00] [INF] Hosting environment: Development
+[2026-05-20 14:32:17.735 +02:00] [INF] Content root path: E:\LOVRO\FAKS\ASP\LS_Projekt_ASP_2026\LS_Projekt_ASP_2026
+[2026-05-20 14:32:17.735 +02:00] [DBG] Hosting started
+[2026-05-20 14:32:23.819 +02:00] [DBG] Connection id "0HNLMDFC368GE" accepted.
+[2026-05-20 14:32:23.819 +02:00] [DBG] Connection id "0HNLMDFC368GE" started.
+[2026-05-20 14:32:23.857 +02:00] [DBG] Connection id "0HNLMDFC368GE" received FIN.
+[2026-05-20 14:32:23.864 +02:00] [DBG] Failed to authenticate HTTPS connection.
+System.Security.Authentication.AuthenticationException: Authentication failed, see inner exception.
+ ---> System.ComponentModel.Win32Exception (0x80090327): An unknown error occurred while processing the certificate.
+   --- End of inner exception stack trace ---
+   at System.Net.Security.SslStream.ForceAuthenticationAsync[TIOAdapter](Boolean receiveFirst, Byte[] reAuthenticationData, CancellationToken cancellationToken)
+   at Microsoft.AspNetCore.Server.Kestrel.Https.Internal.HttpsConnectionMiddleware.OnConnectionAsync(ConnectionContext context)
+[2026-05-20 14:32:23.885 +02:00] [DBG] Connection id "0HNLMDFC368GE" stopped.
+[2026-05-20 14:32:23.885 +02:00] [DBG] Connection id "0HNLMDFC368GE" sending FIN because: "The Socket transport's send loop completed gracefully."
+[2026-05-20 14:32:29.138 +02:00] [DBG] Connection id "0HNLMDFC368GF" accepted.
+[2026-05-20 14:32:29.138 +02:00] [DBG] Connection id "0HNLMDFC368GF" started.
+[2026-05-20 14:32:29.140 +02:00] [DBG] Connection id "0HNLMDFC368GF" received FIN.
+[2026-05-20 14:32:29.141 +02:00] [DBG] Failed to authenticate HTTPS connection.
+System.Security.Authentication.AuthenticationException: Authentication failed, see inner exception.
+ ---> System.ComponentModel.Win32Exception (0x80090327): An unknown error occurred while processing the certificate.
+   --- End of inner exception stack trace ---
+   at System.Net.Security.SslStream.ForceAuthenticationAsync[TIOAdapter](Boolean receiveFirst, Byte[] reAuthenticationData, CancellationToken cancellationToken)
+   at Microsoft.AspNetCore.Server.Kestrel.Https.Internal.HttpsConnectionMiddleware.OnConnectionAsync(ConnectionContext context)
+[2026-05-20 14:32:29.142 +02:00] [DBG] Connection id "0HNLMDFC368GF" stopped.
+[2026-05-20 14:32:29.142 +02:00] [DBG] Connection id "0HNLMDFC368GF" sending FIN because: "The Socket transport's send loop completed gracefully."
+[2026-05-20 14:32:32.746 +02:00] [INF] Application is shutting down...
+[2026-05-20 14:32:32.747 +02:00] [DBG] Hosting stopping
+[2026-05-20 14:32:32.752 +02:00] [DBG] Hosting stopped
+[2026-05-20 14:32:32.754 +02:00] [INF] === Aplikacija zaustavljena ===

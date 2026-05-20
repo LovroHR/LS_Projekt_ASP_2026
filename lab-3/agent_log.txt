@@ -8,7 +8,7 @@
 2026-05-06 23:44:27 | UserPrompt: molim te
 2026-05-06 23:48:08 | UserPrompt: da provjeri postavke
 2026-05-06 23:51:02 | UserPrompt: Podesiti DbContext i osigurati potrebne DI
-2026-05-06 23:53:23 | UserPrompt: Prebaciti app s mock repository na EF repository; Generirati inicijalnu migracijsku skriptu; jel možeš to napraviti?
+2026-05-06 23:53:23 | UserPrompt: Prebaciti app s mock repository na EF repository; Generirati inicijalnu migracijsku skriptu; jel moï¿½eï¿½ to napraviti?
 2026-05-06 23:56:16 | UserPrompt: moze
 2026-05-07 00:01:06 | UserPrompt: LS_Projekt_ASP_2026 net10.0 failed with 13 errors
 2026-05-07 00:47:28 | UserPrompt: mozete li mi reci zasto program zapne na Building

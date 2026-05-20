@@ -1,0 +1,63 @@
+@page
+@model LS_Projekt_ASP_2026.Pages.Producers.IndexModel
+@{
+    ViewData["Title"] = "Producenti";
+}
+
+<div class="container-fluid mt-4">
+    <div class="row mb-4">
+        <div class="col-md-8">
+            <h1 class="display-6 fw-bold" style="font-size: var(--fs-h1); color: var(--text-primary);">Producenti</h1>
+            <p class="text-muted fw-normal" style="font-size: var(--fs-body-sm); color: var(--text-secondary);">Lista svih producenata</p>
+        </div>
+        <div class="col-md-4 text-end">
+            <div class="btn-group" role="group" aria-label="Abecedno sortiranje">
+                <a class="btn btn-sm" style="background: rgba(31, 41, 55, 0.8); border: 1px solid rgba(124, 58, 237, 0.3); color: #F3F4F6;" href="?alpha=asc">A-Z</a>
+                <a class="btn btn-sm" style="background: rgba(31, 41, 55, 0.8); border: 1px solid rgba(124, 58, 237, 0.3); color: #F3F4F6;" href="?alpha=desc">Z-A</a>
+            </div>
+        </div>
+    </div>
+
+    @if (Model.Producers.Count == 0)
+    {
+        <div class="text-center py-5">
+            <div class="display-1 mb-3">🎛️</div>
+            <h3>Nema producenata</h3>
+            <p class="text-muted">Trenutno nema zapisa u bazi.</p>
+        </div>
+    }
+    else
+    {
+        <div class="table-responsive">
+            <table class="table table-hover" style="background: rgba(31, 41, 55, 0.8); color: #F3F4F6;">
+                <thead style="background: linear-gradient(135deg, #7C3AED, #6366F1);">
+                    <tr>
+                        <th style="color: white;">
+                            <a class="text-white text-decoration-none" href="@($"?sort=name&dir={Model.NextDir("name")}")">Ime</a>
+                        </th>
+                        <th style="color: white;">
+                            <a class="text-white text-decoration-none" href="@($"?sort=email&dir={Model.NextDir("email")}")">Email</a>
+                        </th>
+                        <th style="color: white;">
+                            <a class="text-white text-decoration-none" href="@($"?sort=specialization&dir={Model.NextDir("specialization")}")">Specijalizacija</a>
+                        </th>
+                        <th style="color: white;">
+                            <a class="text-white text-decoration-none" href="@($"?sort=rate&dir={Model.NextDir("rate")}")">Cijena/h</a>
+                        </th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var producer in Model.Producers)
+                    {
+                        <tr style="border-bottom: 1px solid rgba(124, 58, 237, 0.2);">
+                            <td>@producer.Name @producer.Surname</td>
+                            <td>@producer.Email</td>
+                            <td>@producer.Specialization</td>
+                            <td>@producer.HourlyRate.ToString("C")</td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    }
+</div>
