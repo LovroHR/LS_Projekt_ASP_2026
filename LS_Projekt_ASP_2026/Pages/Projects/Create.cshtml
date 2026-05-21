@@ -1,0 +1,66 @@
+@page
+@model LS_Projekt_ASP_2026.Pages.Projects.CreateModel
+@using AudioProductionManagement.Model
+@{
+    ViewData["Title"] = "Novi projekt";
+}
+
+<div class="container mt-4 page-shell">
+    <h2>Novi projekt</h2>
+    <form method="post" class="row g-3">
+        @Html.AntiForgeryToken()
+        <div asp-validation-summary="All" class="text-danger mb-2"></div>
+        <div class="col-md-6"><label class="form-label">Naziv</label><input asp-for="Input.Title" class="form-control" /></div>
+        <div class="col-md-3"><label class="form-label">Tip</label><select asp-for="Input.Type" class="form-select" asp-items="Html.GetEnumSelectList<ProjectType>()"></select></div>
+        <div class="col-md-3"><label class="form-label">Status</label><select asp-for="Input.Status" class="form-select" asp-items="Html.GetEnumSelectList<ProjectStatus>()"></select></div>
+        <div class="col-md-6"><label class="form-label">Žanr</label><input asp-for="Input.Genre" class="form-control" /></div>
+        <div class="col-md-6"><label class="form-label">Trajanje (sek)</label><input asp-for="Input.TargetDurationSeconds" class="form-control" type="number" /></div>
+        <div class="col-md-6">
+            <label class="form-label">Deadline</label>
+            @await Html.PartialAsync("_DateTimePicker", new { Name = "Input.Deadline", Value = Model.Input?.Deadline, Placeholder = "Deadline", ShowTime = true })
+            <span asp-validation-for="Input.Deadline" class="text-danger small"></span>
+        </div>
+        <div class="col-md-6"><label class="form-label">Budžet</label><input asp-for="Input.Budget" class="form-control" type="number" step="0.01" /></div>
+        <div class="col-md-6">
+            <label class="form-label">Klijent</label>
+            <div class="autocomplete-field" data-autocomplete-source="/api/lookups/clients" data-autocomplete-mode="entity" data-autocomplete-min-length="1">
+                <input type="hidden" asp-for="Input.ClientId" class="autocomplete-value" />
+                <button type="button" class="btn btn-outline-light form-select autocomplete-toggle" data-placeholder="Odaberi klijenta">@(!string.IsNullOrWhiteSpace(Model.SelectedClientLabel) ? Model.SelectedClientLabel : "Odaberi klijenta")</button>
+                <div class="autocomplete-menu w-100">
+                    <input type="text" class="form-control autocomplete-search" placeholder="Pretraži klijenta..." autocomplete="off" />
+                    <div class="autocomplete-results"></div>
+                </div>
+            </div>
+            <span asp-validation-for="Input.ClientId" class="text-danger small"></span>
+        </div>
+        <div class="col-md-6">
+            <label class="form-label">Producent</label>
+            <div class="autocomplete-field" data-autocomplete-source="/api/lookups/producers" data-autocomplete-mode="entity" data-autocomplete-min-length="1">
+                <input type="hidden" asp-for="Input.ProducerId" class="autocomplete-value" />
+                <button type="button" class="btn btn-outline-light form-select autocomplete-toggle" data-placeholder="Odaberi producenta">@(!string.IsNullOrWhiteSpace(Model.SelectedProducerLabel) ? Model.SelectedProducerLabel : "Odaberi producenta")</button>
+                <div class="autocomplete-menu w-100">
+                    <input type="text" class="form-control autocomplete-search" placeholder="Pretraži producenta..." autocomplete="off" />
+                    <div class="autocomplete-results"></div>
+                </div>
+            </div>
+            <span asp-validation-for="Input.ProducerId" class="text-danger small"></span>
+        </div>
+        <div class="col-md-6">
+            <label class="form-label">Studio (po želji)</label>
+            <select asp-for="Input.StudioRoomId" class="form-select" asp-items="Model.AvailableStudios">
+                <option value="">-- odaberi --</option>
+            </select>
+            <span asp-validation-for="Input.StudioRoomId" class="text-danger small"></span>
+        </div>
+        <div class="col-md-12"><label class="form-label">Shared folder</label><input asp-for="Input.SharedFolderUrl" class="form-control" /></div>
+        <div class="col-md-12 form-check ms-2"><input asp-for="Input.AllowClientComments" class="form-check-input" /><label class="form-check-label">Dopusti komentare klijenta</label></div>
+        <div class="col-12">
+            <button type="submit" class="btn btn-primary">Spremi</button>
+            <a class="btn btn-secondary" href="/Projects/Index">Nazad</a>
+        </div>
+    </form>
+</div>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

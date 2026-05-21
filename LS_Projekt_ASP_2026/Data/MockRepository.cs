@@ -654,6 +654,33 @@ namespace LS_Projekt_ASP_2026.Data
             _clients.Add(client);
         }
 
+        public void UpdateClient(Client client)
+        {
+            var existing = GetClientById(client.Id);
+            if (existing == null) return;
+
+            existing.Name = client.Name;
+            existing.Surname = client.Surname;
+            existing.Email = client.Email;
+            existing.PhoneNumber = client.PhoneNumber;
+            existing.Password = client.Password;
+            existing.DateOfBirth = client.DateOfBirth;
+            existing.Address = client.Address;
+            existing.Country = client.Country;
+            existing.CompanyName = client.CompanyName;
+            existing.BillingAddress = client.BillingAddress;
+            existing.IsPriorityClient = client.IsPriorityClient;
+            existing.Notes = client.Notes;
+        }
+
+        public void DeleteClient(int id)
+        {
+            var existing = GetClientById(id);
+            if (existing == null) return;
+            if (_bookings.Any(b => b.ClientId == id) || _audioProjects.Any(p => p.ClientId == id)) return;
+            _clients.Remove(existing);
+        }
+
         // ============== PRODUCER METODE ==============
 
         public IEnumerable<Producer> GetAllProducers()
@@ -664,6 +691,40 @@ namespace LS_Projekt_ASP_2026.Data
         public Producer? GetProducerById(int id)
         {
             return _producers.FirstOrDefault(p => p.Id == id);
+        }
+
+        public void AddProducer(Producer producer)
+        {
+            if (producer.Id == 0)
+                producer.Id = _producers.Any() ? _producers.Max(p => p.Id) + 1 : 1;
+            if (producer.AssignedBookings == null)
+                producer.AssignedBookings = new List<Booking>();
+            if (producer.ManagedProjects == null)
+                producer.ManagedProjects = new List<AudioProject>();
+            _producers.Add(producer);
+        }
+
+        public void UpdateProducer(Producer producer)
+        {
+            var existing = GetProducerById(producer.Id);
+            if (existing == null) return;
+
+            existing.Name = producer.Name;
+            existing.Surname = producer.Surname;
+            existing.Email = producer.Email;
+            existing.PhoneNumber = producer.PhoneNumber;
+            existing.Specialization = producer.Specialization;
+            existing.HourlyRate = producer.HourlyRate;
+            existing.IsExternalCollaborator = producer.IsExternalCollaborator;
+            existing.Biography = producer.Biography;
+        }
+
+        public void DeleteProducer(int id)
+        {
+            var existing = GetProducerById(id);
+            if (existing == null) return;
+            if (_bookings.Any(b => b.ProducerId == id) || _audioProjects.Any(p => p.ProducerId == id)) return;
+            _producers.Remove(existing);
         }
 
         // ============== STUDIO METODE ==============
@@ -678,6 +739,40 @@ namespace LS_Projekt_ASP_2026.Data
             return _studioRooms.FirstOrDefault(s => s.Id == id);
         }
 
+        public void AddStudioRoom(StudioRoom studioRoom)
+        {
+            if (studioRoom.Id == 0)
+                studioRoom.Id = _studioRooms.Any() ? _studioRooms.Max(s => s.Id) + 1 : 1;
+            if (studioRoom.Bookings == null)
+                studioRoom.Bookings = new List<Booking>();
+            _studioRooms.Add(studioRoom);
+        }
+
+        public void UpdateStudioRoom(StudioRoom studioRoom)
+        {
+            var existing = GetStudioRoomById(studioRoom.Id);
+            if (existing == null) return;
+
+            existing.Name = studioRoom.Name;
+            existing.Location = studioRoom.Location;
+            existing.Capacity = studioRoom.Capacity;
+            existing.HasVocalBooth = studioRoom.HasVocalBooth;
+            existing.HasAnalogGear = studioRoom.HasAnalogGear;
+            existing.HourlyPrice = studioRoom.HourlyPrice;
+            existing.EquipmentSummary = studioRoom.EquipmentSummary;
+        }
+
+        public void DeleteStudioRoom(int id)
+        {
+            // Respect referential integrity in mock: do not delete if bookings exist
+            if (_bookings.Any(b => b.StudioRoomId == id))
+                return;
+
+            var sr = GetStudioRoomById(id);
+            if (sr != null)
+                _studioRooms.Remove(sr);
+        }
+
         // ============== PROJECT METODE ==============
 
         public IEnumerable<AudioProject> GetAllProjects()
@@ -688,6 +783,40 @@ namespace LS_Projekt_ASP_2026.Data
         public AudioProject? GetProjectById(int id)
         {
             return _audioProjects.FirstOrDefault(p => p.Id == id);
+        }
+
+        public void AddProject(AudioProject project)
+        {
+            if (project.Id == 0)
+                project.Id = _audioProjects.Any() ? _audioProjects.Max(p => p.Id) + 1 : 1;
+            if (project.Versions == null)
+                project.Versions = new List<ProjectVersion>();
+            _audioProjects.Add(project);
+        }
+
+        public void UpdateProject(AudioProject project)
+        {
+            var existing = GetProjectById(project.Id);
+            if (existing == null) return;
+
+            existing.Title = project.Title;
+            existing.Type = project.Type;
+            existing.Status = project.Status;
+            existing.Genre = project.Genre;
+            existing.TargetDurationSeconds = project.TargetDurationSeconds;
+            existing.Deadline = project.Deadline;
+            existing.Budget = project.Budget;
+            existing.AllowClientComments = project.AllowClientComments;
+            existing.SharedFolderUrl = project.SharedFolderUrl;
+            existing.ClientId = project.ClientId;
+            existing.ProducerId = project.ProducerId;
+        }
+
+        public void DeleteProject(int id)
+        {
+            var existing = GetProjectById(id);
+            if (existing == null) return;
+            _audioProjects.Remove(existing);
         }
 
         public IEnumerable<ProjectVersion> GetProjectVersionsByProjectId(int projectId)

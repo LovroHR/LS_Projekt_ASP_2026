@@ -4,60 +4,113 @@
     ViewData["Title"] = "Producenti";
 }
 
-<div class="container-fluid mt-4">
-    <div class="row mb-4">
+<div class="container-fluid mt-4 page-shell">
+    @if (TempData["Message"] != null)
+    {
+        <div class="alert alert-info">@TempData["Message"]</div>
+    }
+
+    <div class="row mb-4 align-items-center">
         <div class="col-md-8">
             <h1 class="display-6 fw-bold" style="font-size: var(--fs-h1); color: var(--text-primary);">Producenti</h1>
-            <p class="text-muted fw-normal" style="font-size: var(--fs-body-sm); color: var(--text-secondary);">Lista svih producenata</p>
+            <p class="text-muted fw-normal" style="font-size: var(--fs-body-sm); color: var(--text-secondary);">Lista producenata s AJAX pretragom</p>
         </div>
         <div class="col-md-4 text-end">
-            <div class="btn-group" role="group" aria-label="Abecedno sortiranje">
-                <a class="btn btn-sm" style="background: rgba(31, 41, 55, 0.8); border: 1px solid rgba(124, 58, 237, 0.3); color: #F3F4F6;" href="?alpha=asc">A-Z</a>
-                <a class="btn btn-sm" style="background: rgba(31, 41, 55, 0.8); border: 1px solid rgba(124, 58, 237, 0.3); color: #F3F4F6;" href="?alpha=desc">Z-A</a>
-            </div>
+            <a class="btn btn-primary" href="/Producers/Create">Novi producent</a>
         </div>
     </div>
 
-    @if (Model.Producers.Count == 0)
-    {
-        <div class="text-center py-5">
-            <div class="display-1 mb-3">🎛️</div>
-            <h3>Nema producenata</h3>
-            <p class="text-muted">Trenutno nema zapisa u bazi.</p>
-        </div>
-    }
-    else
-    {
-        <div class="table-responsive">
-            <table class="table table-hover" style="background: rgba(31, 41, 55, 0.8); color: #F3F4F6;">
-                <thead style="background: linear-gradient(135deg, #7C3AED, #6366F1);">
+    <div class="mb-3">
+        <input id="searchBox" type="text" class="form-control" placeholder="Pretraži po imenu, emailu ili specijalizaciji..." value="@Model.Q" />
+    </div>
+
+    <div id="tableWrap" class="table-responsive">
+        <table class="table table-hover">
+            <thead>
+                <tr>
+                    <th>Ime</th>
+                    <th>Email</th>
+                    <th>Telefon</th>
+                    <th>Specijalizacija</th>
+                    <th>Cijena/h</th>
+                    <th>Vanjski</th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var producer in Model.Producers)
+                {
                     <tr>
-                        <th style="color: white;">
-                            <a class="text-white text-decoration-none" href="@($"?sort=name&dir={Model.NextDir("name")}")">Ime</a>
-                        </th>
-                        <th style="color: white;">
-                            <a class="text-white text-decoration-none" href="@($"?sort=email&dir={Model.NextDir("email")}")">Email</a>
-                        </th>
-                        <th style="color: white;">
-                            <a class="text-white text-decoration-none" href="@($"?sort=specialization&dir={Model.NextDir("specialization")}")">Specijalizacija</a>
-                        </th>
-                        <th style="color: white;">
-                            <a class="text-white text-decoration-none" href="@($"?sort=rate&dir={Model.NextDir("rate")}")">Cijena/h</a>
-                        </th>
+                        <td>@producer.Name @producer.Surname</td>
+                        <td>@producer.Email</td>
+                        <td>@producer.PhoneNumber</td>
+                        <td>@producer.Specialization</td>
+                        <td>@producer.HourlyRate.ToString("C")</td>
+                        <td>@(producer.IsExternalCollaborator ? "Da" : "Ne")</td>
+                        <td>
+                            <a class="btn btn-sm btn-outline-primary" href="/Producers/Details?id=@producer.Id">Detalji</a>
+                            <a class="btn btn-sm btn-outline-secondary" href="/Producers/Edit?id=@producer.Id">Uredi</a>
+                            <form method="post" asp-page-handler="Delete" asp-route-id="@producer.Id" style="display:inline;" onsubmit="return confirm('Obrisati producenta?');">
+                                <button type="submit" class="btn btn-sm btn-outline-danger">Obriši</button>
+                            </form>
+                        </td>
                     </tr>
-                </thead>
-                <tbody>
-                    @foreach (var producer in Model.Producers)
-                    {
-                        <tr style="border-bottom: 1px solid rgba(124, 58, 237, 0.2);">
-                            <td>@producer.Name @producer.Surname</td>
-                            <td>@producer.Email</td>
-                            <td>@producer.Specialization</td>
-                            <td>@producer.HourlyRate.ToString("C")</td>
-                        </tr>
-                    }
-                </tbody>
-            </table>
-        </div>
-    }
+                }
+            </tbody>
+        </table>
+    </div>
+
+    <div id="emptyState" class="text-center py-5" style="display:@(Model.Producers.Count==0 ? "block" : "none")">
+        <div class="display-1 mb-3">🎚️</div>
+        <h3>Nema producenata</h3>
+        <p class="text-muted">Kreiraj prvog producenta.</p>
+        <a class="btn btn-primary" href="/Producers/Create">Novi producent</a>
+    </div>
 </div>
+
+@section Scripts {
+    <script>
+        const searchBox = document.getElementById('searchBox');
+        const tableWrap = document.getElementById('tableWrap');
+        const emptyState = document.getElementById('emptyState');
+        let timer = null;
+
+        searchBox.addEventListener('input', function () {
+            clearTimeout(timer);
+            timer = setTimeout(() => loadProducers(searchBox.value), 250);
+        });
+
+        async function loadProducers(q) {
+            const url = new URL(window.location.href);
+            url.searchParams.set('handler', 'Data');
+            url.searchParams.set('q', q || '');
+            const response = await fetch(url.toString(), { headers: { 'Accept': 'application/json' } });
+            if (!response.ok) return;
+            const data = await response.json();
+            const rows = data.map(p => `
+                <tr>
+                    <td>${escapeHtml(p.name)} ${escapeHtml(p.surname)}</td>
+                    <td>${escapeHtml(p.email)}</td>
+                    <td>${escapeHtml(p.phoneNumber)}</td>
+                    <td>${escapeHtml(p.specialization)}</td>
+                    <td>${Number(p.hourlyRate).toLocaleString(undefined, { style: 'currency', currency: 'EUR' })}</td>
+                    <td>${p.isExternalCollaborator ? 'Da' : 'Ne'}</td>
+                    <td>
+                        <a class="btn btn-sm btn-outline-primary" href="/Producers/Details?id=${p.id}">Detalji</a>
+                        <a class="btn btn-sm btn-outline-secondary" href="/Producers/Edit?id=${p.id}">Uredi</a>
+                        <form method="post" action="?handler=Delete&id=${p.id}" style="display:inline;" onsubmit="return confirm('Obrisati producenta?');">
+                            <button type="submit" class="btn btn-sm btn-outline-danger">Obriši</button>
+                        </form>
+                    </td>
+                </tr>
+            `).join('');
+            tableWrap.querySelector('tbody').innerHTML = rows;
+            emptyState.style.display = data.length === 0 ? 'block' : 'none';
+        }
+
+        function escapeHtml(str) {
+            if (!str) return '';
+            return String(str).replace(/[&<>"']/g, s => ({ '&':'&amp;', '<':'&lt;', '>':'&gt;', '"':'&quot;', "'":'&#39;' }[s]));
+        }
+    </script>
+}

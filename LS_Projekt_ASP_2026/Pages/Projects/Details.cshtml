@@ -1,0 +1,90 @@
+@page
+@model LS_Projekt_ASP_2026.Pages.Projects.DetailsModel
+@{
+    ViewData["Title"] = "Detalji projekta";
+}
+
+<div class="container mt-4 page-shell">
+    <h2>@Model.Project?.Title</h2>
+    <dl class="row">
+        <dt class="col-sm-3">Tip</dt><dd class="col-sm-9">@Model.Project?.Type</dd>
+        <dt class="col-sm-3">Status</dt><dd class="col-sm-9">@Model.Project?.Status</dd>
+        <dt class="col-sm-3">Žanr</dt><dd class="col-sm-9">@Model.Project?.Genre</dd>
+        <dt class="col-sm-3">Trajanje</dt><dd class="col-sm-9">@Model.Project?.TargetDurationSeconds</dd>
+        <dt class="col-sm-3">Deadline</dt><dd class="col-sm-9">@Model.Project?.Deadline?.ToString("d")</dd>
+        <dt class="col-sm-3">Budžet</dt><dd class="col-sm-9">@Model.Project?.Budget.ToString("C")</dd>
+        <dt class="col-sm-3">Klijent</dt><dd class="col-sm-9">@Model.Project?.Client?.Name @Model.Project?.Client?.Surname</dd>
+        <dt class="col-sm-3">Producent</dt><dd class="col-sm-9">@Model.Project?.Producer?.Name @Model.Project?.Producer?.Surname</dd>
+    </dl>
+    <a class="btn btn-secondary" href="/Projects/Index">Nazad</a>
+    <a class="btn btn-primary" href="/Projects/Edit?id=@Model.Project?.Id">Uredi</a>
+
+    <hr class="my-4" />
+
+    <section>
+        <div class="d-flex justify-content-between align-items-center mb-3">
+            <h3 class="h5 mb-0">Audio verzije</h3>
+        </div>
+
+        @if (!string.IsNullOrWhiteSpace(Model.StatusMessage))
+        {
+            <div class="alert alert-success">@Model.StatusMessage</div>
+        }
+
+        <form method="post" enctype="multipart/form-data" asp-page-handler="UploadVersion" asp-route-id="@Model.Project?.Id" class="row g-3 mb-4">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="col-md-5">
+                <label class="form-label" asp-for="VersionName">Naziv verzije</label>
+                <input class="form-control" asp-for="VersionName" placeholder="npr. Mix v3" />
+            </div>
+            <div class="col-md-5">
+                <label class="form-label" asp-for="AudioFile">Audio datoteka</label>
+                <input class="form-control" asp-for="AudioFile" type="file" accept="audio/*" />
+                <span class="text-danger" asp-validation-for="AudioFile"></span>
+            </div>
+            <div class="col-md-2 d-flex align-items-end">
+                <button class="btn btn-success w-100" type="submit">Upload</button>
+            </div>
+        </form>
+
+        @if (Model.Project?.Versions?.Any() == true)
+        {
+            <div class="table-responsive">
+                <table class="table table-dark table-striped align-middle">
+                    <thead>
+                        <tr>
+                            <th>Naziv verzije</th>
+                            <th>Uploadano</th>
+                            <th>Velicina</th>
+                            <th>Komentari</th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var version in Model.Project.Versions.OrderByDescending(v => v.VersionNumber))
+                        {
+                            <tr>
+                                <td>@version.Name</td>
+                                <td>@version.CreatedAt.ToString("dd.MM.yyyy. HH:mm")</td>
+                                <td>@version.FileSize.ToString("0.##") MB</td>
+                                <td>@version.Comments.Count</td>
+                                <td class="text-end">
+                                    <div class="d-inline-flex gap-2">
+                                        <a class="btn btn-sm btn-primary" asp-page="/Player/Index" asp-route-versionId="@version.Id">Otvori player</a>
+                                        <form method="post" asp-page-handler="DeleteVersion" asp-route-id="@Model.Project?.Id" asp-route-versionId="@version.Id" onsubmit="return confirm('Obrisati audio verziju i sve njezine komentare?');">
+                                            <button class="btn btn-sm btn-danger" type="submit">Obrisi</button>
+                                        </form>
+                                    </div>
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        }
+        else
+        {
+            <p class="text-muted">Jos nema uploadanih audio verzija za ovaj projekt.</p>
+        }
+    </section>
+</div>

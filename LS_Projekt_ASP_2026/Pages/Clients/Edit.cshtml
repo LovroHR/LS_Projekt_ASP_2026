@@ -1,0 +1,47 @@
+@page
+@model LS_Projekt_ASP_2026.Pages.Clients.EditModel
+@{
+    ViewData["Title"] = "Uredi klijenta";
+}
+
+<div class="container mt-4 page-shell">
+    <h2>Uredi klijenta</h2>
+    <form method="post" class="row g-3">
+        <div asp-validation-summary="All" class="text-danger mb-2"></div>
+        <input type="hidden" asp-for="Input.Id" />
+        <input type="hidden" asp-for="Input.CreatedAt" />
+        <input type="hidden" asp-for="Input.Role" />
+        <div class="col-md-6"><label class="form-label">Ime</label><input asp-for="Input.Name" class="form-control" /></div>
+        <div class="col-md-6"><label class="form-label">Prezime</label><input asp-for="Input.Surname" class="form-control" /></div>
+        <div class="col-md-6"><label class="form-label">Email</label><input asp-for="Input.Email" class="form-control" /></div>
+        <div class="col-md-6"><label class="form-label">Telefon</label><input asp-for="Input.PhoneNumber" class="form-control" /></div>
+        <div class="col-md-6"><label class="form-label">Lozinka</label><input asp-for="Input.Password" class="form-control" type="password" /></div>
+        <div class="col-md-6"><label class="form-label">Datum rođenja</label>
+            @{ await Html.PartialAsync("_DateTimePicker", new { Name = "Input.DateOfBirth", Value = Model.Input?.DateOfBirth, Placeholder = "Datum rođenja", ShowTime = false }); }
+        </div>
+        <div class="col-md-6"><label class="form-label">Adresa</label><input asp-for="Input.Address" class="form-control" /></div>
+        <div class="col-md-6">
+            <label class="form-label">Država</label>
+            <div class="autocomplete-field" data-autocomplete-source="/api/lookups/countries" data-autocomplete-mode="text" data-autocomplete-min-length="1">
+                <input type="hidden" asp-for="Input.Country" class="autocomplete-value" />
+                <button type="button" class="btn btn-outline-light form-select autocomplete-toggle" data-placeholder="Odaberi državu">@(!string.IsNullOrWhiteSpace(Model.Input?.Country) ? Model.Input.Country : "Odaberi državu")</button>
+                <div class="autocomplete-menu w-100">
+                    <input type="text" class="form-control autocomplete-search" placeholder="Pretraži državu..." autocomplete="off" />
+                    <div class="autocomplete-results"></div>
+                </div>
+            </div>
+            <span asp-validation-for="Input.Country" class="text-danger small"></span>
+        </div>
+        <div class="col-md-6"><label class="form-label">Tvrtka</label><input asp-for="Input.CompanyName" class="form-control" /></div>
+        <div class="col-md-6"><label class="form-label">Billing adresa</label><input asp-for="Input.BillingAddress" class="form-control" /></div>
+        <div class="col-md-12"><label class="form-label">Bilješke</label><textarea asp-for="Input.Notes" class="form-control" rows="4"></textarea></div>
+        <div class="col-md-12 form-check ms-2">
+            <input asp-for="Input.IsPriorityClient" class="form-check-input" />
+            <label class="form-check-label">Prioritetni klijent</label>
+        </div>
+        <div class="col-12">
+            <button type="submit" class="btn btn-primary">Spremi</button>
+            <a class="btn btn-secondary" href="/Clients/Index">Nazad</a>
+        </div>
+    </form>
+</div>

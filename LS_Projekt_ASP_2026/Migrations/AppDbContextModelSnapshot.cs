@@ -108,6 +108,9 @@ namespace LS_Projekt_ASP_2026.Migrations
                     b.Property<int>("Status")
                         .HasColumnType("int");
 
+                    b.Property<int?>("StudioRoomId")
+                        .HasColumnType("int");
+
                     b.Property<int>("TargetDurationSeconds")
                         .HasColumnType("int");
 
@@ -124,6 +127,8 @@ namespace LS_Projekt_ASP_2026.Migrations
                     b.HasIndex("ClientId");
 
                     b.HasIndex("ProducerId");
+
+                    b.HasIndex("StudioRoomId");
 
                     b.ToTable("AudioProjects");
                 });
@@ -411,9 +416,15 @@ namespace LS_Projekt_ASP_2026.Migrations
                         .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
+                    b.HasOne("AudioProductionManagement.Model.StudioRoom", "StudioRoom")
+                        .WithMany()
+                        .HasForeignKey("StudioRoomId");
+
                     b.Navigation("Client");
 
                     b.Navigation("Producer");
+
+                    b.Navigation("StudioRoom");
                 });
 
             modelBuilder.Entity("AudioProductionManagement.Model.Booking", b =>

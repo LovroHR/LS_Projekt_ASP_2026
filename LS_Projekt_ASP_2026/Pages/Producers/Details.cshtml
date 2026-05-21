@@ -1,0 +1,19 @@
+@page
+@model LS_Projekt_ASP_2026.Pages.Producers.DetailsModel
+@{
+    ViewData["Title"] = "Detalji producenta";
+}
+
+<div class="container mt-4 page-shell">
+    <h2>@Model.Producer?.Name @Model.Producer?.Surname</h2>
+    <dl class="row">
+        <dt class="col-sm-3">Email</dt><dd class="col-sm-9">@Model.Producer?.Email</dd>
+        <dt class="col-sm-3">Telefon</dt><dd class="col-sm-9">@Model.Producer?.PhoneNumber</dd>
+        <dt class="col-sm-3">Specijalizacija</dt><dd class="col-sm-9">@Model.Producer?.Specialization</dd>
+        <dt class="col-sm-3">Satnica</dt><dd class="col-sm-9">@Model.Producer?.HourlyRate.ToString("C")</dd>
+        <dt class="col-sm-3">Vanjski</dt><dd class="col-sm-9">@(Model.Producer?.IsExternalCollaborator == true ? "Da" : "Ne")</dd>
+        <dt class="col-sm-3">Biografija</dt><dd class="col-sm-9">@Model.Producer?.Biography</dd>
+    </dl>
+    <a class="btn btn-secondary" href="/Producers/Index">Nazad</a>
+    <a class="btn btn-primary" href="/Producers/Edit?id=@Model.Producer?.Id">Uredi</a>
+</div>

@@ -1,0 +1,27 @@
+@page
+@model LS_Projekt_ASP_2026.Pages.Producers.CreateModel
+@{
+    ViewData["Title"] = "Novi producent";
+}
+
+<div class="container mt-4 page-shell">
+    <h2>Novi producent</h2>
+    <form method="post" class="row g-3">
+        <div asp-validation-summary="All" class="text-danger mb-2"></div>
+        <div class="col-md-6"><label class="form-label">Ime</label><input asp-for="Input.Name" class="form-control" /></div>
+        <div class="col-md-6"><label class="form-label">Prezime</label><input asp-for="Input.Surname" class="form-control" /></div>
+        <div class="col-md-6"><label class="form-label">Email</label><input asp-for="Input.Email" class="form-control" /></div>
+        <div class="col-md-6"><label class="form-label">Telefon</label><input asp-for="Input.PhoneNumber" class="form-control" /></div>
+        <div class="col-md-6"><label class="form-label">Specijalizacija</label><input asp-for="Input.Specialization" class="form-control" /></div>
+        <div class="col-md-6"><label class="form-label">Satnica</label><input asp-for="Input.HourlyRate" class="form-control" type="number" step="0.01" /></div>
+        <div class="col-md-12"><label class="form-label">Biografija</label><textarea asp-for="Input.Biography" class="form-control" rows="4"></textarea></div>
+        <div class="col-md-12 form-check ms-2">
+            <input asp-for="Input.IsExternalCollaborator" class="form-check-input" />
+            <label class="form-check-label">Vanjski suradnik</label>
+        </div>
+        <div class="col-12">
+            <button type="submit" class="btn btn-primary">Spremi</button>
+            <a class="btn btn-secondary" href="/Producers/Index">Nazad</a>
+        </div>
+    </form>
+</div>

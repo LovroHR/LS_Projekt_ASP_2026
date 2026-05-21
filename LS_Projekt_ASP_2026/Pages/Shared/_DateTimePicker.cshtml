@@ -1,0 +1,63 @@
+@model dynamic
+@{
+    var name = Model?.Name ?? "";
+    DateTime? value = null;
+    try { value = Model?.Value; } catch { }
+    var placeholder = Model?.Placeholder ?? "Odaberi datum i vrijeme";
+    var showTime = Model?.ShowTime ?? true;
+    var hiddenValue = value.HasValue
+        ? value.Value.ToString(showTime ? "yyyy-MM-ddTHH:mm:ss" : "yyyy-MM-dd")
+        : "";
+    var displayValue = value.HasValue
+        ? value.Value.ToString(showTime ? "g" : "d", CultureInfo.CurrentCulture)
+        : "";
+}
+
+<div class="datetime-picker" data-datetime-picker data-show-time="@showTime.ToString().ToLowerInvariant()">
+    <input type="hidden" name="@name" value="@hiddenValue" class="datetime-hidden" />
+
+    <div class="datetime-field">
+        <input type="text"
+               class="form-control datetime-display"
+               value="@displayValue"
+               placeholder="@placeholder"
+               readonly="readonly"
+               aria-label="@placeholder" />
+        <button type="button" class="datetime-toggle" aria-label="Otvori kalendar i vrijeme">
+            <span aria-hidden="true">◷</span>
+        </button>
+    </div>
+
+    <div class="datetime-panel d-none">
+        <div class="datetime-panel__header">
+            <button type="button" class="datetime-nav datetime-nav--prev" aria-label="Prethodni mjesec">‹</button>
+            <div class="datetime-month-label"></div>
+            <button type="button" class="datetime-nav datetime-nav--next" aria-label="Sljedeći mjesec">›</button>
+        </div>
+
+        <div class="datetime-weekdays"></div>
+        <div class="datetime-calendar"></div>
+
+        @if (showTime)
+        {
+            <div class="datetime-time-row">
+                <div>
+                    <label class="form-label mb-1">Sat</label>
+                    <select class="form-select datetime-hour"></select>
+                </div>
+                <div>
+                    <label class="form-label mb-1">Minuta</label>
+                    <select class="form-select datetime-minute"></select>
+                </div>
+            </div>
+        }
+
+        <div class="datetime-actions">
+            <button type="button" class="btn btn-outline-light btn-sm datetime-clear">Obriši</button>
+            <div class="datetime-actions__right">
+                <button type="button" class="btn btn-secondary btn-sm datetime-cancel">Zatvori</button>
+                <button type="button" class="btn btn-primary btn-sm datetime-apply">Primijeni</button>
+            </div>
+        </div>
+    </div>
+</div>

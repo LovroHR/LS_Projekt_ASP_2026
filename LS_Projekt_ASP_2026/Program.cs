@@ -1,6 +1,8 @@
 using LS_Projekt_ASP_2026.Data;
+using Microsoft.AspNetCore.Localization;
 using Microsoft.EntityFrameworkCore;
 using Serilog;
+using System.Globalization;
 
 // Odredi putanju za log datoteku
 var logPath = Path.Combine(
@@ -45,6 +47,20 @@ try
         options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
     builder.Services.AddScoped<IRepository, EfRepository>();
 
+    builder.Services.Configure<RequestLocalizationOptions>(options =>
+    {
+        var supportedCultures = new[]
+        {
+            new CultureInfo("hr-HR"),
+            new CultureInfo("en-US")
+        };
+
+        options.DefaultRequestCulture = new RequestCulture("hr-HR");
+        options.SupportedCultures = supportedCultures;
+        options.SupportedUICultures = supportedCultures;
+        options.RequestCultureProviders.Insert(0, new AcceptLanguageHeaderRequestCultureProvider());
+    });
+
     // Dodaj session
     builder.Services.AddDistributedMemoryCache();
     builder.Services.AddSession(options =>
@@ -74,6 +90,8 @@ try
     // Middleware
     app.UseHttpsRedirection();
     app.UseStaticFiles();
+
+    app.UseRequestLocalization();
 
     app.UseRouting();
 

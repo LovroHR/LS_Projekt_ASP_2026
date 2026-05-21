@@ -1,0 +1,22 @@
+@page
+@model LS_Projekt_ASP_2026.Pages.Bookings.DetailsModel
+@{
+    ViewData["Title"] = "Detalji rezervacije";
+}
+
+<div class="container mt-4 page-shell">
+    <h2>@Model.Booking?.Purpose</h2>
+    <dl class="row">
+        <dt class="col-sm-3">Početak</dt><dd class="col-sm-9">@Model.Booking?.StartTime.ToString("g")</dd>
+        <dt class="col-sm-3">Kraj</dt><dd class="col-sm-9">@Model.Booking?.EndTime.ToString("g")</dd>
+        <dt class="col-sm-3">Status</dt><dd class="col-sm-9">@Model.Booking?.Status</dd>
+        <dt class="col-sm-3">Klijent</dt><dd class="col-sm-9">@Model.Booking?.Client?.Name @Model.Booking?.Client?.Surname</dd>
+        <dt class="col-sm-3">Producent</dt><dd class="col-sm-9">@Model.Booking?.Producer?.Name @Model.Booking?.Producer?.Surname</dd>
+        <dt class="col-sm-3">Studio</dt><dd class="col-sm-9">@Model.Booking?.StudioRoom?.Name</dd>
+        <dt class="col-sm-3">Cijena</dt><dd class="col-sm-9">@Model.Booking?.TotalPrice.ToString("C")</dd>
+        <dt class="col-sm-3">Inženjer</dt><dd class="col-sm-9">@(Model.Booking?.RequiresEngineer == true ? "Da" : "Ne")</dd>
+        <dt class="col-sm-3">Napomene</dt><dd class="col-sm-9">@Model.Booking?.AdditionalNotes</dd>
+    </dl>
+    <a class="btn btn-secondary" href="/Bookings/Index">Nazad</a>
+    <a class="btn btn-primary" href="/Bookings/Edit?id=@Model.Booking?.Id">Uredi</a>
+</div>

@@ -1,0 +1,21 @@
+@page
+@model LS_Projekt_ASP_2026.Pages.Clients.DetailsModel
+@{
+    ViewData["Title"] = "Detalji klijenta";
+}
+
+<div class="container mt-4 page-shell">
+    <h2>@Model.Client?.Name @Model.Client?.Surname</h2>
+    <dl class="row">
+        <dt class="col-sm-3">Email</dt><dd class="col-sm-9">@Model.Client?.Email</dd>
+        <dt class="col-sm-3">Telefon</dt><dd class="col-sm-9">@Model.Client?.PhoneNumber</dd>
+        <dt class="col-sm-3">Tvrtka</dt><dd class="col-sm-9">@Model.Client?.CompanyName</dd>
+        <dt class="col-sm-3">Adresa</dt><dd class="col-sm-9">@Model.Client?.Address</dd>
+        <dt class="col-sm-3">Država</dt><dd class="col-sm-9">@Model.Client?.Country</dd>
+        <dt class="col-sm-3">Billing adresa</dt><dd class="col-sm-9">@Model.Client?.BillingAddress</dd>
+        <dt class="col-sm-3">Prioritet</dt><dd class="col-sm-9">@(Model.Client?.IsPriorityClient == true ? "Da" : "Ne")</dd>
+        <dt class="col-sm-3">Bilješke</dt><dd class="col-sm-9">@Model.Client?.Notes</dd>
+    </dl>
+    <a class="btn btn-secondary" href="/Clients/Index">Nazad</a>
+    <a class="btn btn-primary" href="/Clients/Edit?id=@Model.Client?.Id">Uredi</a>
+</div>

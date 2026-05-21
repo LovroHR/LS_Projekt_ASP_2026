@@ -1,0 +1,21 @@
+@page
+@model LS_Projekt_ASP_2026.Pages.StudioRooms.DetailsModel
+@{
+    ViewData["Title"] = "Detalji prostora";
+}
+
+<div class="container mt-4">
+    <h2>Detalji: @Model.Room?.Name</h2>
+    <dl class="row">
+        <dt class="col-sm-3">Lokacija</dt>
+        <dd class="col-sm-9">@Model.Room?.Location</dd>
+
+        <dt class="col-sm-3">Kapacitet</dt>
+        <dd class="col-sm-9">@Model.Room?.Capacity</dd>
+
+        <dt class="col-sm-3">Cijena/h</dt>
+        <dd class="col-sm-9">@Model.Room?.HourlyPrice.ToString("C")</dd>
+    </dl>
+    <a class="btn btn-secondary" href="/StudioRooms/Index">Nazad</a>
+    <a class="btn btn-primary" href="/StudioRooms/Edit?id=@Model.Room?.Id">Uredi</a>
+</div>

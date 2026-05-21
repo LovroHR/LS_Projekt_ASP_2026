@@ -1,16 +1,22 @@
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using AudioProductionManagement.Model;
 using LS_Projekt_ASP_2026.Data;
 using System.Collections.Generic;
 using System.Linq;
+using System;
 
 namespace LS_Projekt_ASP_2026.Pages.Projects
 {
+    [IgnoreAntiforgeryToken]
     public class IndexModel : PageModel
     {
         private readonly IRepository _repository;
 
         public List<AudioProject> Projects { get; set; } = new();
+
+        [BindProperty(SupportsGet = true)]
+        public string? Q { get; set; }
 
         public IndexModel(IRepository repository)
         {
@@ -19,65 +25,51 @@ namespace LS_Projekt_ASP_2026.Pages.Projects
 
         public void OnGet()
         {
-            // Učitaj sve projekte za trenutnog korisnika
-            Projects = _repository.GetAllProjects()
-                .OrderByDescending(p => p.CreatedAt)
-                .ToList();
-        }
-
-        // Helper metoda za status labelu
-        public string GetStatusLabel(ProjectStatus status)
-        {
-            return status switch
+            var projects = _repository.GetAllProjects().AsEnumerable();
+            if (!string.IsNullOrWhiteSpace(Q))
             {
-                ProjectStatus.Draft => "Draft",
-                ProjectStatus.Active => "Active",
-                ProjectStatus.WaitingForFeedback => "Čeka feedback",
-                ProjectStatus.Revision => "Revizija",
-                ProjectStatus.Approved => "Approved",
-                ProjectStatus.Archived => "Archived",
-                _ => "Unknown"
-            };
+                var q = Q.Trim();
+                projects = projects.Where(p =>
+                    (p.Title ?? "").Contains(q, StringComparison.OrdinalIgnoreCase) ||
+                    (p.Genre ?? "").Contains(q, StringComparison.OrdinalIgnoreCase) ||
+                    (p.Client?.Name ?? "").Contains(q, StringComparison.OrdinalIgnoreCase) ||
+                    (p.Producer?.Name ?? "").Contains(q, StringComparison.OrdinalIgnoreCase));
+            }
+
+            Projects = projects.OrderByDescending(p => p.CreatedAt).ToList();
         }
 
-        // Helper metoda za ikone projekta
-        public string GetProjectTypeIcon(ProjectType type)
+        public IActionResult OnGetData(string? q)
         {
-            return type switch
+            var projects = _repository.GetAllProjects().AsEnumerable();
+            if (!string.IsNullOrWhiteSpace(q))
             {
-                ProjectType.Single => "🎵",
-                ProjectType.Album => "💿",
-                ProjectType.EP => "📀",
-                ProjectType.Podcast => "🎙️",
-                ProjectType.VoiceOver => "🎤",
-                _ => "🎼"
-            };
+                var tq = q.Trim();
+                projects = projects.Where(p =>
+                    (p.Title ?? "").Contains(tq, StringComparison.OrdinalIgnoreCase) ||
+                    (p.Genre ?? "").Contains(tq, StringComparison.OrdinalIgnoreCase) ||
+                    (p.Client?.Name ?? "").Contains(tq, StringComparison.OrdinalIgnoreCase) ||
+                    (p.Producer?.Name ?? "").Contains(tq, StringComparison.OrdinalIgnoreCase));
+            }
+
+            return new JsonResult(projects.Select(p => new
+            {
+                p.Id,
+                p.Title,
+                Type = p.Type.ToString(),
+                Status = p.Status.ToString(),
+                p.Genre,
+                p.Budget,
+                ClientName = p.Client?.Name + " " + p.Client?.Surname,
+                ProducerName = p.Producer?.Name + " " + p.Producer?.Surname
+            }).ToList());
         }
 
-        // Helper metoda za relativno vrijeme
-        public string GetTimeAgo(DateTime dateTime)
+        public IActionResult OnPostDelete(int id)
         {
-            var timeSpan = DateTime.Now - dateTime;
-
-            if (timeSpan.TotalSeconds < 60)
-                return "upravo sada";
-
-            if (timeSpan.TotalMinutes < 60)
-                return $"{(int)timeSpan.TotalMinutes}min";
-
-            if (timeSpan.TotalHours < 24)
-                return $"{(int)timeSpan.TotalHours}h";
-
-            if (timeSpan.TotalDays < 7)
-                return $"{(int)timeSpan.TotalDays}d";
-
-            if (timeSpan.TotalDays < 30)
-                return $"{(int)(timeSpan.TotalDays / 7)}w";
-
-            if (timeSpan.TotalDays < 365)
-                return $"{(int)(timeSpan.TotalDays / 30)}m";
-
-            return $"{(int)(timeSpan.TotalDays / 365)}y";
+            _repository.DeleteProject(id);
+            TempData["Message"] = "Projekt je obrisan.";
+            return RedirectToPage();
         }
     }
 }

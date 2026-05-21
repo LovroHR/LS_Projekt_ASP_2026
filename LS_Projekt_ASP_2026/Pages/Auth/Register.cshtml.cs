@@ -46,6 +46,11 @@ namespace LS_Projekt_ASP_2026.Pages.Auth
 
         public void OnGet()
         {
+            // Postaviti default datum rođenja (20 godina unazad)
+            if (DateOfBirth == DateTime.MinValue)
+            {
+                DateOfBirth = DateTime.Now.AddYears(-20);
+            }
         }
 
         public IActionResult OnPost()

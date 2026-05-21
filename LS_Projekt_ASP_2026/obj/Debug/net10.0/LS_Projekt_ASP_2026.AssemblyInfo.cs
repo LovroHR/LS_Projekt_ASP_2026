@@ -13,7 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("LS_Projekt_ASP_2026")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+54cd56447dc56501b34bdfa2629d5b745abdc75d")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+5f1f521b81878d9a07fde0cd5827283aa74624ae")]
 [assembly: System.Reflection.AssemblyProductAttribute("LS_Projekt_ASP_2026")]
 [assembly: System.Reflection.AssemblyTitleAttribute("LS_Projekt_ASP_2026")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

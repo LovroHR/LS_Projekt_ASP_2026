@@ -1,0 +1,141 @@
+@page
+@model LS_Projekt_ASP_2026.Pages.Player.IndexModel
+@using System.Text.Json
+@{
+    ViewData["Title"] = "Waveform Player";
+    var initialPlayerData = Model.Version == null
+        ? null
+        : new
+        {
+            projectVersionId = Model.Version.Id,
+            projectTitle = Model.Version.Project.Title,
+            title = Model.Version.Name,
+            audioUrl = Url.Content(Model.Version.FileUrl),
+            durationSeconds = Model.Version.DurationSeconds,
+            comments = Model.Version.Comments
+                .OrderBy(c => c.TimestampSeconds)
+                .Select(c => new
+                {
+                    id = c.Id,
+                    time = (double)c.TimestampSeconds,
+                    text = c.Message,
+                    author = $"{c.Author.Name} {c.Author.Surname}",
+                    timestamp = c.CreatedAt.ToString("dd.MM.yyyy. HH:mm")
+                })
+        };
+}
+
+@section Styles {
+    <link rel="stylesheet" href="~/css/waveform-player.css" />
+}
+
+<div class="container mt-5 mb-5">
+    <div class="player-shell">
+        <div class="d-flex justify-content-between align-items-center mb-4">
+            <h2 class="mb-0 text-white" style="font-family: var(--font-primary); font-weight: 800;">
+                <span style="color: var(--cyan-bright);">🎧</span> LStudio Player
+            </h2>
+            @if (Model.Version != null)
+            {
+                <a class="btn btn-sm btn-outline-light" asp-page="/Projects/Details" asp-route-id="@Model.Version.ProjectId">Nazad na projekt</a>
+            }
+            else
+            {
+                <span class="badge bg-secondary">Advanced JS Web Audio API</span>
+            }
+        </div>
+        
+        <div class="player-card">
+            <!-- File Upload Section -->
+            <div class="file-upload-section mb-4" id="uploadSection">
+                <div class="upload-area" id="uploadArea">
+                    <svg class="upload-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="48" height="48">
+                        <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+                        <polyline points="17 8 12 3 7 8"></polyline>
+                        <line x1="12" y1="3" x2="12" y2="15"></line>
+                    </svg>
+                    <h5>Upload Audio File</h5>
+                    <p class="text-muted">Drag & drop your audio here or click to select</p>
+                    <input type="file" id="audioFileInput" accept="audio/*" style="display: none;" />
+                    <small class="text-muted d-block mt-2">Supported: MP3, WAV, OGG, M4A, FLAC</small>
+                </div>
+            </div>
+
+            <!-- Player Section (hidden until file is loaded) -->
+            <div id="playerSection" style="display: none;">
+                <div class="track-info">
+                    <h3 id="trackTitle">Unknown Song</h3>
+                    <p id="trackArtist" class="text-muted">Duration: <span id="trackDuration">--:--</span></p>
+                </div>
+                
+                <!-- Static timeline waveform mapping to song duration -->
+                <div class="waveform-timeline-container" id="timelineContainer">
+                    <canvas id="timelineCanvas" height="120"></canvas>
+                    <div class="playhead" id="playhead"></div>
+                    <div class="loading-overlay" id="loadingOverlay" style="display: none;">
+                        <div class="spinner"></div>
+                        <span>Processing audio...</span>
+                    </div>
+                </div>
+                
+                <div class="player-controls">
+                    <span class="time-display" id="currentTime">0:00</span>
+                    
+                    <button class="btn-play" id="playBtn" disabled aria-label="Play/Pause">
+                        <svg class="play-icon" viewBox="0 0 24 24" width="32" height="32" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"><polygon points="5 3 19 12 5 21 5 3"></polygon></svg>
+                        <svg class="pause-icon d-none" viewBox="0 0 24 24" width="32" height="32" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"><rect x="6" y="4" width="4" height="16"></rect><rect x="14" y="4" width="4" height="16"></rect></svg>
+                    </button>
+                    
+                    <span class="time-display" id="duration">0:00</span>
+                </div>
+                
+                <!-- Dynamic visualizer -->
+                <div class="visualizer-container">
+                    <h6 class="text-secondary text-center mb-2 mt-2" style="font-size: 0.8rem; letter-spacing: 0.1em; text-transform: uppercase;">Real-time Frequency Analysis</h6>
+                    <canvas id="visualizerCanvas" height="80"></canvas>
+                </div>
+
+                <!-- Comments Section (Always Available) -->
+                <div class="comments-section mt-5">
+                    <div class="d-flex justify-content-between align-items-center mb-3">
+                        <h5 class="mb-0">💬 Komentari po vremenu</h5>
+                        <button class="btn btn-sm btn-primary" id="addCommentBtn">+ Dodaj komentar</button>
+                    </div>
+                    
+                    <!-- Add Comment Form -->
+                    <div class="add-comment-form mb-4" id="addCommentForm" style="display: none;">
+                        <div class="form-group mb-2">
+                            <label class="form-label" for="commentTimeInput">Vrijeme komentara</label>
+                            <div class="comment-time-edit mb-2">
+                                <input class="form-control comment-time-input" id="commentTimeInput" type="text" value="0:00" inputmode="numeric" aria-describedby="commentTimeHelp" />
+                                <span id="commentTime" class="comment-time-preview">0:00</span>
+                            </div>
+                            <small class="text-muted d-block mb-2" id="commentTimeHelp">Default je trenutna pozicija playbacka, ali vrijeme mozes rucno prilagoditi.</small>
+                            <textarea class="form-control" id="commentText" placeholder="Upiši komentar za ovaj trenutak..." rows="3"></textarea>
+                        </div>
+                        <div class="d-flex gap-2">
+                            <button class="btn btn-sm btn-success" id="saveCommentBtn">Spremi komentar</button>
+                            <button class="btn btn-sm btn-secondary" id="cancelCommentBtn">Odustani</button>
+                        </div>
+                    </div>
+
+                    <!-- Comments List -->
+                    <div id="commentsList" class="comments-list">
+                        <p class="text-muted text-center py-4">Još nema komentara. Pomakni playhead pa dodaj komentar ili dvoklikni timeline.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Audio Element -->
+<audio id="audioSource" crossorigin="anonymous" preload="auto"></audio>
+
+@section Scripts {
+    @Html.AntiForgeryToken()
+    <script>
+        window.playerInitialData = @Html.Raw(JsonSerializer.Serialize(initialPlayerData));
+    </script>
+    <script src="~/js/waveform-player.js" asp-append-version="true"></script>
+}

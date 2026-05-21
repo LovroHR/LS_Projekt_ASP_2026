@@ -1,0 +1,116 @@
+@page
+@model LS_Projekt_ASP_2026.Pages.Clients.IndexModel
+@{
+    ViewData["Title"] = "Klijenti";
+}
+
+<div class="container-fluid mt-4 page-shell">
+    @if (TempData["Message"] != null)
+    {
+        <div class="alert alert-info">@TempData["Message"]</div>
+    }
+
+    <div class="row mb-4 align-items-center">
+        <div class="col-md-8">
+            <h1 class="display-6 fw-bold" style="font-size: var(--fs-h1); color: var(--text-primary);">Klijenti</h1>
+            <p class="text-muted fw-normal" style="font-size: var(--fs-body-sm); color: var(--text-secondary);">Lista klijenata s AJAX pretragom</p>
+        </div>
+        <div class="col-md-4 text-end">
+            <a class="btn btn-primary" href="/Clients/Create">Novi klijent</a>
+        </div>
+    </div>
+
+    <div class="mb-3">
+        <input id="searchBox" type="text" class="form-control" placeholder="Pretraži po imenu, prezimenu, emailu ili firmi..." value="@Model.Q" />
+    </div>
+
+    <div id="tableWrap" class="table-responsive">
+        <table class="table table-hover">
+            <thead>
+                <tr>
+                    <th>Ime</th>
+                    <th>Email</th>
+                    <th>Telefon</th>
+                    <th>Tvrtka</th>
+                    <th>Prioritet</th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var client in Model.Clients)
+                {
+                    <tr>
+                        <td>@client.Name @client.Surname</td>
+                        <td>@client.Email</td>
+                        <td>@client.PhoneNumber</td>
+                        <td>@client.CompanyName</td>
+                        <td>@(client.IsPriorityClient ? "Da" : "Ne")</td>
+                        <td>
+                            <a class="btn btn-sm btn-outline-primary" href="/Clients/Details?id=@client.Id">Detalji</a>
+                            <a class="btn btn-sm btn-outline-secondary" href="/Clients/Edit?id=@client.Id">Uredi</a>
+                            <form method="post" asp-page-handler="Delete" asp-route-id="@client.Id" style="display:inline;" onsubmit="return confirm('Obrisati klijenta?');">
+                                <button type="submit" class="btn btn-sm btn-outline-danger">Obriši</button>
+                            </form>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+
+    <div id="emptyState" class="text-center py-5" style="display:@(Model.Clients.Count==0 ? "block" : "none")">
+        <div class="display-1 mb-3">👤</div>
+        <h3>Nema klijenata</h3>
+        <p class="text-muted">Kreiraj prvog klijenta.</p>
+        <a class="btn btn-primary" href="/Clients/Create">Novi klijent</a>
+    </div>
+</div>
+
+@section Scripts {
+    <script>
+        const searchBox = document.getElementById('searchBox');
+        const tableWrap = document.getElementById('tableWrap');
+        const emptyState = document.getElementById('emptyState');
+        let timer = null;
+
+        searchBox.addEventListener('input', function () {
+            clearTimeout(timer);
+            timer = setTimeout(() => loadClients(searchBox.value), 250);
+        });
+
+        async function loadClients(q) {
+            const url = new URL(window.location.href);
+            url.searchParams.set('handler', 'Data');
+            url.searchParams.set('q', q || '');
+
+            const response = await fetch(url.toString(), { headers: { 'Accept': 'application/json' } });
+            if (!response.ok) return;
+            const data = await response.json();
+
+            const rows = data.map(c => `
+                <tr>
+                    <td>${escapeHtml(c.name)} ${escapeHtml(c.surname)}</td>
+                    <td>${escapeHtml(c.email)}</td>
+                    <td>${escapeHtml(c.phoneNumber)}</td>
+                    <td>${escapeHtml(c.companyName ?? '')}</td>
+                    <td>${c.isPriorityClient ? 'Da' : 'Ne'}</td>
+                    <td>
+                        <a class="btn btn-sm btn-outline-primary" href="/Clients/Details?id=${c.id}">Detalji</a>
+                        <a class="btn btn-sm btn-outline-secondary" href="/Clients/Edit?id=${c.id}">Uredi</a>
+                        <form method="post" action="?handler=Delete&id=${c.id}" style="display:inline;" onsubmit="return confirm('Obrisati klijenta?');">
+                            <button type="submit" class="btn btn-sm btn-outline-danger">Obriši</button>
+                        </form>
+                    </td>
+                </tr>
+            `).join('');
+
+            tableWrap.querySelector('tbody').innerHTML = rows;
+            emptyState.style.display = data.length === 0 ? 'block' : 'none';
+        }
+
+        function escapeHtml(str) {
+            if (!str) return '';
+            return String(str).replace(/[&<>"']/g, s => ({ '&':'&amp;', '<':'&lt;', '>':'&gt;', '"':'&quot;', "'":'&#39;' }[s]));
+        }
+    </script>
+}

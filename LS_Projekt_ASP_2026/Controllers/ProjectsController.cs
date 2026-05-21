@@ -247,5 +247,87 @@ namespace LS_Projekt_ASP_2026.Controllers
                 return BadRequest(new { success = false, message = ex.Message });
             }
         }
+
+        /// <summary>
+        /// AKCIJA 7: Create project - POST api/projects
+        /// </summary>
+        [HttpPost]
+        public IActionResult CreateProject([FromBody] AudioProject project)
+        {
+            _logger.LogInformation("🎵 CreateProject - Kreira novi projekt");
+            try
+            {
+                if (project == null) return BadRequest(new { success = false, message = "Neispravan payload" });
+
+                project.CreatedAt = DateTime.Now;
+                _repository.AddProject(project);
+
+                return CreatedAtAction(nameof(GetProjectById), new { id = project.Id }, new { success = true, message = "Projekt je kreiran", data = project });
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, "❌ Greška pri kreiranju projekta");
+                return BadRequest(new { success = false, message = ex.Message });
+            }
+        }
+
+        /// <summary>
+        /// AKCIJA 8: Update project - PUT api/projects/{id}
+        /// </summary>
+        [HttpPut("{id}")]
+        public IActionResult UpdateProject(int id, [FromBody] AudioProject project)
+        {
+            _logger.LogInformation($"🎵 UpdateProject - Ažurira projekt ID: {id}");
+            try
+            {
+                if (project == null || id != project.Id) return BadRequest(new { success = false, message = "Neispravan payload ili ID" });
+
+                var existing = _repository.GetProjectById(id);
+                if (existing == null) return NotFound(new { success = false, message = $"Projekt ID {id} nije pronađen" });
+
+                existing.Title = project.Title;
+                existing.Type = project.Type;
+                existing.Status = project.Status;
+                existing.Genre = project.Genre;
+                existing.TargetDurationSeconds = project.TargetDurationSeconds;
+                existing.Deadline = project.Deadline;
+                existing.Budget = project.Budget;
+                existing.AllowClientComments = project.AllowClientComments;
+                existing.SharedFolderUrl = project.SharedFolderUrl;
+                existing.ClientId = project.ClientId;
+                existing.ProducerId = project.ProducerId;
+
+                _repository.UpdateProject(existing);
+
+                return Ok(new { success = true, message = "Projekt je ažuriran", data = existing });
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, $"❌ Greška pri ažuriranju projekta ID {id}");
+                return BadRequest(new { success = false, message = ex.Message });
+            }
+        }
+
+        /// <summary>
+        /// AKCIJA 9: Delete project - DELETE api/projects/{id}
+        /// </summary>
+        [HttpDelete("{id}")]
+        public IActionResult DeleteProject(int id)
+        {
+            _logger.LogInformation($"🎵 DeleteProject - Briše projekt ID: {id}");
+            try
+            {
+                var existing = _repository.GetProjectById(id);
+                if (existing == null) return NotFound(new { success = false, message = $"Projekt ID {id} nije pronađen" });
+
+                _repository.DeleteProject(id);
+                return Ok(new { success = true, message = "Projekt je obrisan" });
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, $"❌ Greška pri brisanju projekta ID {id}");
+                return BadRequest(new { success = false, message = ex.Message });
+            }
+        }
     }
 }

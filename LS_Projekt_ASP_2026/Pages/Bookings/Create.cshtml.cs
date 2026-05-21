@@ -3,7 +3,6 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 using AudioProductionManagement.Model;
 using LS_Projekt_ASP_2026.Data;
 using System.Collections.Generic;
-using System.Linq;
 
 namespace LS_Projekt_ASP_2026.Pages.Bookings
 {
@@ -12,27 +11,13 @@ namespace LS_Projekt_ASP_2026.Pages.Bookings
         private readonly IRepository _repository;
 
         [BindProperty]
-        public Booking NewBooking { get; set; } = new();
+        public Booking Input { get; set; } = new();
 
-        [BindProperty]
-        public string ProjectId { get; set; } = "";
+        public string SelectedClientLabel { get; set; } = string.Empty;
+        public string SelectedProducerLabel { get; set; } = string.Empty;
 
-        [BindProperty]
-        public string ProjectType { get; set; } = "";
-
-        [BindProperty]
-        public bool IncludeCatering { get; set; }
-
-        [BindProperty]
-        public bool IncludeTechAssistant { get; set; }
-
-        [BindProperty]
-        public string AdditionalNotes { get; set; } = "";
-
-        // Dostupni izbori za forme
         public List<StudioRoom> AvailableStudios { get; set; } = new();
         public List<Producer> AvailableProducers { get; set; } = new();
-        public List<AudioProject> AvailableProjects { get; set; } = new();
         public List<Client> AvailableClients { get; set; } = new();
 
         public CreateModel(IRepository repository)
@@ -42,27 +27,54 @@ namespace LS_Projekt_ASP_2026.Pages.Bookings
 
         public void OnGet()
         {
-            // Učitaj sve dostupne izbore za forme
-            AvailableStudios = new List<StudioRoom>(_repository.GetAllStudioRooms());
-            AvailableProducers = new List<Producer>(_repository.GetAllProducers());
-            AvailableProjects = new List<AudioProject>(_repository.GetAllProjects());
-            AvailableClients = new List<Client>(_repository.GetAllClients());
+            // Postaviti default vremenske vrijednosti
+            if (Input.StartTime == DateTime.MinValue)
+            {
+                Input.StartTime = DateTime.Now;
+            }
+            if (Input.EndTime == DateTime.MinValue)
+            {
+                Input.EndTime = DateTime.Now.AddHours(1);
+            }
+            LoadLookups();
+            LoadSelectedLabels();
         }
 
         public IActionResult OnPost()
         {
+            AutocompleteValidation.ValidateClientSelection(ModelState, _repository, Input.ClientId);
+            AutocompleteValidation.ValidateProducerSelection(ModelState, _repository, Input.ProducerId);
+            AutocompleteValidation.ValidateStudioSelection(ModelState, _repository, Input.StudioRoomId);
+
             if (!ModelState.IsValid)
             {
-                OnGet(); // Reload paddown liste
+                LoadLookups();
+                LoadSelectedLabels();
                 return Page();
             }
 
-            // Dodaj novu rezervaciju
-            _repository.AddBooking(NewBooking);
-
-            // Preusmjeri na Index sa porukom
-            TempData["Message"] = "Rezervacija je uspješno kreirana!";
+            Input.CreatedAt = DateTime.Now;
+            _repository.AddBooking(Input);
+            TempData["Message"] = "Rezervacija je kreirana.";
             return RedirectToPage("Index");
+        }
+
+        private void LoadLookups()
+        {
+            AvailableStudios = new List<StudioRoom>(_repository.GetAllStudioRooms());
+            AvailableProducers = new List<Producer>(_repository.GetAllProducers());
+            AvailableClients = new List<Client>(_repository.GetAllClients());
+        }
+
+        private void LoadSelectedLabels()
+        {
+            SelectedClientLabel = Input.ClientId > 0
+                ? $"{_repository.GetClientById(Input.ClientId)?.Name} {_repository.GetClientById(Input.ClientId)?.Surname}".Trim()
+                : string.Empty;
+
+            SelectedProducerLabel = Input.ProducerId > 0
+                ? $"{_repository.GetProducerById(Input.ProducerId)?.Name} {_repository.GetProducerById(Input.ProducerId)?.Surname}".Trim()
+                : string.Empty;
         }
     }
 }

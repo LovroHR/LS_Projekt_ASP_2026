@@ -1,0 +1,114 @@
+@page
+@model LS_Projekt_ASP_2026.Pages.StudioRooms.IndexModel
+@{
+    ViewData["Title"] = "Studijski prostori";
+}
+
+<div class="container-fluid mt-4 page-shell">
+    @if (TempData["Message"] != null)
+    {
+        <div class="alert alert-info">@TempData["Message"]</div>
+    }
+    <div class="row mb-3">
+        <div class="col-md-8">
+            <h1 class="display-6 fw-bold">Studijski prostori</h1>
+            <p class="text-muted">Pregled, pretraga i upravljanje studijskim prostorima</p>
+        </div>
+        <div class="col-md-4 text-end">
+            <a class="btn btn-primary" href="/StudioRooms/Create">Dodaj prostor</a>
+        </div>
+    </div>
+
+    <div class="mb-3">
+        <input id="searchBox" type="text" class="form-control" placeholder="Pretrazi po imenu ili lokaciji..." value="@Model.Q" />
+    </div>
+
+    <div id="roomsTable" class="table-responsive">
+        <table class="table table-hover">
+            <thead>
+                <tr>
+                    <th>Ime</th>
+                    <th>Lokacija</th>
+                    <th>Kapacitet</th>
+                    <th>Cijena/h</th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var r in Model.StudioRooms)
+                {
+                    <tr>
+                        <td>@r.Name</td>
+                        <td>@r.Location</td>
+                        <td>@r.Capacity</td>
+                        <td>@r.HourlyPrice.ToString("C")</td>
+                        <td>
+                            <a class="btn btn-sm btn-outline-primary" href="/StudioRooms/Details?id=@r.Id">Detalji</a>
+                            <a class="btn btn-sm btn-outline-secondary" href="/StudioRooms/Edit?id=@r.Id">Uredi</a>
+                            <form method="post" asp-page-handler="Delete" asp-route-id="@r.Id" style="display:inline;" onsubmit="return confirm('Obrisati prostor?');">
+                                <button class="btn btn-sm btn-outline-danger" type="submit">Obriši</button>
+                            </form>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+
+    <div id="emptyState" class="text-center py-5" style="display:@(Model.StudioRooms.Count==0?"block":"none")">
+        <div class="display-1 mb-3">🏚️</div>
+        <h3>Nema studijskih prostora</h3>
+        <p class="text-muted">Dodaj prvi prostor.</p>
+        <a class="btn btn-primary" href="/StudioRooms/Create">Dodaj prostor</a>
+    </div>
+</div>
+
+@section Scripts {
+    <script>
+        const searchBox = document.getElementById('searchBox');
+        const roomsTable = document.getElementById('roomsTable');
+        const emptyState = document.getElementById('emptyState');
+
+        let timer = null;
+        searchBox.addEventListener('input', function () {
+            clearTimeout(timer);
+            timer = setTimeout(() => doSearch(searchBox.value), 300);
+        });
+
+        async function doSearch(q) {
+            const url = new URL(window.location.href);
+            url.searchParams.set('handler', 'Data');
+            url.searchParams.set('q', q || '');
+
+            const res = await fetch(url.toString(), { headers: { 'Accept': 'application/json' } });
+            if (!res.ok) return;
+            const data = await res.json();
+
+            const rows = data.map(r => `
+                <tr>
+                    <td>${escapeHtml(r.name)}</td>
+                    <td>${escapeHtml(r.location)}</td>
+                    <td>${r.capacity}</td>
+                    <td>${r.hourlyPrice}</td>
+                    <td>
+                        <a class="btn btn-sm btn-outline-primary" href="/StudioRooms/Details?id=${r.id}">Detalji</a>
+                        <a class="btn btn-sm btn-outline-secondary" href="/StudioRooms/Edit?id=${r.id}">Uredi</a>
+                        <form method="post" action="?handler=Delete&id=${r.id}" style="display:inline;" onsubmit="return confirm('Obrisati prostor?');">
+                            <button class="btn btn-sm btn-outline-danger" type="submit">Obriši</button>
+                        </form>
+                    </td>
+                </tr>
+            `).join('');
+
+            roomsTable.querySelector('tbody').innerHTML = rows;
+            emptyState.style.display = data.length === 0 ? 'block' : 'none';
+        }
+
+        function escapeHtml(str) {
+            if (!str) return '';
+            return str.replace(/[&<>"]+/g, function (s) {
+                return ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' })[s];
+            });
+        }
+    </script>
+}

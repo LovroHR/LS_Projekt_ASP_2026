@@ -1,5 +1,6 @@
-﻿<!DOCTYPE html>
-<html lang="en">
+﻿@using System.Globalization
+<!DOCTYPE html>
+<html lang="@CultureInfo.CurrentUICulture.Name">
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -25,6 +26,7 @@
             border-radius: 0.25rem;
         }
     </style>
+    @await RenderSectionAsync("Styles", required: false)
 </head>
 <body>
     <header>
@@ -44,10 +46,19 @@
                             <a class="nav-link text-white" id="nav-bookings" asp-area="" asp-page="/Bookings/Index">📅 Bookings</a>
                         </li>
                         <li class="nav-item">
+                            <a class="nav-link text-white" id="nav-clients" asp-area="" asp-page="/Clients/Index">Klijenti</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link text-white" id="nav-studiorooms" asp-area="" asp-page="/StudioRooms/Index">🏠 StudioRooms</a>
+                        </li>
+                        <li class="nav-item">
                             <a class="nav-link text-white" id="nav-projects" asp-area="" asp-page="/Projects/Index">🎼 Moji projekti</a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link text-white" id="nav-producers" asp-area="" asp-page="/Producers/Index">Producenti</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link text-white" id="nav-player" asp-area="" asp-page="/Player/Index">🎧 Audio Player</a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link text-white" id="nav-privacy" asp-area="" asp-page="/Privacy">Privacy</a>
@@ -80,6 +91,7 @@
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
     <script src="~/js/site.js" asp-append-version="true"></script>
+    <script src="~/js/datetime-picker.js" asp-append-version="true"></script>
     
     <script>
         // Označi aktivni nav link

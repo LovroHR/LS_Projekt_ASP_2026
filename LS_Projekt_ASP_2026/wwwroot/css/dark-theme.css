@@ -32,6 +32,14 @@ html, body {
     font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
 }
 
+body {
+    color: var(--text-primary) !important;
+}
+
+main {
+    color: var(--text-primary);
+}
+
 /* Navbar/Header */
 .navbar {
     background: linear-gradient(135deg, var(--primary-purple), var(--primary-blue)) !important;
@@ -102,6 +110,37 @@ html, body {
 
 .card-body {
     background-color: var(--dark-navy) !important;
+}
+
+.container,
+.container-fluid {
+    color: var(--text-primary);
+}
+
+.page-shell {
+    background: linear-gradient(180deg, rgba(17, 24, 39, 0.98), rgba(31, 41, 55, 0.96));
+    border: 1px solid var(--border-color);
+    border-radius: 16px;
+    box-shadow: 0 12px 40px rgba(0, 0, 0, 0.35);
+    padding: 1.5rem;
+}
+
+.page-shell .form-control,
+.page-shell .form-select {
+    background-color: var(--darker-navy) !important;
+    color: var(--text-primary) !important;
+}
+
+.page-shell .form-control::placeholder {
+    color: rgba(209, 213, 219, 0.65);
+}
+
+.page-shell .table {
+    color: var(--text-primary);
+}
+
+.page-shell .table thead th {
+    color: var(--text-primary);
 }
 
 .card-footer {

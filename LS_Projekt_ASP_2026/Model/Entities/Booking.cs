@@ -1,6 +1,7 @@
 using System;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using Microsoft.AspNetCore.Mvc.ModelBinding.Validation;
 using Microsoft.EntityFrameworkCore;
 
 namespace AudioProductionManagement.Model
@@ -33,18 +34,21 @@ namespace AudioProductionManagement.Model
 
         [ForeignKey(nameof(ClientId))]
         [InverseProperty(nameof(Client.Bookings))]
+        [ValidateNever]
         public Client Client { get; set; } = null!;
 
         public int ProducerId { get; set; }
 
         [ForeignKey(nameof(ProducerId))]
         [InverseProperty(nameof(Producer.AssignedBookings))]
+        [ValidateNever]
         public Producer Producer { get; set; } = null!;
 
         public int StudioRoomId { get; set; }
 
         [ForeignKey(nameof(StudioRoomId))]
         [InverseProperty(nameof(StudioRoom.Bookings))]
+        [ValidateNever]
         public StudioRoom StudioRoom { get; set; } = null!;
     }
 }

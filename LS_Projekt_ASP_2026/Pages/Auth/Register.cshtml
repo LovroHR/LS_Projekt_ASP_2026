@@ -68,7 +68,16 @@
                         <!-- Datum Rođenja -->
                         <div class="mb-3">
                             <label class="form-label fw-semibold" style="color: #D1D5DB; font-weight: var(--fw-semibold); font-size: var(--fs-body-sm);">🎂 Datum Rođenja</label>
-                            <input type="date" class="form-control form-control-lg" asp-for="DateOfBirth" required style="background: rgba(15, 23, 42, 0.8); border: 1px solid rgba(124, 58, 237, 0.3); color: #F3F4F6; font-family: var(--font-primary);">
+                            <div class="p-3 rounded-4" style="background: rgba(15, 23, 42, 0.72); border: 1px solid rgba(124, 58, 237, 0.25); box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.03);">
+                                <div class="d-flex justify-content-between align-items-center mb-2">
+                                    <small style="color: #A5B4FC; font-weight: var(--fw-semibold); letter-spacing: var(--ls-wide); text-transform: uppercase;">Custom picker</small>
+                                    <small style="color: var(--text-secondary); font-size: var(--fs-tiny);">Datum bez ručnog unosa</small>
+                                </div>
+
+                                @await Html.PartialAsync("_DateTimePicker", new { Name = "DateOfBirth", Value = Model.DateOfBirth, Placeholder = "Datum rođenja", ShowTime = false })
+
+                                <small class="d-block mt-2" style="color: var(--text-secondary); font-size: var(--fs-tiny);">Odaberi datum kroz prilagođeni kalendar koji prati stil stranice.</small>
+                            </div>
                         </div>
 
                         <!-- Broj Telefona -->
