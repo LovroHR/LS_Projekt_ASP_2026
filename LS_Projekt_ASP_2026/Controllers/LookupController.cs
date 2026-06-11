@@ -1,10 +1,12 @@
 using LS_Projekt_ASP_2026.Data;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace LS_Projekt_ASP_2026.Controllers;
 
 [ApiController]
 [Route("api/lookups")]
+[Authorize(Roles = "Client,Producer,Admin")]
 public class LookupController : ControllerBase
 {
 
@@ -16,6 +18,7 @@ public class LookupController : ControllerBase
     }
 
     [HttpGet("clients")]
+    [Authorize(Roles = "Producer,Admin")]
     public IActionResult SearchClients([FromQuery] string? q)
     {
         var query = q?.Trim();

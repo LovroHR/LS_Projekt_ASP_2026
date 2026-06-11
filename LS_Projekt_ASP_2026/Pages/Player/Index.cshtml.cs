@@ -70,7 +70,7 @@ namespace LS_Projekt_ASP_2026.Pages.Player
             _context.TimecodedComments.Add(comment);
             await _context.SaveChangesAsync();
 
-            var author = await _context.Users.AsNoTracking().FirstOrDefaultAsync(x => x.Id == authorId);
+            var author = await _context.BusinessUsers.AsNoTracking().FirstOrDefaultAsync(x => x.Id == authorId);
 
             return new JsonResult(new CommentResponse
             {
@@ -85,12 +85,12 @@ namespace LS_Projekt_ASP_2026.Pages.Player
         private int GetCurrentUserId()
         {
             var sessionValue = HttpContext.Session.GetString("UserId");
-            if (int.TryParse(sessionValue, out var userId) && _context.Users.Any(x => x.Id == userId))
+            if (int.TryParse(sessionValue, out var userId) && _context.BusinessUsers.Any(x => x.Id == userId))
             {
                 return userId;
             }
 
-            return _context.Users.OrderBy(x => x.Id).Select(x => x.Id).First();
+            return _context.BusinessUsers.OrderBy(x => x.Id).Select(x => x.Id).First();
         }
 
         public class AddCommentRequest

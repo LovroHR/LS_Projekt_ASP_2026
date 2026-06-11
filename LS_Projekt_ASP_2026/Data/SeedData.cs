@@ -1,5 +1,8 @@
 using AudioProductionManagement.Model;
+using LS_Projekt_ASP_2026.Model;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.AspNetCore.Identity;
+using LS_Projekt_ASP_2026.Services;
 
 namespace LS_Projekt_ASP_2026.Data
 {
@@ -16,6 +19,8 @@ namespace LS_Projekt_ASP_2026.Data
                 // Ako baza već sadrži podatke, preskoči seeding
                 if (context.Clients.Any() || context.Producers.Any() || context.StudioRooms.Any())
                 {
+                    EnsureAuthenticationData(context);
+                    EnsureIdentityData(serviceProvider, context).GetAwaiter().GetResult();
                     return;
                 }
 
@@ -25,7 +30,7 @@ namespace LS_Projekt_ASP_2026.Data
                     Name = "Marina",
                     Surname = "Horvat",
                     Email = "marina.horvat@musicstudio.com",
-                    Password = "password123",
+                    Password = PasswordHasher.Hash("password123"),
                     PhoneNumber = "+385 1 234 5678",
                     DateOfBirth = new DateTime(1985, 3, 15),
                     Address = "Ul. Strahovska 2",
@@ -43,7 +48,7 @@ namespace LS_Projekt_ASP_2026.Data
                     Name = "Andrej",
                     Surname = "Novaković",
                     Email = "andrej.novakovic@indie.band",
-                    Password = "password123",
+                    Password = PasswordHasher.Hash("password123"),
                     PhoneNumber = "+385 1 555 9876",
                     DateOfBirth = new DateTime(1990, 7, 22),
                     Address = "Tehnička 12",
@@ -61,7 +66,7 @@ namespace LS_Projekt_ASP_2026.Data
                     Name = "Petra",
                     Surname = "Nikolić",
                     Email = "petra.nikolic@podcast.agency",
-                    Password = "password123",
+                    Password = PasswordHasher.Hash("password123"),
                     PhoneNumber = "+385 1 777 1234",
                     DateOfBirth = new DateTime(1988, 11, 8),
                     Address = "Tkalčićeva 5",
@@ -83,6 +88,7 @@ namespace LS_Projekt_ASP_2026.Data
                     Name = "Filip",
                     Surname = "Marković",
                     Email = "filip.markovic@studio.hr",
+                    Password = PasswordHasher.Hash("password123"),
                     PhoneNumber = "+385 1 234 0000",
                     CreatedAt = new DateTime(2023, 1, 5),
                     Role = UserRole.Producer,
@@ -97,6 +103,7 @@ namespace LS_Projekt_ASP_2026.Data
                     Name = "Juraj",
                     Surname = "Horvat",
                     Email = "juraj.horvat@studio.hr",
+                    Password = PasswordHasher.Hash("password123"),
                     PhoneNumber = "+385 1 234 1111",
                     CreatedAt = new DateTime(2022, 3, 12),
                     Role = UserRole.Producer,
@@ -111,6 +118,7 @@ namespace LS_Projekt_ASP_2026.Data
                     Name = "Søren",
                     Surname = "Jensen",
                     Email = "soren.jensen@independent.producer",
+                    Password = PasswordHasher.Hash("password123"),
                     PhoneNumber = "+45 40 12 3456",
                     CreatedAt = new DateTime(2024, 5, 8),
                     Role = UserRole.Producer,
@@ -433,6 +441,114 @@ namespace LS_Projekt_ASP_2026.Data
 
                 context.TimecodedComments.AddRange(comment1_1, comment1_2, comment2_1);
                 context.SaveChanges();
+
+                EnsureAuthenticationData(context);
+                EnsureIdentityData(serviceProvider, context).GetAwaiter().GetResult();
+            }
+        }
+
+        private static void EnsureAuthenticationData(AppDbContext context)
+        {
+            var usersChanged = false;
+
+            foreach (var user in context.BusinessUsers)
+            {
+                if (PasswordHasher.NeedsRehash(user.Password))
+                {
+                    user.Password = PasswordHasher.Hash(string.IsNullOrWhiteSpace(user.Password) ? "password123" : user.Password);
+                    usersChanged = true;
+                }
+            }
+
+            if (!context.AdminUsers.Any())
+            {
+                context.AdminUsers.Add(new AdminUser
+                {
+                    Name = "LStudio",
+                    Surname = "Admin",
+                    Email = "admin@lstudio.hr",
+                    Password = PasswordHasher.Hash("Admin123!"),
+                    PhoneNumber = "+385 1 000 0000",
+                    CreatedAt = DateTime.Now,
+                    Role = UserRole.Admin
+                });
+                usersChanged = true;
+            }
+
+            if (usersChanged)
+            {
+                context.SaveChanges();
+            }
+        }
+
+        private static async Task EnsureIdentityData(IServiceProvider serviceProvider, AppDbContext context)
+        {
+            var roleManager = serviceProvider.GetRequiredService<RoleManager<IdentityRole<int>>>();
+            var userManager = serviceProvider.GetRequiredService<UserManager<IdentityAppUser>>();
+
+            foreach (var role in new[] { UserRole.Admin.ToString(), UserRole.Producer.ToString(), UserRole.Client.ToString() })
+            {
+                if (!await roleManager.RoleExistsAsync(role))
+                {
+                    await roleManager.CreateAsync(new IdentityRole<int>(role));
+                }
+            }
+
+            var businessUsers = await context.BusinessUsers.AsNoTracking().ToListAsync();
+            foreach (var businessUser in businessUsers)
+            {
+                await EnsureIdentityUser(userManager, businessUser);
+            }
+        }
+
+        private static async Task EnsureIdentityUser(UserManager<IdentityAppUser> userManager, AppUser businessUser)
+        {
+            var identityUser = await userManager.FindByEmailAsync(businessUser.Email);
+            var client = businessUser as Client;
+            var password = businessUser.Role == UserRole.Admin ? "Admin123!" : "password123";
+
+            if (identityUser == null)
+            {
+                identityUser = new IdentityAppUser
+                {
+                    UserName = businessUser.Email,
+                    Email = businessUser.Email,
+                    EmailConfirmed = true,
+                    PhoneNumber = businessUser.PhoneNumber,
+                    Name = businessUser.Name,
+                    Surname = businessUser.Surname,
+                    OIB = "00000000000",
+                    JMBG = "0000000000000",
+                    DateOfBirth = client?.DateOfBirth,
+                    Address = client?.Address,
+                    Country = client?.Country,
+                    CreatedAt = businessUser.CreatedAt == default ? DateTime.Now : businessUser.CreatedAt,
+                    BusinessUserId = businessUser.Id
+                };
+
+                await userManager.CreateAsync(identityUser, password);
+            }
+            else
+            {
+                identityUser.UserName = businessUser.Email;
+                identityUser.Email = businessUser.Email;
+                identityUser.EmailConfirmed = true;
+                identityUser.PhoneNumber = businessUser.PhoneNumber;
+                identityUser.Name = businessUser.Name;
+                identityUser.Surname = businessUser.Surname;
+                identityUser.OIB = string.IsNullOrWhiteSpace(identityUser.OIB) ? "00000000000" : identityUser.OIB;
+                identityUser.JMBG = string.IsNullOrWhiteSpace(identityUser.JMBG) ? "0000000000000" : identityUser.JMBG;
+                identityUser.DateOfBirth = client?.DateOfBirth;
+                identityUser.Address = client?.Address;
+                identityUser.Country = client?.Country;
+                identityUser.BusinessUserId = businessUser.Id;
+                await userManager.UpdateAsync(identityUser);
+            }
+
+            var role = businessUser.Role.ToString();
+            if (!await userManager.IsInRoleAsync(identityUser, role))
+            {
+                await userManager.AddToRoleAsync(identityUser, role);
             }
         }
     }

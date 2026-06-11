@@ -2,6 +2,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using AudioProductionManagement.Model;
 using LS_Projekt_ASP_2026.Data;
+using LS_Projekt_ASP_2026.Services;
 using System.Collections.Generic;
 using System.Linq;
 using System;
@@ -25,7 +26,7 @@ namespace LS_Projekt_ASP_2026.Pages.Projects
 
         public void OnGet()
         {
-            var projects = _repository.GetAllProjects().AsEnumerable();
+            var projects = FilterForCurrentUser(_repository.GetAllProjects().AsEnumerable());
             if (!string.IsNullOrWhiteSpace(Q))
             {
                 var q = Q.Trim();
@@ -41,7 +42,7 @@ namespace LS_Projekt_ASP_2026.Pages.Projects
 
         public IActionResult OnGetData(string? q)
         {
-            var projects = _repository.GetAllProjects().AsEnumerable();
+            var projects = FilterForCurrentUser(_repository.GetAllProjects().AsEnumerable());
             if (!string.IsNullOrWhiteSpace(q))
             {
                 var tq = q.Trim();
@@ -67,9 +68,31 @@ namespace LS_Projekt_ASP_2026.Pages.Projects
 
         public IActionResult OnPostDelete(int id)
         {
+            if (!User.IsInRole("Admin") && !User.IsInRole("Producer"))
+            {
+                return Forbid();
+            }
+
             _repository.DeleteProject(id);
             TempData["Message"] = "Projekt je obrisan.";
             return RedirectToPage();
+        }
+
+        private IEnumerable<AudioProject> FilterForCurrentUser(IEnumerable<AudioProject> projects)
+        {
+            var userId = User.GetUserId();
+
+            if (User.IsInRole("Admin") || userId is null)
+            {
+                return projects;
+            }
+
+            if (User.IsInRole("Producer"))
+            {
+                return projects.Where(p => p.ProducerId == userId.Value);
+            }
+
+            return projects.Where(p => p.ClientId == userId.Value);
         }
     }
 }

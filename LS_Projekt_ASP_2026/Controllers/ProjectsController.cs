@@ -1,6 +1,8 @@
 using Microsoft.AspNetCore.Mvc;
 using LS_Projekt_ASP_2026.Data;
 using AudioProductionManagement.Model;
+using Microsoft.AspNetCore.Authorization;
+using LS_Projekt_ASP_2026.Api;
 
 namespace LS_Projekt_ASP_2026.Controllers
 {
@@ -10,6 +12,7 @@ namespace LS_Projekt_ASP_2026.Controllers
     /// </summary>
     [ApiController]
     [Route("api/[controller]")]
+    [Authorize(Roles = "Client,Producer,Admin")]
     public class ProjectsController : ControllerBase
     {
         private readonly IRepository _repository;
@@ -37,7 +40,7 @@ namespace LS_Projekt_ASP_2026.Controllers
                     success = true,
                     message = "Svi projekti su dohvaćeni",
                     count = projects.Count(),
-                    data = projects
+                    data = projects.Select(p => p.ToDto(false)).ToList()
                 });
             }
             catch (Exception ex)
@@ -67,7 +70,7 @@ namespace LS_Projekt_ASP_2026.Controllers
                 {
                     success = true,
                     message = "Projekt je dohvaćen",
-                    data = project
+                    data = project.ToDto()
                 });
             }
             catch (Exception ex)
@@ -102,7 +105,7 @@ namespace LS_Projekt_ASP_2026.Controllers
                     message = $"Projekti tipa '{type}' su dohvaćeni",
                     count = projects.Count,
                     type = type,
-                    data = projects
+                    data = projects.Select(p => p.ToDto(false)).ToList()
                 });
             }
             catch (Exception ex)
@@ -151,7 +154,7 @@ namespace LS_Projekt_ASP_2026.Controllers
                             archived = projects.Count(p => p.Status == ProjectStatus.Archived)
                         }
                     },
-                    details = projects
+                    details = projects.Select(p => p.ToDto(false)).ToList()
                 };
 
                 return Ok(report);
@@ -203,7 +206,7 @@ namespace LS_Projekt_ASP_2026.Controllers
                     message = "Pretraživanje je izvršeno",
                     count = results.Count,
                     filters = new { genre, status, minBudget, maxBudget },
-                    data = results
+                    data = results.Select(p => p.ToDto(false)).ToList()
                 });
             }
             catch (Exception ex)
@@ -238,7 +241,7 @@ namespace LS_Projekt_ASP_2026.Controllers
                     message = $"Projekti klijenta ID {clientId} su dohvaćeni",
                     count = projects.Count,
                     clientId = clientId,
-                    data = projects
+                    data = projects.Select(p => p.ToDto(false)).ToList()
                 });
             }
             catch (Exception ex)
@@ -262,7 +265,7 @@ namespace LS_Projekt_ASP_2026.Controllers
                 project.CreatedAt = DateTime.Now;
                 _repository.AddProject(project);
 
-                return CreatedAtAction(nameof(GetProjectById), new { id = project.Id }, new { success = true, message = "Projekt je kreiran", data = project });
+                return CreatedAtAction(nameof(GetProjectById), new { id = project.Id }, new { success = true, message = "Projekt je kreiran", data = _repository.GetProjectById(project.Id)?.ToDto(false) });
             }
             catch (Exception ex)
             {
@@ -299,7 +302,7 @@ namespace LS_Projekt_ASP_2026.Controllers
 
                 _repository.UpdateProject(existing);
 
-                return Ok(new { success = true, message = "Projekt je ažuriran", data = existing });
+                return Ok(new { success = true, message = "Projekt je ažuriran", data = existing.ToDto(false) });
             }
             catch (Exception ex)
             {

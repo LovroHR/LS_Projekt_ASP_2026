@@ -2,6 +2,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using AudioProductionManagement.Model;
 using LS_Projekt_ASP_2026.Data;
+using LS_Projekt_ASP_2026.Services;
 using System.Collections.Generic;
 using System.Linq;
 using System;
@@ -25,7 +26,7 @@ namespace LS_Projekt_ASP_2026.Pages.Bookings
 
         public void OnGet()
         {
-            var bookings = _repository.GetAllBookings().AsEnumerable();
+            var bookings = FilterForCurrentUser(_repository.GetAllBookings().AsEnumerable());
             if (!string.IsNullOrWhiteSpace(Q))
             {
                 var q = Q.Trim();
@@ -41,7 +42,7 @@ namespace LS_Projekt_ASP_2026.Pages.Bookings
 
         public IActionResult OnGetData(string? q)
         {
-            var bookings = _repository.GetAllBookings().AsEnumerable();
+            var bookings = FilterForCurrentUser(_repository.GetAllBookings().AsEnumerable());
             if (!string.IsNullOrWhiteSpace(q))
             {
                 var tq = q.Trim();
@@ -69,9 +70,31 @@ namespace LS_Projekt_ASP_2026.Pages.Bookings
 
         public IActionResult OnPostDelete(int id)
         {
+            if (!User.IsInRole("Admin") && !User.IsInRole("Producer"))
+            {
+                return Forbid();
+            }
+
             _repository.DeleteBooking(id);
             TempData["Message"] = "Rezervacija je obrisana.";
             return RedirectToPage();
+        }
+
+        private IEnumerable<Booking> FilterForCurrentUser(IEnumerable<Booking> bookings)
+        {
+            var userId = User.GetUserId();
+
+            if (User.IsInRole("Admin") || userId is null)
+            {
+                return bookings;
+            }
+
+            if (User.IsInRole("Producer"))
+            {
+                return bookings.Where(b => b.ProducerId == userId.Value);
+            }
+
+            return bookings.Where(b => b.ClientId == userId.Value);
         }
     }
 }

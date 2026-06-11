@@ -45,18 +45,30 @@
                         <li class="nav-item">
                             <a class="nav-link text-white" id="nav-bookings" asp-area="" asp-page="/Bookings/Index">📅 Bookings</a>
                         </li>
+                        @if (User.IsInRole("Admin"))
+                        {
+                        <li class="nav-item">
+                            <a class="nav-link text-white" id="nav-admin-users" asp-area="" asp-page="/Admin/Users">Admin panel</a>
+                        </li>
                         <li class="nav-item">
                             <a class="nav-link text-white" id="nav-clients" asp-area="" asp-page="/Clients/Index">Klijenti</a>
                         </li>
+                        }
+                        @if (User.IsInRole("Producer") || User.IsInRole("Admin"))
+                        {
                         <li class="nav-item">
                             <a class="nav-link text-white" id="nav-studiorooms" asp-area="" asp-page="/StudioRooms/Index">🏠 StudioRooms</a>
                         </li>
+                        }
                         <li class="nav-item">
                             <a class="nav-link text-white" id="nav-projects" asp-area="" asp-page="/Projects/Index">🎼 Moji projekti</a>
                         </li>
+                        @if (User.IsInRole("Admin"))
+                        {
                         <li class="nav-item">
                             <a class="nav-link text-white" id="nav-producers" asp-area="" asp-page="/Producers/Index">Producenti</a>
                         </li>
+                        }
                         <li class="nav-item">
                             <a class="nav-link text-white" id="nav-player" asp-area="" asp-page="/Player/Index">🎧 Audio Player</a>
                         </li>
@@ -65,12 +77,27 @@
                         </li>
                     </ul>
                     <ul class="navbar-nav">
+                        @if (User.Identity?.IsAuthenticated == true)
+                        {
+                            var profileName = User.FindFirst("FullName")?.Value ?? User.Identity.Name;
+                            <li class="nav-item">
+                                <a class="nav-link text-white" asp-area="" asp-page="/Profile/Index">@profileName (@User.FindFirst(System.Security.Claims.ClaimTypes.Role)?.Value)</a>
+                            </li>
+                            <li class="nav-item">
+                                <form method="post" asp-page="/Auth/Logout" class="d-inline">
+                                    <button type="submit" class="nav-link btn btn-link text-white border-0">Logout</button>
+                                </form>
+                            </li>
+                        }
+                        else
+                        {
                         <li class="nav-item">
                             <a class="nav-link text-white" id="nav-login" asp-area="" asp-page="/Auth/Login">Login</a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link text-white" id="nav-register" asp-area="" asp-page="/Auth/Register">Registracija</a>
                         </li>
+                        }
                     </ul>
                 </div>
             </div>

@@ -1,18 +1,22 @@
 using AudioProductionManagement.Model;
+using LS_Projekt_ASP_2026.Model;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 
 namespace LS_Projekt_ASP_2026.Data;
 
-public class AppDbContext : DbContext
+public class AppDbContext : IdentityDbContext<IdentityAppUser, IdentityRole<int>, int>
 {
     public AppDbContext(DbContextOptions<AppDbContext> options)
         : base(options)
     {
     }
 
-    public DbSet<AppUser> Users => Set<AppUser>();
+    public DbSet<AppUser> BusinessUsers => Set<AppUser>();
     public DbSet<Client> Clients => Set<Client>();
     public DbSet<Producer> Producers => Set<Producer>();
+    public DbSet<AdminUser> AdminUsers => Set<AdminUser>();
     public DbSet<StudioRoom> StudioRooms => Set<StudioRoom>();
     public DbSet<Booking> Bookings => Set<Booking>();
     public DbSet<AudioProject> AudioProjects => Set<AudioProject>();
@@ -25,22 +29,37 @@ public class AppDbContext : DbContext
 
         modelBuilder.Entity<AppUser>(entity =>
         {
+            entity.ToTable("Users");
             entity.HasKey(x => x.Id);
             entity.Property(x => x.Name).HasMaxLength(100).IsRequired();
             entity.Property(x => x.Surname).HasMaxLength(100).IsRequired();
+            entity.Property(x => x.OIB).HasMaxLength(11).IsRequired();
+            entity.Property(x => x.JMBG).HasMaxLength(13).IsRequired();
             entity.Property(x => x.Email).HasMaxLength(255).IsRequired();
             entity.HasIndex(x => x.Email).IsUnique();
             entity.Property(x => x.PhoneNumber).HasMaxLength(30).IsRequired();
+            entity.Property(x => x.Password).HasMaxLength(500);
 
             entity
                 .HasDiscriminator<UserRole>(x => x.Role)
                 .HasValue<Client>(UserRole.Client)
-                .HasValue<Producer>(UserRole.Producer);
+                .HasValue<Producer>(UserRole.Producer)
+                .HasValue<AdminUser>(UserRole.Admin);
+        });
+
+        modelBuilder.Entity<IdentityAppUser>(entity =>
+        {
+            entity.Property(x => x.Name).HasMaxLength(100).IsRequired();
+            entity.Property(x => x.Surname).HasMaxLength(100).IsRequired();
+            entity.Property(x => x.OIB).HasMaxLength(11).IsRequired();
+            entity.Property(x => x.JMBG).HasMaxLength(13).IsRequired();
+            entity.Property(x => x.Address).HasMaxLength(255);
+            entity.Property(x => x.Country).HasMaxLength(100);
+            entity.Property(x => x.BusinessUserId);
         });
 
         modelBuilder.Entity<Client>(entity =>
         {
-            entity.Property(x => x.Password).HasMaxLength(255).IsRequired();
             entity.Property(x => x.Address).HasMaxLength(255);
             entity.Property(x => x.Country).HasMaxLength(100);
             entity.Property(x => x.CompanyName).HasMaxLength(150);

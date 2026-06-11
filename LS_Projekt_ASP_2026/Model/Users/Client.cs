@@ -7,10 +7,6 @@ namespace AudioProductionManagement.Model
 {
     public class Client : AppUser
     {
-        [Required]
-        [MaxLength(255)]
-        public string Password { get; set; } = "";
-
         public DateTime DateOfBirth { get; set; }
 
         [MaxLength(255)]

@@ -1,6 +1,8 @@
 using Microsoft.AspNetCore.Mvc;
 using LS_Projekt_ASP_2026.Data;
 using AudioProductionManagement.Model;
+using Microsoft.AspNetCore.Authorization;
+using LS_Projekt_ASP_2026.Api;
 
 namespace LS_Projekt_ASP_2026.Controllers
 {
@@ -9,6 +11,7 @@ namespace LS_Projekt_ASP_2026.Controllers
     /// Demonstrira različite načine custom usmjeravanja u ASP.NET Core
     /// </summary>
     [ApiController]
+    [Authorize(Roles = "Client,Producer,Admin")]
     public class BookingsController : ControllerBase
     {
         private readonly IRepository _repository;
@@ -36,7 +39,7 @@ namespace LS_Projekt_ASP_2026.Controllers
                     success = true,
                     message = "Sve rezervacije su dohvaćene",
                     count = bookings.Count(),
-                    data = bookings
+                    data = bookings.Select(b => b.ToDto()).ToList()
                 });
             }
             catch (Exception ex)
@@ -67,7 +70,7 @@ namespace LS_Projekt_ASP_2026.Controllers
                 {
                     success = true,
                     message = "Detalji rezervacije su dohvaćeni",
-                    data = booking
+                    data = booking.ToDto()
                 });
             }
             catch (Exception ex)
@@ -96,7 +99,7 @@ namespace LS_Projekt_ASP_2026.Controllers
                     success = true,
                     message = "Aktivne rezervacije su dohvaćene",
                     count = bookings.Count,
-                    data = bookings
+                    data = bookings.Select(b => b.ToDto()).ToList()
                 });
             }
             catch (Exception ex)
@@ -164,7 +167,7 @@ namespace LS_Projekt_ASP_2026.Controllers
                     message = $"Rezervacije za {date:yyyy-MM-dd} su dohvaćene",
                     count = bookings.Count,
                     date = date.ToShortDateString(),
-                    data = bookings
+                    data = bookings.Select(b => b.ToDto()).ToList()
                 });
             }
             catch (Exception ex)
@@ -204,7 +207,7 @@ namespace LS_Projekt_ASP_2026.Controllers
                     message = "Pretraga rezervacija je izvršena",
                     count = bookings.Count,
                     filter = status ?? "sve",
-                    data = bookings
+                    data = bookings.Select(b => b.ToDto()).ToList()
                 });
             }
             catch (Exception ex)

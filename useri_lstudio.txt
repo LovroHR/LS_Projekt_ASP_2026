@@ -1,0 +1,3 @@
+Admin:    admin@lstudio.hr / Admin123!
+Producer: filip.markovic@studio.hr / password123
+Client:   marina.horvat@musicstudio.com / password123

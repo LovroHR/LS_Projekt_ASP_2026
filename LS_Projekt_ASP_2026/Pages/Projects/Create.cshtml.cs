@@ -2,6 +2,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using LS_Projekt_ASP_2026.Data;
+using LS_Projekt_ASP_2026.Services;
 using AudioProductionManagement.Model;
 using System.Collections.Generic;
 
@@ -33,7 +34,11 @@ namespace LS_Projekt_ASP_2026.Pages.Projects
             {
                 Input.Deadline = DateTime.Now.AddDays(30);
             }
-            AvailableClients = _repository.GetAllClients()
+            var clients = User.IsInRole("Client") && User.GetUserId() is int userId
+                ? _repository.GetAllClients().Where(c => c.Id == userId)
+                : _repository.GetAllClients();
+
+            AvailableClients = clients
                 .Select(c => new SelectListItem
                 {
                     Value = c.Id.ToString(),
@@ -62,6 +67,17 @@ namespace LS_Projekt_ASP_2026.Pages.Projects
 
         public IActionResult OnPost()
         {
+            if (User.IsInRole("Client"))
+            {
+                var userId = User.GetUserId();
+                if (userId is null)
+                {
+                    return Forbid();
+                }
+
+                Input.ClientId = userId.Value;
+            }
+
             AutocompleteValidation.ValidateClientSelection(ModelState, _repository, Input.ClientId);
             AutocompleteValidation.ValidateProducerSelection(ModelState, _repository, Input.ProducerId);
             AutocompleteValidation.ValidateOptionalStudioSelection(ModelState, _repository, Input.StudioRoomId);

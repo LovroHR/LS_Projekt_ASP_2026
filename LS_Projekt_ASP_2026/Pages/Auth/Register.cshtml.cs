@@ -1,13 +1,19 @@
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.RazorPages;
 using AudioProductionManagement.Model;
 using LS_Projekt_ASP_2026.Data;
+using LS_Projekt_ASP_2026.Model;
+using Microsoft.AspNetCore.Authentication;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.RazorPages;
+using Microsoft.EntityFrameworkCore;
 
 namespace LS_Projekt_ASP_2026.Pages.Auth
 {
     public class RegisterModel : PageModel
     {
-        private readonly IRepository _repository;
+        private readonly AppDbContext _context;
+        private readonly UserManager<IdentityAppUser> _userManager;
+        private readonly SignInManager<IdentityAppUser> _signInManager;
 
         [BindProperty]
         public string Name { get; set; } = "";
@@ -36,26 +42,40 @@ namespace LS_Projekt_ASP_2026.Pages.Auth
         [BindProperty]
         public string Country { get; set; } = "";
 
+        [BindProperty]
+        public string OIB { get; set; } = "";
+
+        [BindProperty]
+        public string JMBG { get; set; } = "";
+
         public string ErrorMessage { get; set; } = "";
         public string SuccessMessage { get; set; } = "";
+        public IList<AuthenticationScheme> ExternalLogins { get; set; } = new List<AuthenticationScheme>();
 
-        public RegisterModel(IRepository repository)
+        public RegisterModel(
+            AppDbContext context,
+            UserManager<IdentityAppUser> userManager,
+            SignInManager<IdentityAppUser> signInManager)
         {
-            _repository = repository;
+            _context = context;
+            _userManager = userManager;
+            _signInManager = signInManager;
         }
 
-        public void OnGet()
+        public async Task OnGetAsync()
         {
-            // Postaviti default datum rođenja (20 godina unazad)
             if (DateOfBirth == DateTime.MinValue)
             {
                 DateOfBirth = DateTime.Now.AddYears(-20);
             }
+
+            await LoadExternalLogins();
         }
 
-        public IActionResult OnPost()
+        public async Task<IActionResult> OnPostAsync()
         {
-            // Validacija
+            await LoadExternalLogins();
+
             if (string.IsNullOrWhiteSpace(Name) || string.IsNullOrWhiteSpace(Surname))
             {
                 ErrorMessage = "Ime i prezime su obavezni";
@@ -70,7 +90,7 @@ namespace LS_Projekt_ASP_2026.Pages.Auth
 
             if (string.IsNullOrWhiteSpace(Password) || Password.Length < 6)
             {
-                ErrorMessage = "Lozinka mora sadržavati najmanje 6 znakova";
+                ErrorMessage = "Lozinka mora sadrzavati najmanje 6 znakova";
                 return Page();
             }
 
@@ -94,46 +114,99 @@ namespace LS_Projekt_ASP_2026.Pages.Auth
 
             if (string.IsNullOrWhiteSpace(Country))
             {
-                ErrorMessage = "Država je obavezna";
+                ErrorMessage = "Drzava je obavezna";
+                return Page();
+            }
+
+            if (string.IsNullOrWhiteSpace(OIB) || OIB.Length != 11 || !OIB.All(char.IsDigit))
+            {
+                ErrorMessage = "OIB mora imati tocno 11 znamenki";
+                return Page();
+            }
+
+            if (string.IsNullOrWhiteSpace(JMBG) || JMBG.Length != 13 || !JMBG.All(char.IsDigit))
+            {
+                ErrorMessage = "JMBG mora imati tocno 13 znamenki";
                 return Page();
             }
 
             if (DateOfBirth == DateTime.MinValue)
             {
-                ErrorMessage = "Datum rođenja je obavezan";
+                ErrorMessage = "Datum rodenja je obavezan";
                 return Page();
             }
 
-            // Provjeri da li email već postoji
-            var existingClient = _repository.GetAllClients()
-                .FirstOrDefault(c => c.Email == Email);
-
-            if (existingClient != null)
+            var email = Email.Trim();
+            var existingBusinessUser = await _context.BusinessUsers.AnyAsync(c => c.Email == email);
+            var existingIdentityUser = await _userManager.FindByEmailAsync(email);
+            if (existingBusinessUser || existingIdentityUser != null)
             {
-                ErrorMessage = "Korisnik sa tim emailom već postoji";
+                ErrorMessage = "Korisnik s tim emailom vec postoji";
                 return Page();
             }
 
-            // Kreiraj novog klijenta
+            await using var transaction = await _context.Database.BeginTransactionAsync();
             var newClient = new Client
             {
-                Name = Name,
-                Surname = Surname,
-                Email = Email,
-                Password = Password, // NAPOMENA: U produkciji trebao bi hash i salt
-                PhoneNumber = PhoneNumber,
-                Address = Address,
-                Country = Country,
+                Name = Name.Trim(),
+                Surname = Surname.Trim(),
+                Email = email,
+                Password = null,
+                PhoneNumber = PhoneNumber.Trim(),
+                Address = Address.Trim(),
+                Country = Country.Trim(),
+                OIB = OIB.Trim(),
+                JMBG = JMBG.Trim(),
                 DateOfBirth = DateOfBirth,
                 Role = UserRole.Client,
                 CreatedAt = DateTime.Now
             };
 
-            // Spremi novog klijenta
-            _repository.AddClient(newClient);
+            _context.Clients.Add(newClient);
+            await _context.SaveChangesAsync();
 
-            SuccessMessage = "Registracija je uspješna! Sada se možeš prijaviti.";
-            return RedirectToPage("/Auth/Login");
+            var identityUser = new IdentityAppUser
+            {
+                UserName = email,
+                Email = email,
+                EmailConfirmed = true,
+                PhoneNumber = PhoneNumber.Trim(),
+                Name = Name.Trim(),
+                Surname = Surname.Trim(),
+                OIB = OIB.Trim(),
+                JMBG = JMBG.Trim(),
+                DateOfBirth = DateOfBirth,
+                Address = Address.Trim(),
+                Country = Country.Trim(),
+                CreatedAt = DateTime.Now,
+                BusinessUserId = newClient.Id
+            };
+
+            var createResult = await _userManager.CreateAsync(identityUser, Password);
+            if (!createResult.Succeeded)
+            {
+                await transaction.RollbackAsync();
+                ErrorMessage = string.Join(" ", createResult.Errors.Select(e => e.Description));
+                return Page();
+            }
+
+            var roleResult = await _userManager.AddToRoleAsync(identityUser, UserRole.Client.ToString());
+            if (!roleResult.Succeeded)
+            {
+                await transaction.RollbackAsync();
+                ErrorMessage = string.Join(" ", roleResult.Errors.Select(e => e.Description));
+                return Page();
+            }
+
+            await transaction.CommitAsync();
+            await _signInManager.SignInAsync(identityUser, isPersistent: true);
+            SuccessMessage = "Registracija je uspjesna.";
+            return RedirectToPage("/Index");
+        }
+
+        private async Task LoadExternalLogins()
+        {
+            ExternalLogins = (await _signInManager.GetExternalAuthenticationSchemesAsync()).ToList();
         }
     }
 }

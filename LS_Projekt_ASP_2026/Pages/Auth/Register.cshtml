@@ -51,6 +51,20 @@
                             <small class="text-muted" style="font-size: var(--fs-tiny); color: var(--text-secondary);">Koristi se za prijavu</small>
                         </div>
 
+                        <!-- OIB i JMBG -->
+                        <div class="row">
+                            <div class="col-md-6 mb-3">
+                                <label class="form-label fw-semibold" style="color: #D1D5DB; font-weight: var(--fw-semibold); font-size: var(--fs-body-sm);">🪪 OIB</label>
+                                <input type="text" class="form-control form-control-lg" asp-for="OIB"
+                                       placeholder="11 znamenki" inputmode="numeric" maxlength="11" required style="background: rgba(15, 23, 42, 0.8); border: 1px solid rgba(124, 58, 237, 0.3); color: #F3F4F6; font-family: var(--font-primary);">
+                            </div>
+                            <div class="col-md-6 mb-3">
+                                <label class="form-label fw-semibold" style="color: #D1D5DB; font-weight: var(--fw-semibold); font-size: var(--fs-body-sm);">🪪 JMBG</label>
+                                <input type="text" class="form-control form-control-lg" asp-for="JMBG"
+                                       placeholder="13 znamenki" inputmode="numeric" maxlength="13" required style="background: rgba(15, 23, 42, 0.8); border: 1px solid rgba(124, 58, 237, 0.3); color: #F3F4F6; font-family: var(--font-primary);">
+                            </div>
+                        </div>
+
                         <!-- Lozinka -->
                         <div class="row">
                             <div class="col-md-6 mb-3">
@@ -118,6 +132,24 @@
                             ✓ Registriraj se
                         </button>
                     </form>
+
+                    @if (Model.ExternalLogins.Count > 0)
+                    {
+                        <hr class="my-3" style="border-color: rgba(124, 58, 237, 0.2);">
+
+                        <form method="post" asp-page="/Auth/Login" asp-page-handler="ExternalLogin">
+                            @foreach (var provider in Model.ExternalLogins)
+                            {
+                                <button type="submit"
+                                        class="btn btn-outline-light btn-lg w-100 fw-semibold mb-2"
+                                        name="provider"
+                                        value="@provider.Name"
+                                        style="border: 2px solid rgba(6, 182, 212, 0.5); color: #06B6D4; font-weight: var(--fw-semibold); letter-spacing: var(--ls-wide);">
+                                    Registriraj se preko @provider.DisplayName
+                                </button>
+                            }
+                        </form>
+                    }
 
                     <hr class="my-3" style="border-color: rgba(124, 58, 237, 0.2);">
 

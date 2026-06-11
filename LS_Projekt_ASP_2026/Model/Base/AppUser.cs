@@ -17,6 +17,14 @@ namespace AudioProductionManagement.Model
         public string Surname { get; set; } = "";
 
         [Required]
+        [MaxLength(11)]
+        public string OIB { get; set; } = "";
+
+        [Required]
+        [MaxLength(13)]
+        public string JMBG { get; set; } = "";
+
+        [Required]
         [MaxLength(255)]
         [EmailAddress]
         public string Email { get; set; } = "";
@@ -28,5 +36,8 @@ namespace AudioProductionManagement.Model
         public DateTime CreatedAt { get; set; }
 
         public UserRole Role { get; set; }
+
+        [MaxLength(500)]
+        public string? Password { get; set; }
     }
 }

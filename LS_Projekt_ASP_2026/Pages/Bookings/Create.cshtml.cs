@@ -2,6 +2,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using AudioProductionManagement.Model;
 using LS_Projekt_ASP_2026.Data;
+using LS_Projekt_ASP_2026.Services;
 using System.Collections.Generic;
 
 namespace LS_Projekt_ASP_2026.Pages.Bookings
@@ -42,6 +43,17 @@ namespace LS_Projekt_ASP_2026.Pages.Bookings
 
         public IActionResult OnPost()
         {
+            if (User.IsInRole("Client"))
+            {
+                var userId = User.GetUserId();
+                if (userId is null)
+                {
+                    return Forbid();
+                }
+
+                Input.ClientId = userId.Value;
+            }
+
             AutocompleteValidation.ValidateClientSelection(ModelState, _repository, Input.ClientId);
             AutocompleteValidation.ValidateProducerSelection(ModelState, _repository, Input.ProducerId);
             AutocompleteValidation.ValidateStudioSelection(ModelState, _repository, Input.StudioRoomId);
@@ -63,7 +75,9 @@ namespace LS_Projekt_ASP_2026.Pages.Bookings
         {
             AvailableStudios = new List<StudioRoom>(_repository.GetAllStudioRooms());
             AvailableProducers = new List<Producer>(_repository.GetAllProducers());
-            AvailableClients = new List<Client>(_repository.GetAllClients());
+            AvailableClients = User.IsInRole("Client") && User.GetUserId() is int userId
+                ? new List<Client>(_repository.GetAllClients().Where(c => c.Id == userId))
+                : new List<Client>(_repository.GetAllClients());
         }
 
         private void LoadSelectedLabels()

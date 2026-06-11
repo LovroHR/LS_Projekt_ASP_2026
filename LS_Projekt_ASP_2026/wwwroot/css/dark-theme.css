@@ -139,10 +139,6 @@ main {
     color: var(--text-primary);
 }
 
-.page-shell .table thead th {
-    color: var(--text-primary);
-}
-
 .card-footer {
     background-color: rgba(124, 58, 237, 0.05) !important;
     border-top: 1px solid var(--border-color) !important;
@@ -314,6 +310,14 @@ h3 {
 
 /* Tables */
 .table {
+    --bs-table-bg: rgba(15, 23, 42, 0.92);
+    --bs-table-color: var(--text-primary);
+    --bs-table-border-color: var(--border-color);
+    --bs-table-striped-bg: rgba(31, 41, 55, 0.92);
+    --bs-table-striped-color: var(--text-primary);
+    --bs-table-hover-bg: rgba(124, 58, 237, 0.16);
+    --bs-table-hover-color: var(--text-primary);
+    background-color: rgba(15, 23, 42, 0.92) !important;
     color: var(--text-primary) !important;
     border-color: var(--border-color) !important;
 }
@@ -323,9 +327,19 @@ h3 {
 }
 
 .table > thead > tr > th {
+    background-color: var(--primary-purple) !important;
     color: white !important;
     border-color: var(--border-color) !important;
     font-weight: 600;
+}
+
+.table > tbody > tr > th,
+.table > tbody > tr > td,
+.table > tfoot > tr > th,
+.table > tfoot > tr > td {
+    background-color: var(--bs-table-bg) !important;
+    color: var(--text-primary) !important;
+    border-color: var(--border-color) !important;
 }
 
 .table > tbody > tr {
@@ -333,12 +347,36 @@ h3 {
     transition: background-color 0.2s ease;
 }
 
-.table > tbody > tr:hover {
-    background-color: rgba(124, 58, 237, 0.1) !important;
+.table-striped > tbody > tr:nth-of-type(odd) > * {
+    background-color: var(--bs-table-striped-bg) !important;
+    color: var(--bs-table-striped-color) !important;
 }
 
-.table-hover tbody tr:hover {
+.table > tbody > tr:hover > *,
+.table-hover > tbody > tr:hover > * {
     background-color: rgba(124, 58, 237, 0.15) !important;
+    color: var(--text-primary) !important;
+}
+
+.table-responsive {
+    background-color: transparent !important;
+}
+
+.table .form-control,
+.table .form-select {
+    background-color: var(--darker-navy) !important;
+    color: var(--text-primary) !important;
+    border-color: rgba(148, 163, 184, 0.35) !important;
+}
+
+.table .form-control::placeholder {
+    color: rgba(209, 213, 219, 0.62) !important;
+}
+
+.table .form-control:focus,
+.table .form-select:focus {
+    background-color: var(--darker-navy) !important;
+    color: var(--text-primary) !important;
 }
 
 /* Footer */

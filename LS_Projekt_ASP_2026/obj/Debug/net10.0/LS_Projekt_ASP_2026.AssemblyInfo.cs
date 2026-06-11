@@ -10,10 +10,11 @@
 using System;
 using System.Reflection;
 
+[assembly: Microsoft.Extensions.Configuration.UserSecrets.UserSecretsIdAttribute("5086ead2-bcd2-4648-a07a-c9d3da60ad56")]
 [assembly: System.Reflection.AssemblyCompanyAttribute("LS_Projekt_ASP_2026")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+5f1f521b81878d9a07fde0cd5827283aa74624ae")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+994fbb61bd8a4e5680688b303903bff0fb8fa97d")]
 [assembly: System.Reflection.AssemblyProductAttribute("LS_Projekt_ASP_2026")]
 [assembly: System.Reflection.AssemblyTitleAttribute("LS_Projekt_ASP_2026")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]
